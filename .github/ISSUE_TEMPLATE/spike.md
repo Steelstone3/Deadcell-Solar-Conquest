@@ -7,14 +7,16 @@ assignees: ''
 
 ---
 
-**Timebox**
-How long is this going to take
+## Descritive spike summary
 
-**Describe the nature of the investigation**
-A clear and concise description of what the area of investigation concerns and is about.
+**In order to** get some value
+**As a** actor/role 
+**I would like to** desired action
 
-**How will this investigation benefit the codebase or application? Are there any drawbacks?**
+## Rationale
+
 List the benefits and drawbacks (may be filled in later by the ticket owner).
 
-**Additional context**
+## Additional context
+
 Add any other context or screenshots about the investigation.
