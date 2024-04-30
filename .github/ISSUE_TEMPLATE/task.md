@@ -7,23 +7,18 @@ assignees: ''
 
 ---
 
-### Description
+## Descriptive task summary
 
 **In order to** get some value
 **As a** actor/role 
 **I would like to** desired action
 
-### Acceptance Criteria
+## Rationale
 
-**Scenario 1** 
-**Given**
-  **And**
-  **When**
-**Then**
+Provide the reasoning for completing this work
 
-### Tech Analysis
+## Expected behaviour
 
-**As a** developer
-**I want**
-**This will require**
-**This will depend on**
+Provide a list of the expected behaviours
+
+- 
