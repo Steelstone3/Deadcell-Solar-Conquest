@@ -89,6 +89,13 @@ command = [
 ]
 need_stdout = true
 
+[jobs.git-diff]
+command = [
+    "git",
+    "diff",
+]
+need_stdout = true
+
 [jobs.git-add]
 command = [
     "git",
@@ -106,7 +113,6 @@ command = [
     "update",
 ]
 need_stdout = true
-on_success = "job:git-pull-rebase"
 
 [jobs.git-pull-rebase]
 command = [
@@ -115,7 +121,6 @@ command = [
     "--rebase",
 ]
 need_stdout = true
-on_success = "job:git-push"
 
 [jobs.git-push]
 command = [
@@ -132,5 +137,8 @@ j = "job:test-coverage"
 f = "job:format"
 u = "job:update"
 s = "job:git-status"
-p = "job:git-add" # Runs: git add . && git commit -m update && git pull && git push
+d = "job:git-diff"
+i = "job:git-add" # Runs: git add . && git commit
+o = "job:git-pull-rebase"
+p = "job:git-push"
 # v = "jobs:check"

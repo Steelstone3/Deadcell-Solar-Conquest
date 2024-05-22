@@ -1,9 +1,3 @@
-// TODO Spawn space stations in a zone
-// For a given number of players spawn a space station randomly within a tile
-// E.G 2 Players spawn A could be bottom leftmost tile with spawn B the top top rightmost
-// E.G 4 Players spawn A, B, C, D in each corner
-// Minimum map size should be player count
-
 use bevy::{
     audio::CpalSample,
     ecs::{
@@ -16,7 +10,7 @@ use bevy::{
 use rand::random;
 
 use crate::{
-    components::space_station::SpaceStation,
+    components::{selectable::Selectable, space_station::SpaceStation},
     events::{spawn_planet_event::SpawnPlanetEvent, spawn_sprite_event::SpawnSpriteEvent},
     resources::{constants::SPACE_STATION_DISTANCE_FROM_CENTRE, game_settings::GameSettings},
 };
@@ -41,7 +35,7 @@ pub fn spawn_space_stations(
             sprite_path: space_station.sprite_path.to_string(),
             size: space_station.size,
             transform,
-            entity: commands.spawn(space_station).id(),
+            entity: commands.spawn(space_station).insert(Selectable).id(),
         });
 
         spawn_planet_event.send(SpawnPlanetEvent {
