@@ -9,13 +9,16 @@ use rand::{random, Rng};
 
 use crate::{
     components::planet::Planet,
-    events::{spawn_planet_event::SpawnPlanetEvent, spawn_sprite_event::SpawnSpriteEvent},
+    events::{
+        spawn_animated_sprite_event::SpawnAnimatedSpriteEvent,
+        spawn_planet_event::SpawnPlanetEvent, spawn_sprite_event::SpawnSpriteEvent,
+    },
     resources::constants::PLANET_DISTANCE_FROM_SPACESTATION,
 };
 
 pub fn spawn_resource_planets(
     mut commands: Commands,
-    mut spawn_sprite_event_writer: EventWriter<SpawnSpriteEvent>,
+    mut spawn_animated_sprite_event: EventWriter<SpawnAnimatedSpriteEvent>,
     mut spawn_planet_event_reader: EventReader<SpawnPlanetEvent>,
 ) {
     for spawn_planet_event in spawn_planet_event_reader.read() {
@@ -28,11 +31,16 @@ pub fn spawn_resource_planets(
 
         transform.translation += transform.up() * PLANET_DISTANCE_FROM_SPACESTATION;
 
-        spawn_sprite_event_writer.send(SpawnSpriteEvent {
-            sprite_path: planet.sprite_path.to_string(),
-            size: planet.size,
-            transform,
-            entity: commands.spawn(planet).id(),
+        spawn_animated_sprite_event.send(SpawnAnimatedSpriteEvent {
+            sprite_tile_size: 100.0,
+            frame_timing: 0.1,
+            frame_count: 50,
+            spawn_sprite_event: SpawnSpriteEvent {
+                sprite_path: planet.sprite_path.to_string(),
+                size: planet.size,
+                transform,
+                entity: commands.spawn(planet).id(),
+            },
         });
     }
 }
