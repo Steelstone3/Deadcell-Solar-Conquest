@@ -2,11 +2,12 @@ use crate::{assets::images::planets::PlanetSprite, resources::constants::PLANET_
 use bevy::{ecs::component::Component, math::Vec2};
 use rand::Rng;
 
+use super::size_component::SizeComponent;
+
 #[derive(Component, Clone, Copy)]
 pub struct Planet {
     pub sprite_path: PlanetSprite,
-    pub size: Vec2,
-    pub z_index: f32,
+    pub size_component: SizeComponent,
 }
 
 impl Planet {
@@ -16,8 +17,10 @@ impl Planet {
 
         Self {
             sprite_path,
-            size: Vec2::new(planet_sprite_size, planet_sprite_size),
-            z_index: 0.0,
+            size_component: SizeComponent {
+                size: Vec2::new(planet_sprite_size, planet_sprite_size),
+                z_index: 2.0,
+            },
         }
     }
 }

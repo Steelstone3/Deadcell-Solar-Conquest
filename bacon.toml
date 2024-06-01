@@ -96,6 +96,14 @@ command = [
 ]
 need_stdout = true
 
+[jobs.git-log]
+command = [
+    "git",
+    "log",
+    "--pretty=oneline",
+]
+need_stdout = true
+
 [jobs.git-add]
 command = [
     "git",
@@ -138,6 +146,7 @@ f = "job:format"
 u = "job:update"
 s = "job:git-status"
 d = "job:git-diff"
+l = "job:git-log"
 i = "job:git-add" # Runs: git add . && git commit
 o = "job:git-pull-rebase"
 p = "job:git-push"

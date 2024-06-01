@@ -1,16 +1,18 @@
 use bevy::{
-    ecs::system::{Query, Res},
+    ecs::system::{Query, Res, ResMut},
     input::{keyboard::KeyCode, ButtonInput},
     time::Time,
 };
 
 use crate::{
-    queries::camera_queries::MutableCameraTransformQuery, resources::keybindings::KeyBindings,
+    queries::camera_queries::MutableCameraTransformQuery,
+    resources::{camera_settings::CameraSettings, keybindings::KeyBindings},
 };
 
 pub fn camera_movement(
     input: Res<ButtonInput<KeyCode>>,
     time: Res<Time>,
+    camera_settings: ResMut<CameraSettings>,
     mut cameras: Query<MutableCameraTransformQuery>,
     keybindings: Res<KeyBindings>,
 ) {
@@ -46,37 +48,40 @@ pub fn camera_movement(
         }
     }
     let is_diagonal = (up_down != 0.0) && (left_right != 0.0);
-    let camera_speed = calculate_camera_speed(&500.0, &keybindings, &input, &time, is_diagonal);
+    let camera_speed =
+        calculate_camera_speed(camera_settings, &keybindings, &input, &time, is_diagonal);
     camera.transform.translation.x += left_right * camera_speed;
     camera.transform.translation.y += up_down * camera_speed;
 }
 
 pub fn calculate_camera_speed(
-    base_camera_speed: &f32,
+    mut camera_settings: ResMut<CameraSettings>,
     keybindings: &Res<KeyBindings>,
     input: &Res<ButtonInput<KeyCode>>,
     time: &Res<Time>,
     is_diagonal: bool,
 ) -> f32 {
-    let mut camera_slow = false;
     for key in keybindings.camera_slow.iter() {
         if input.pressed(*key) {
-            camera_slow = true;
+            camera_settings.is_camera_slow = true;
             break;
+        } else {
+            camera_settings.is_camera_slow = false;
         }
     }
-    let mut camera_fast = false;
     for key in keybindings.camera_fast.iter() {
         if input.pressed(*key) {
-            camera_fast = true;
+            camera_settings.is_camera_fast = true;
             break;
+        } else {
+            camera_settings.is_camera_fast = false;
         }
     }
-    let mut new_camera_speed = *base_camera_speed;
-    if camera_slow {
-        new_camera_speed = (new_camera_speed / 2.0) * time.delta_seconds();
-    } else if camera_fast {
-        new_camera_speed = (new_camera_speed * 2.0) * time.delta_seconds();
+    let mut new_camera_speed = camera_settings.camera_base_speed;
+    if camera_settings.is_camera_slow {
+        new_camera_speed = (camera_settings.camera_slow_speed) * time.delta_seconds();
+    } else if camera_settings.is_camera_fast {
+        new_camera_speed = (camera_settings.camera_fast_speed) * time.delta_seconds();
     } else {
         new_camera_speed *= time.delta_seconds();
     }
