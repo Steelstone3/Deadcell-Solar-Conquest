@@ -1,6 +1,6 @@
 [package]
 name = "superior-space-domination"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Skippy <steelstone3@gmail.com>", "Demengies <Demengies@gmail.com>"]
 edition = "2021"
 homepage = "https://github.com/Steelstone3/Superior-Space-Fighters"

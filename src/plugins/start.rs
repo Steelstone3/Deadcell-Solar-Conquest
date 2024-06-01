@@ -3,7 +3,8 @@ use bevy::app::{Plugin, Startup};
 use crate::systems::{
     camera::spawn_camera::spawn_camera,
     spawning::{
-        spawn_player_base::spawn_space_stations, spawn_space::spawn_space, spawn_sun::spawn_sun,
+        spawn_player_base::spawn_space_stations, spawn_solar_system::spawn_sun,
+        spawn_space::spawn_space,
     },
 };
 
