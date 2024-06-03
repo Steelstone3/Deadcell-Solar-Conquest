@@ -1,7 +1,8 @@
 use bevy::prelude::*;
 use plugins::{
-    event_handlers::EventHandlersPlugin, events::EventsPlugin, resources::ResourcesPlugin,
-    running::RunningPlugin, start::StartPlugin,
+    event_handlers::EventHandlersPlugin, events::EventsPlugin,
+    groups::developer_plugin_group::DeveloperPluginGroup, resources::ResourcesPlugin,
+    running::RunningPlugin, start::StartPlugin, user_interface::UserInterfacePlugin,
 };
 
 mod assets;
@@ -37,7 +38,8 @@ fn main() {
             ResourcesPlugin,
             StartPlugin,
             RunningPlugin,
-            // DeveloperPluginGroup,
+            UserInterfacePlugin,
+            DeveloperPluginGroup,
         ))
         .run();
 }

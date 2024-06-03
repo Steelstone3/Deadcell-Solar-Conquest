@@ -1,5 +1,5 @@
-pub mod faction_starships;
-pub mod planets;
-pub mod space;
-pub mod space_stations;
-pub mod suns;
+pub mod faction_starship_sprite;
+pub mod planet_sprite;
+pub mod space_facility_sprite;
+pub mod space_sprite;
+pub mod sun_sprite;

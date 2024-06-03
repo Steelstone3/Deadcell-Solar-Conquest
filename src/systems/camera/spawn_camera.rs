@@ -1,5 +1,21 @@
-use bevy::prelude::{Camera2dBundle, Commands};
+use bevy::{
+    math::Quat,
+    prelude::{Camera2dBundle, Commands, Query, Transform, With},
+    utils::default,
+};
 
-pub fn spawn_camera(mut commands: Commands) {
-    commands.spawn(Camera2dBundle::default());
+use crate::components::space_station::SpaceStation;
+
+pub fn spawn_camera(
+    mut commands: Commands,
+    space_station_transform_query: Query<&Transform, With<SpaceStation>>,
+) {
+    let Ok(space_station_transform) = space_station_transform_query.get_single() else {
+        return;
+    };
+
+    commands.spawn(Camera2dBundle {
+        transform: space_station_transform.with_rotation(Quat::from_rotation_x(0.0)),
+        ..default()
+    });
 }

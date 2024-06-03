@@ -1,6 +1,6 @@
 [package]
 name = "superior-space-domination"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Skippy <steelstone3@gmail.com>", "Demengies <Demengies@gmail.com>"]
 edition = "2021"
 homepage = "https://github.com/Steelstone3/Superior-Space-Fighters"
@@ -12,11 +12,11 @@ include = []
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [target.'cfg(target_os = "linux")'.dependencies]
-bevy = { version = "0.13", default-features = false, features = [
+bevy = { version = "0.14", default-features = false, features = [
     "x11",
     "wayland",
     "bevy_ui",
-    "multi-threaded",
+    "multi_threaded",
     "png",
     "vorbis",
     "bevy_gizmos",
@@ -25,8 +25,8 @@ bevy = { version = "0.13", default-features = false, features = [
 wayland-sys = "0.31"
 
 [dependencies]
-bevy = "0.13"
-bevy_save = "0.14.0"
+bevy = "0.14"
+bevy_save = "0.14"
 float-lerp = "0"
 rand = "0"
 rand_derive2 = "0"
@@ -43,3 +43,8 @@ opt-level = 0
 # Enable high optimizations for dependencies (incl. Bevy), but not for our code:
 [profile.dev.package."*"]
 opt-level = 3
+
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1

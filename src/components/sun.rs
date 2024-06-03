@@ -1,6 +1,6 @@
 use bevy::{ecs::component::Component, math::Vec2};
 
-use crate::{assets::images::suns::SunSprite, resources::constants::SUN_TILE_SIZE};
+use crate::{assets::images::sun_sprite::SunSprite, resources::constants::SUN_TILE_SIZE};
 
 use super::size_component::SizeComponent;
 
