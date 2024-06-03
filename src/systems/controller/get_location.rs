@@ -4,8 +4,6 @@ use crate::queries::{
     camera_queries::CameraTransformOrthographicProjectionQueryItem, window_queries::WindowQueryItem,
 };
 
-// TODO This will get used for spawn location
-#[allow(dead_code)]
 pub fn get_cursor_location(
     transform: &mut Transform,
     cursor_position: bevy::prelude::Vec2,

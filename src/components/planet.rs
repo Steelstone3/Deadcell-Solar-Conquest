@@ -1,4 +1,4 @@
-use crate::{assets::images::planets::PlanetSprite, resources::constants::PLANET_TILE_SIZE};
+use crate::{assets::images::planet_sprite::PlanetSprite, resources::constants::PLANET_TILE_SIZE};
 use bevy::{ecs::component::Component, math::Vec2};
 use rand::Rng;
 

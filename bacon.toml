@@ -80,63 +80,6 @@ command = [
 ]
 need_stdout = false
 
-# Git jobs
-
-[jobs.git-status]
-command = [
-    "git",
-    "status",
-]
-need_stdout = true
-
-[jobs.git-diff]
-command = [
-    "git",
-    "diff",
-]
-need_stdout = true
-
-[jobs.git-log]
-command = [
-    "git",
-    "log",
-    "--pretty=oneline",
-]
-need_stdout = true
-
-[jobs.git-add]
-command = [
-    "git",
-    "add",
-    "--all"
-]
-need_stdout = true
-on_success = "job:git-commit"
-
-[jobs.git-commit]
-command = [
-    "git",
-    "commit",
-    "-m",
-    "update",
-]
-need_stdout = true
-
-[jobs.git-pull-rebase]
-command = [
-    "git",
-    "pull",
-    "--rebase",
-]
-need_stdout = true
-
-[jobs.git-push]
-command = [
-    "git",
-    "push",
-]
-need_stdout = true
-
 [keybindings]
 r = "job:run"
 t = "job:test"
@@ -144,10 +87,4 @@ j = "job:test-coverage"
 # c = "jobs:clippy"
 f = "job:format"
 u = "job:update"
-s = "job:git-status"
-d = "job:git-diff"
-l = "job:git-log"
-i = "job:git-add" # Runs: git add . && git commit
-o = "job:git-pull-rebase"
-p = "job:git-push"
 # v = "jobs:check"

@@ -1,4 +1,4 @@
-use crate::{assets::images::space::SpaceSprite, resources::constants::SPACE_TILE_SIZE};
+use crate::{assets::images::space_sprite::SpaceSprite, resources::constants::SPACE_TILE_SIZE};
 use bevy::{ecs::component::Component, math::Vec2};
 
 use super::size_component::SizeComponent;

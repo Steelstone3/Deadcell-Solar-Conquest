@@ -1,10 +1,5 @@
-use bevy::{
-    app::{Plugin, Update},
-    ecs::schedule::IntoSystemConfigs,
-};
-
 use crate::{
-    events::{event_handlers::select::select, spawn_planet_event::SpawnPlanetEvent},
+    events::event_handlers::select::handle_mouse_input,
     systems::{
         animation::animate::animate_sprites,
         camera::{
@@ -12,12 +7,15 @@ use crate::{
             camera_zoom_keyboard::camera_zoom_keyboard,
             camera_zoom_mouse_and_touchpad::camera_zoom_mouse_and_touchpad,
         },
-        selecting::select_selectable::select_selectable,
-        spawning::spawn_resource_planets::spawn_resource_planets,
+        controller::set_controllable_target::set_controllable_target,
+        movement::{
+            controllable_move_to_target::controllable_move_to_target,
+            update_selected_sprite_location::update_selected_sprite_location,
+        },
+        user_interface::sprite_selection::sprite_selection,
     },
 };
-
-use super::run_conditions::event_called;
+use bevy::app::{Plugin, Update};
 
 pub struct RunningPlugin;
 
@@ -30,14 +28,13 @@ impl Plugin for RunningPlugin {
                 camera_zoom_mouse_and_touchpad,
                 camera_movement,
                 camera_position_reset,
-                select,
-                select_selectable,
+                handle_mouse_input,
+                sprite_selection,
                 animate_sprites,
+                set_controllable_target,
+                controllable_move_to_target,
+                update_selected_sprite_location,
             ),
-        )
-        .add_systems(
-            Update,
-            spawn_resource_planets.run_if(event_called::<SpawnPlanetEvent>),
         );
     }
 }

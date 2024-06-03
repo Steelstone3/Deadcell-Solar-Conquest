@@ -10,7 +10,7 @@ assignees: ''
 ## Descritive spike summary
 
 **In order to** get some value
-**As a** actor/role 
+**As a** actor/role
 **I would like to** desired action
 
 ## Rationale

@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug Report
 about: Create a report to help us improve
 title: 'Bug: '
 labels: bug
@@ -7,37 +7,30 @@ assignees: ''
 
 ---
 
-## Descriptive bug summary
+## Background
 
-**In order to** get some value
-**As a** actor/role 
-**I would like to** desired action
+Provide a brief overview of the bug
 
-## Reproduction steps
+## Expected Behaviour
 
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+### Feature: *EXPECTED FEATURE HERE*
 
-## Expected behaviour
+**Senario**: *THE SENARIO HERE*
 
-A clear and concise description of what you expected to happen.
+- **Given**:
+  - **And**:
+- **When**:
+  - **And**:
+- **Then**:
 
-## Actual behaviour
+## Actual Behaviour
 
-A clear and concise description of what actually happened.
+### Feature: *ACTUAL FEATURE HERE*
 
-## Screenshots
+**Senario**: *THE SENARIO HERE*
 
-If applicable, add screenshots to help explain your problem.
-
-## Additional information
- 
- - OS: [e.g. iOS]
- - Version [e.g. 22]
-
-## Additional context
-
-Add any other context about the problem here.
+- **Given**:
+  - **And**:
+- **When**:
+  - **And**:
+- **Then**:
