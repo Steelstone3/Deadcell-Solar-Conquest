@@ -10,6 +10,7 @@ use crate::{
     events::{
         mouse_click_event::MouseClickEvent,
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+        user_interface_event::UserInterfaceEvent,
     },
     resources::{faction::StarshipType, spawn_menu_selection::SpawnMenuSelection},
 };
@@ -30,6 +31,8 @@ use rand::random;
 
 use super::interactions::spawn_selection::SpawnSelection;
 
+// TODO MG Too many arguements
+#[allow(clippy::too_many_arguments)]
 pub fn sprite_selection(
     mut select_event_reader: EventReader<MouseClickEvent>,
     selectable_query: Query<(&Transform, &Sprite, Entity), With<Selectable>>,
@@ -42,6 +45,7 @@ pub fn sprite_selection(
         Option<&SpaceFacility>,
         Option<&Starship>,
     )>,
+    mut user_interface_event: EventWriter<UserInterfaceEvent>,
 ) {
     let Some(event) = select_event_reader.read().last() else {
         return;
@@ -137,6 +141,8 @@ pub fn sprite_selection(
             }
 
             spawn_menu_selection.selected_entity = closest.3;
+
+            user_interface_event.send(UserInterfaceEvent {});
         };
     }
 }
