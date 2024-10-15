@@ -11,8 +11,9 @@ pub fn controllable_move_to_target(
     mut controllable_queries: Query<(&Movement, &mut Transform)>,
 ) {
     for mut controllable_query in controllable_queries.iter_mut() {
-        if controllable_query.1.translation == controllable_query.0.target_location {
-            return;
+        if (controllable_query.1.translation - controllable_query.0.target_location).length() < 5.0
+        {
+            continue;
         }
 
         let current_location = controllable_query.1.translation;

@@ -6,88 +6,68 @@ use crate::{
         controllable::Movement, space_facility::SpaceFacility, starship::Starship,
         user_interface::Selectable,
     },
-    events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-    queries::{
-        camera_queries::CameraTransformOrthographicProjectionQuery, window_queries::WindowQuery,
+    events::{
+        mouse_right_click_event::MouseRightClickEvent,
+        spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     },
     resources::spawn_menu_selection::SpawnMenuSelection,
-    systems::{
-        controller::get_location::get_cursor_location,
-        user_interface::interactions::spawn_selection::SpawnSelection,
-    },
+    systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 use bevy::{
-    ecs::{
-        event::EventWriter,
-        system::{Commands, Query, ResMut},
-    },
-    input::{mouse::MouseButton, ButtonInput},
+    ecs::{event::EventWriter, system::Commands},
+    prelude::{EventReader, Res},
     transform::components::Transform,
     utils::tracing,
 };
 
 pub fn spawner(
     mut commands: Commands,
-    selected_item: ResMut<SpawnMenuSelection>,
-    mut mouse_button_input: ResMut<ButtonInput<MouseButton>>,
+    selected_item: Res<SpawnMenuSelection>,
+    mut right_mouse_events: EventReader<MouseRightClickEvent>,
     mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
-    windows_query: Query<WindowQuery>,
-    camera_queries: Query<CameraTransformOrthographicProjectionQuery>,
 ) {
-    let Ok(window_query) = windows_query.get_single() else {
-        return;
-    };
+    right_mouse_events.read().for_each(|event| {
+        // let mut transform = Transform::default();
+        let mut transform = Transform {
+            translation: event.cursor_world_position.extend(5.0),
+            ..Default::default()
+        };
 
-    let Ok(camera_query) = camera_queries.get_single() else {
-        return;
-    };
-
-    if !mouse_button_input.clear_just_pressed(MouseButton::Right) {
-        return;
-    }
-
-    let mut transform = Transform::default();
-
-    if let Some(position) = window_query.window.cursor_position() {
-        get_cursor_location(&mut transform, position, window_query, camera_query);
-    } else {
-        return;
-    }
-
-    match selected_item.selection {
-        SpawnSelection::None => {}
-        SpawnSelection::Other => {}
-        SpawnSelection::MultiSelection => {}
-        SpawnSelection::StarshipConstructionYard => {
-            spawn_starship(
-                &mut transform,
-                selected_item,
-                &mut spawn_sprite_event,
-                &mut commands,
-            );
+        match selected_item.selection {
+            SpawnSelection::None => {}
+            SpawnSelection::Other => {}
+            SpawnSelection::MultiSelection => {}
+            SpawnSelection::StarshipConstructionYard => {
+                spawn_starship(
+                    &mut transform,
+                    &selected_item,
+                    &mut spawn_sprite_event,
+                    &mut commands,
+                );
+            }
+            SpawnSelection::SupportShip => {
+                spawn_space_facility(
+                    &mut transform,
+                    &selected_item,
+                    &mut spawn_sprite_event,
+                    &mut commands,
+                );
+            }
+            SpawnSelection::Starbase => {
+                spawn_starship(
+                    &mut transform,
+                    &selected_item,
+                    &mut spawn_sprite_event,
+                    &mut commands,
+                );
+            }
         }
-        SpawnSelection::SupportShip => {
-            spawn_space_facility(
-                &mut transform,
-                &selected_item,
-                &mut spawn_sprite_event,
-                &mut commands,
-            );
-        }
-        SpawnSelection::Starbase => {
-            spawn_starship(
-                &mut transform,
-                selected_item,
-                &mut spawn_sprite_event,
-                &mut commands,
-            );
-        }
-    }
+    });
 }
 
 fn spawn_space_facility(
     transform: &mut Transform,
-    selected_item: &ResMut<'_, SpawnMenuSelection>,
+    selected_item: &Res<'_, SpawnMenuSelection>,
     spawn_sprite_event: &mut EventWriter<'_, SpawnSpriteEvent>,
     commands: &mut Commands<'_, '_>,
 ) {
@@ -108,7 +88,7 @@ fn spawn_space_facility(
 
 fn spawn_starship(
     transform: &mut Transform,
-    selected_item: ResMut<'_, SpawnMenuSelection>,
+    selected_item: &Res<'_, SpawnMenuSelection>,
     spawn_sprite_event: &mut EventWriter<'_, SpawnSpriteEvent>,
     commands: &mut Commands<'_, '_>,
 ) {
