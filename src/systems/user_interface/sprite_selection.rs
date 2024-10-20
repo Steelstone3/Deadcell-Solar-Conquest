@@ -1,73 +1,54 @@
 use crate::{
     assets::images::faction_starship_sprite::starship_sprite::StarshipSprite,
     components::{
-        space_facility::SpaceFacility,
-        space_station::SpaceStation,
-        starship::Starship,
-        tracking::Tracking,
-        user_interface::{Selectable, SelectedSprite},
+        space_facility::SpaceFacility, space_station::SpaceStation, starship::Starship,
+        tracking::Tracking, user_interface::SelectedSprite,
     },
     events::{
         mouse_click_event::MouseClickEvent,
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
         user_interface_event::UserInterfaceEvent,
     },
+    queries::selection_queries::{SelectableQuery, SelectionQuery},
     resources::{faction::StarshipType, spawn_menu_selection::SpawnMenuSelection},
+    types::closest_selection::ClosestSelection,
 };
 use bevy::{
     ecs::{
-        entity::Entity,
         event::{EventReader, EventWriter},
-        query::With,
         system::{Commands, Query},
     },
     log::info,
     math::Vec3Swizzles,
-    prelude::ResMut,
-    sprite::Sprite,
-    transform::components::Transform,
+    prelude::{In, ResMut},
 };
 use rand::random;
 
 use super::interactions::spawn_selection::SpawnSelection;
 
-// TODO MG Too many arguements
-#[allow(clippy::too_many_arguments)]
 pub fn sprite_selection(
     mut select_event_reader: EventReader<MouseClickEvent>,
-    selectable_query: Query<(&Transform, &Sprite, Entity), With<Selectable>>,
+    selectable_query: Query<SelectableQuery>,
     mut spawn_sprite_writer: EventWriter<SpawnSpriteEvent>,
     mut commands: Commands,
-    selection_queries: Query<Entity, With<SelectedSprite>>,
-    mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
-    type_check_query: Query<(
-        Option<&SpaceStation>,
-        Option<&SpaceFacility>,
-        Option<&Starship>,
-    )>,
-    mut user_interface_event: EventWriter<UserInterfaceEvent>,
-) {
+    selection_query: Query<SelectionQuery>,
+) -> Result<ClosestSelection, ()> {
+    let mut closest = ClosestSelection::default();
+
     let Some(event) = select_event_reader.read().last() else {
-        return;
+        return Err(());
     };
 
     let cursor_position = event.cursor_world_position;
 
-    let mut closest = (
-        &Transform::from_xyz(0.0, 0.0, 0.0),
-        &Sprite::default(),
-        -1.0,
-        Entity::PLACEHOLDER,
-    );
-
     //get list of selectables that are in range of mouse cursor
     for selectable in selectable_query.iter() {
-        let Some(size) = selectable.1.custom_size else {
-            return;
+        let Some(size) = selectable.sprite.custom_size else {
+            return Err(());
         };
 
         //get bounds of sprite
-        let mut transform = selectable.0.to_owned();
+        let mut transform = selectable.transform.to_owned();
         let x_min = transform.translation.x - size.x / 2.0;
         let x_max = transform.translation.x + size.x / 2.0;
         let y_min = transform.translation.y - size.y / 2.0;
@@ -83,41 +64,66 @@ pub fn sprite_selection(
             && cursor_position.y <= y_max
         {
             //we only want to select whatevers closest to the cursor not everything undeneath
-            let distance = selectable.0.translation.xy().distance(cursor_position);
-            if distance <= closest.2 || closest.2 == -1.0 {
-                closest = (selectable.0, selectable.1, distance, selectable.2);
+            let distance = selectable
+                .transform
+                .translation
+                .xy()
+                .distance(cursor_position);
+            if distance <= closest.distance || closest.distance == -1.0 {
+                closest = ClosestSelection::new(
+                    *selectable.transform,
+                    selectable.sprite.clone(),
+                    distance,
+                    selectable.entity,
+                );
             }
         }
     }
 
     //if valid selection found then spawn selection
-    if closest.2 != -1.0 {
+    if closest.distance != -1.0 {
         //Clear selection before makeing new selection
-        for selection in selection_queries.iter() {
-            commands.entity(selection).despawn();
+        for selection in selection_query.iter() {
+            commands.entity(selection.entity).despawn();
         }
 
         let selection = SelectedSprite::new(random());
         let selection_entity = commands
             .spawn(selection)
             .insert(Tracking {
-                entity_to_follow: closest.3,
+                entity_to_follow: closest.entity,
             })
             .id();
 
-        let Some(size) = closest.1.custom_size else {
-            return;
+        let Some(size) = closest.sprite.custom_size else {
+            return Err(());
         };
 
         spawn_sprite_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: selection.sprite_path.to_string(),
             size,
-            transform: *closest.0,
+            transform: closest.transform,
             entity: selection_entity,
         }));
+    }
 
+    Ok(closest)
+}
+
+pub fn set_selection_type(
+    In(closest_selection): In<Result<ClosestSelection, ()>>,
+    type_check_query: Query<(
+        Option<&SpaceStation>,
+        Option<&SpaceFacility>,
+        Option<&Starship>,
+    )>,
+    mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
+    mut user_interface_event: EventWriter<UserInterfaceEvent>,
+) {
+    //if closest sprite was found
+    if let Ok(closest_selection) = closest_selection {
         //Detmine the type of selection for the ui
-        if let Ok(selection_type) = type_check_query.get(closest.3) {
+        if let Ok(selection_type) = type_check_query.get(closest_selection.entity) {
             if let Some(_space_station) = selection_type.0 {
                 spawn_menu_selection.selection = SpawnSelection::Starbase;
                 info!("Starbase Selected");
@@ -140,7 +146,7 @@ pub fn sprite_selection(
                 info!("Other Selected");
             }
 
-            spawn_menu_selection.selected_entity = closest.3;
+            spawn_menu_selection.selected_entity = closest_selection.entity;
 
             user_interface_event.send(UserInterfaceEvent {});
         };
