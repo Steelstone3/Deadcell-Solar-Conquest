@@ -12,10 +12,13 @@ use crate::{
             controllable_move_to_target::controllable_move_to_target,
             update_selected_sprite_location::update_selected_sprite_location,
         },
-        user_interface::sprite_selection::sprite_selection,
+        user_interface::sprite_selection::{set_selection_type, sprite_selection},
     },
 };
-use bevy::app::{Plugin, Update};
+use bevy::{
+    app::{Plugin, Update},
+    prelude::IntoSystem,
+};
 
 pub struct RunningPlugin;
 
@@ -29,7 +32,7 @@ impl Plugin for RunningPlugin {
                 camera_movement,
                 camera_position_reset,
                 handle_mouse_input,
-                sprite_selection,
+                sprite_selection.pipe(set_selection_type),
                 animate_sprites,
                 set_controllable_target,
                 controllable_move_to_target,
