@@ -1,9 +1,7 @@
 use bevy::{
-    ecs::{
-        event::{EventReader, EventWriter},
-        system::Query,
-    },
-    input::mouse::{MouseButton, MouseButtonInput},
+    ecs::{event::EventWriter, system::Query},
+    input::{mouse::MouseButton, ButtonInput},
+    prelude::{KeyCode, Res},
     render::camera::Camera,
     transform::components::GlobalTransform,
     window::Window,
@@ -14,11 +12,12 @@ use crate::events::{
 };
 
 pub fn handle_mouse_input(
-    mut mouse_buttons_events: EventReader<MouseButtonInput>,
+    mouse_buttons: Res<ButtonInput<MouseButton>>,
     window_query: Query<&Window>,
     camera_query: Query<(&Camera, &GlobalTransform)>,
     mut left_mouse_event_writer: EventWriter<MouseClickEvent>,
     mut right_mouse_event_writer: EventWriter<MouseRightClickEvent>,
+    keyboard_buttons: Res<ButtonInput<KeyCode>>,
 ) {
     let Ok(window) = window_query.get_single() else {
         return;
@@ -35,17 +34,30 @@ pub fn handle_mouse_input(
         return;
     };
 
-    for event in mouse_buttons_events.read() {
-        if event.state.is_pressed() {
-            if event.button == MouseButton::Left {
-                left_mouse_event_writer.send(MouseClickEvent {
-                    cursor_world_position: cursor_world_pos,
-                });
-            } else if event.button == MouseButton::Right {
-                right_mouse_event_writer.send(MouseRightClickEvent {
-                    cursor_world_position: cursor_world_pos,
-                });
-            }
+    for button in mouse_buttons.get_pressed() {
+        if *button == MouseButton::Left {
+            left_mouse_event_writer.send(MouseClickEvent {
+                cursor_world_position: cursor_world_pos,
+                ctrl_modifier: keyboard_buttons.pressed(KeyCode::ControlLeft),
+                just_released: false,
+            });
+            return;
+        } else if *button == MouseButton::Right {
+            right_mouse_event_writer.send(MouseRightClickEvent {
+                cursor_world_position: cursor_world_pos,
+            });
+            return;
+        }
+    }
+
+    for button in mouse_buttons.get_just_released() {
+        if *button == MouseButton::Left {
+            left_mouse_event_writer.send(MouseClickEvent {
+                cursor_world_position: cursor_world_pos,
+                ctrl_modifier: keyboard_buttons.pressed(KeyCode::ControlLeft),
+                just_released: true,
+            });
+            return;
         }
     }
 }

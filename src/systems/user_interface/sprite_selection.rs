@@ -36,6 +36,11 @@ pub fn sprite_selection(
         return Err(());
     };
 
+    //if ctrl is held then needs to be held by multiselect system
+    if event.ctrl_modifier {
+        return Err(());
+    }
+
     let cursor_position = event.cursor_world_position;
 
     //get list of selectables that are in range of mouse cursor

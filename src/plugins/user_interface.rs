@@ -3,6 +3,7 @@ use crate::systems::{
     user_interface::{
         interactions::clear_all_selected::clear_all_selected,
         layouts::spawn_menu::spawn_menu,
+        sprite_multiselection::sprite_multiselection,
         sprite_selection::{set_selection_type, sprite_selection},
     },
 };
@@ -17,6 +18,7 @@ impl Plugin for UserInterfacePlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
         app.add_systems(Update, spawn_menu);
         app.add_systems(Update, sprite_selection.pipe(set_selection_type));
+        app.add_systems(Update, sprite_multiselection);
         app.add_systems(Update, (clear_all_selected, spawner));
     }
 }
