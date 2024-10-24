@@ -1,6 +1,7 @@
 use bevy::{
     ecs::{event::EventWriter, system::Commands},
     math::Vec3,
+    prelude::Res,
     transform::components::Transform,
 };
 use rand::{random, Rng};
@@ -8,10 +9,14 @@ use rand::{random, Rng};
 use crate::{
     components::sun::Sun,
     events::spawn_sprite_event::{SpawnAnimatedSprite, SpawnSprite, SpawnSpriteEvent},
-    resources::constants::{NUMBER_OF_TILES, SPACE_TILE_SIZE},
+    resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
 };
 
-pub fn spawn_suns(mut commands: Commands, mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>) {
+pub fn spawn_suns(
+    mut commands: Commands,
+    mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
+    game_settings: Res<GameSettings>,
+) {
     let mut rng = rand::thread_rng();
     let number_of_suns = rng.gen_range(3..6);
 
@@ -19,12 +24,12 @@ pub fn spawn_suns(mut commands: Commands, mut spawn_sprite_event: EventWriter<Sp
         let sun = Sun::new(random());
 
         let x: f32 = rng.gen_range(
-            -SPACE_TILE_SIZE * ((NUMBER_OF_TILES - 1) as f32)
-                ..SPACE_TILE_SIZE * ((NUMBER_OF_TILES - 1) as f32),
+            -SPACE_TILE_SIZE * ((game_settings.map_size - 1) as f32)
+                ..SPACE_TILE_SIZE * ((game_settings.map_size - 1) as f32),
         );
         let y: f32 = rng.gen_range(
-            -SPACE_TILE_SIZE * ((NUMBER_OF_TILES - 1) as f32)
-                ..SPACE_TILE_SIZE * ((NUMBER_OF_TILES - 1) as f32),
+            -SPACE_TILE_SIZE * ((game_settings.map_size - 1) as f32)
+                ..SPACE_TILE_SIZE * ((game_settings.map_size - 1) as f32),
         );
 
         let sun_transform = Transform {

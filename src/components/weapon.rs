@@ -1,13 +1,13 @@
-use bevy::{ecs::component::Component, math::Vec2};
-
+use super::size_component::SizeComponent;
 use crate::{
     assets::images::faction_starship_sprite::{
         starship_sprite::StarshipSprite, weapon_sprite::WeaponSprite,
     },
     resources::{constants::TILE_SIZE, faction::Faction},
 };
+use bevy::{ecs::component::Component, math::Vec2};
 
-use super::size_component::SizeComponent;
+const SIZE: f32 = TILE_SIZE;
 
 #[allow(dead_code)]
 #[derive(Component)]
@@ -19,7 +19,7 @@ pub struct Weapon {
 impl Weapon {
     pub fn new(starship_sprite: StarshipSprite) -> Self {
         let size = SizeComponent {
-            size: Vec2::new(TILE_SIZE, TILE_SIZE),
+            size: Vec2::new(SIZE, SIZE),
             z_index: 4.0,
         };
 
@@ -141,6 +141,47 @@ impl Weapon {
             },
             StarshipSprite::NoozlerTorpedoShip => Self {
                 weapon_sprite: WeaponSprite::NoozlerTorpedoShip,
+                size,
+                faction: Faction::Noozler,
+            },
+            // TODO Weapon sprites
+            StarshipSprite::GranokBattleCruiser => Self {
+                weapon_sprite: WeaponSprite::GranokBattleCruiser,
+                size,
+                faction: Faction::Noozler,
+            },
+            StarshipSprite::GranokBomber => Self {
+                weapon_sprite: WeaponSprite::GranokBomber,
+                size,
+                faction: Faction::Noozler,
+            },
+            StarshipSprite::GranokDreadnought => Self {
+                weapon_sprite: WeaponSprite::GranokDreadnought,
+                size,
+                faction: Faction::Noozler,
+            },
+            StarshipSprite::GranokFighter => Self {
+                weapon_sprite: WeaponSprite::GranokFighter,
+                size,
+                faction: Faction::Noozler,
+            },
+            StarshipSprite::GranokFrigate => Self {
+                weapon_sprite: WeaponSprite::GranokFrigate,
+                size,
+                faction: Faction::Noozler,
+            },
+            StarshipSprite::GranokScout => Self {
+                weapon_sprite: WeaponSprite::GranokScout,
+                size,
+                faction: Faction::Noozler,
+            },
+            StarshipSprite::GranokSupportShip => Self {
+                weapon_sprite: WeaponSprite::GranokSupportShip,
+                size,
+                faction: Faction::Noozler,
+            },
+            StarshipSprite::GranokTorpedoShip => Self {
+                weapon_sprite: WeaponSprite::GranokTorpedoShip,
                 size,
                 faction: Faction::Noozler,
             },

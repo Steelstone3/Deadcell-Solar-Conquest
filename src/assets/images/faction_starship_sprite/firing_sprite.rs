@@ -25,8 +25,17 @@ pub enum FiringSprite {
     NoozlerScout,
     NoozlerSupportShip,
     NoozlerTorpedoShip,
+    GranokBattleCruiser,
+    GranokBomber,
+    GranokDreadnought,
+    GranokFighter,
+    GranokFrigate,
+    GranokScout,
+    GranokSupportShip,
+    GranokTorpedoShip,
 }
 
+// TODO asset paths
 impl Display for FiringSprite {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -125,6 +134,38 @@ impl Display for FiringSprite {
             FiringSprite::NoozlerTorpedoShip => write!(
                 formatter,
                 "images/factions/noozler/starships/battlecruiser/noozler_torpedo_ship_firing.png"
+            ),
+            FiringSprite::GranokBattleCruiser => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_firing.png"
+            ),
+            FiringSprite::GranokBomber => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_firing.png"
+            ),
+            FiringSprite::GranokDreadnought => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_firing.png"
+            ),
+            FiringSprite::GranokFighter => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_firing.png"
+            ),
+            FiringSprite::GranokFrigate => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_firing.png"
+            ),
+            FiringSprite::GranokScout => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_firing.png"
+            ),
+            FiringSprite::GranokSupportShip => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_firing.png"
+            ),
+            FiringSprite::GranokTorpedoShip => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_firing.png"
             ),
         }
     }

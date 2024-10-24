@@ -1,37 +1,34 @@
 use crate::{
-    assets::images::faction_starship_sprite::starship_sprite::StarshipSprite,
+    assets::images::{
+        faction_starship_sprite::starship_sprite::StarshipSprite,
+        space_facility_sprite::SpaceFacilitySprite, space_facility_type::SpaceFacilityType,
+        starship_type::StarshipType,
+    },
     components::{
-        space_facility::SpaceFacility, space_station::SpaceStation, starship::Starship,
-        tracking::Tracking, user_interface::SelectedSprite,
+        closest_selection::ClosestSelection, tracking::Tracking, user_interface::SelectedSprite,
     },
     events::{
         mouse_click_event::MouseClickEvent,
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
         user_interface_event::UserInterfaceEvent,
     },
-    queries::selection_queries::{SelectableQuery, SelectionQuery},
-    resources::{faction::StarshipType, spawn_menu_selection::SpawnMenuSelection},
-    types::closest_selection::ClosestSelection,
+    queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery},
+    resources::spawn_menu_selection::SpawnMenuSelection,
+    systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 use bevy::{
-    ecs::{
-        event::{EventReader, EventWriter},
-        system::{Commands, Query},
-    },
     log::info,
     math::Vec3Swizzles,
-    prelude::{In, ResMut},
+    prelude::{Commands, EventReader, EventWriter, In, Query, ResMut},
 };
 use rand::random;
-
-use super::interactions::spawn_selection::SpawnSelection;
 
 pub fn sprite_selection(
     mut select_event_reader: EventReader<MouseClickEvent>,
     selectable_query: Query<SelectableQuery>,
     mut spawn_sprite_writer: EventWriter<SpawnSpriteEvent>,
     mut commands: Commands,
-    selection_query: Query<SelectionQuery>,
+    selection_queries: Query<SelectionQuery>,
 ) -> Result<ClosestSelection, ()> {
     let mut closest = ClosestSelection::default();
 
@@ -83,8 +80,10 @@ pub fn sprite_selection(
     //if valid selection found then spawn selection
     if closest.distance != -1.0 {
         //Clear selection before makeing new selection
-        for selection in selection_query.iter() {
-            commands.entity(selection.entity).despawn();
+        for selection_query in selection_queries.iter() {
+            if let Some(selected_entity) = selection_query.entity {
+                commands.entity(selected_entity).despawn();
+            }
         }
 
         let selection = SelectedSprite::new(random());
@@ -112,11 +111,7 @@ pub fn sprite_selection(
 
 pub fn set_selection_type(
     In(closest_selection): In<Result<ClosestSelection, ()>>,
-    type_check_query: Query<(
-        Option<&SpaceStation>,
-        Option<&SpaceFacility>,
-        Option<&Starship>,
-    )>,
+    type_check_query: Query<TypeCheckQuery>,
     mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
     mut user_interface_event: EventWriter<UserInterfaceEvent>,
 ) {
@@ -124,13 +119,23 @@ pub fn set_selection_type(
     if let Ok(closest_selection) = closest_selection {
         //Detmine the type of selection for the ui
         if let Ok(selection_type) = type_check_query.get(closest_selection.entity) {
-            if let Some(_space_station) = selection_type.0 {
-                spawn_menu_selection.selection = SpawnSelection::Starbase;
-                info!("Starbase Selected");
-            } else if let Some(_space_facility) = selection_type.1 {
-                spawn_menu_selection.selection = SpawnSelection::StarshipConstructionYard;
-                info!("Starship Construction Yard Selected");
-            } else if let Some(spaceship) = selection_type.2 {
+            if let Some(space_facility) = selection_type.space_facility {
+                SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+
+                let space_facility_type = SpaceFacilitySprite::space_facility_type_convert_from(
+                    space_facility.sprite_path,
+                );
+
+                if space_facility_type == SpaceFacilityType::SpaceShipConstructionYard {
+                    spawn_menu_selection.selection = SpawnSelection::StarshipConstructionYard;
+                    info!("Starship Construction Yard Selected");
+                } else {
+                    spawn_menu_selection.selection = SpawnSelection::Starbase;
+                    info!("Starbase Selected");
+                }
+            } else if let Some(spaceship) = selection_type.spaceship {
+                SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+
                 let spaceship_type = StarshipSprite::starship_type_convert_from(
                     spaceship.starship_sprite_bundle.starship_sprite,
                 );
@@ -142,6 +147,8 @@ pub fn set_selection_type(
                     spawn_menu_selection.selection = SpawnSelection::Other;
                 }
             } else {
+                SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+
                 spawn_menu_selection.selection = SpawnSelection::Other;
                 info!("Other Selected");
             }

@@ -4,11 +4,13 @@ use std::fmt::Display;
 
 use crate::resources::faction::Faction;
 
+// TODO consider alternatative assets
 #[derive(RandGen, Debug, PartialEq, Reflect, Clone, Copy)]
 pub enum CommanderIcon {
     AtarkCommander,
     KaranCommander,
     NoozlerCommander,
+    GranokCommander,
     None,
 }
 
@@ -33,6 +35,13 @@ impl Display for CommanderIcon {
                     "user_interface/icons/starships/noozler/noozler_commander.png"
                 )
             }
+            // TODO create asset
+            CommanderIcon::GranokCommander => {
+                write!(
+                    formatter,
+                    "user_interface/icons/starships/granok/granok_commander.png"
+                )
+            }
             CommanderIcon::None => {
                 write!(formatter, "")
             }
@@ -46,6 +55,7 @@ impl CommanderIcon {
             Faction::Atark => CommanderIcon::AtarkCommander,
             Faction::Karcan => CommanderIcon::KaranCommander,
             Faction::Noozler => CommanderIcon::NoozlerCommander,
+            Faction::Granok => CommanderIcon::GranokCommander,
         }
     }
 }

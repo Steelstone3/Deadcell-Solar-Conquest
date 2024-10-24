@@ -4,7 +4,7 @@ use bevy::{
 };
 
 use crate::{
-    assets::user_interace::icons::{
+    assets::user_interface::icons::{
         space_facility_icons::SpaceFacilityIcon, starship_icons::StarshipIcon,
     },
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
@@ -30,10 +30,16 @@ impl Default for SpawnMenuSelection {
 }
 
 impl SpawnMenuSelection {
-    pub fn reset(selected_item: &mut ResMut<'_, SpawnMenuSelection>) {
-        selected_item.selection = SpawnSelection::None;
-        selected_item.selected_entity = Entity::PLACEHOLDER;
-        selected_item.starship_selection = StarshipIcon::None;
-        selected_item.space_facility_selection = SpaceFacilityIcon::None;
+    pub fn reset_all(spawn_menu_selection: &mut ResMut<'_, SpawnMenuSelection>) {
+        spawn_menu_selection.selection = SpawnSelection::None;
+        spawn_menu_selection.selected_entity = Entity::PLACEHOLDER;
+        spawn_menu_selection.starship_selection = StarshipIcon::None;
+        spawn_menu_selection.space_facility_selection = SpaceFacilityIcon::None;
+    }
+
+    pub fn default_selection(spawn_menu_selection: &mut ResMut<'_, SpawnMenuSelection>) {
+        spawn_menu_selection.selection = SpawnSelection::None;
+        spawn_menu_selection.starship_selection = StarshipIcon::None;
+        spawn_menu_selection.space_facility_selection = SpaceFacilityIcon::None;
     }
 }

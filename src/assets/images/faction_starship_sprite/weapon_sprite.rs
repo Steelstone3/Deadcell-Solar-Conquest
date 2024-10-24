@@ -25,8 +25,17 @@ pub enum WeaponSprite {
     NoozlerScout,
     NoozlerSupportShip,
     NoozlerTorpedoShip,
+    GranokBattleCruiser,
+    GranokBomber,
+    GranokDreadnought,
+    GranokFighter,
+    GranokFrigate,
+    GranokScout,
+    GranokSupportShip,
+    GranokTorpedoShip,
 }
 
+// TODO weapon sprites
 impl Display for WeaponSprite {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -54,6 +63,14 @@ impl Display for WeaponSprite {
             WeaponSprite::NoozlerScout => write!(formatter, ""),
             WeaponSprite::NoozlerSupportShip => write!(formatter, ""),
             WeaponSprite::NoozlerTorpedoShip => write!(formatter, ""),
+            WeaponSprite::GranokBattleCruiser => write!(formatter, ""),
+            WeaponSprite::GranokBomber => write!(formatter, ""),
+            WeaponSprite::GranokDreadnought => write!(formatter, ""),
+            WeaponSprite::GranokFighter => write!(formatter, ""),
+            WeaponSprite::GranokFrigate => write!(formatter, ""),
+            WeaponSprite::GranokScout => write!(formatter, ""),
+            WeaponSprite::GranokSupportShip => write!(formatter, ""),
+            WeaponSprite::GranokTorpedoShip => write!(formatter, ""),
         }
     }
 }

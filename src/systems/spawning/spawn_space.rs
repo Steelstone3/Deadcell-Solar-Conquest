@@ -11,10 +11,7 @@ use rand::random;
 use crate::{
     components::space::Space,
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-    resources::{
-        constants::{NUMBER_OF_TILES, SPACE_TILE_SIZE},
-        game_settings::GameSettings,
-    },
+    resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
 };
 
 pub fn spawn_space(
@@ -24,11 +21,11 @@ pub fn spawn_space(
 ) {
     let space = Space::new(random());
 
-    for x in -NUMBER_OF_TILES * game_settings.number_of_players as i32
-        ..NUMBER_OF_TILES * game_settings.number_of_players as i32
+    for x in -game_settings.map_size * game_settings.number_of_players as i32
+        ..game_settings.map_size * game_settings.number_of_players as i32
     {
-        for y in -NUMBER_OF_TILES * game_settings.number_of_players as i32
-            ..NUMBER_OF_TILES * game_settings.number_of_players as i32
+        for y in -game_settings.map_size * game_settings.number_of_players as i32
+            ..game_settings.map_size * game_settings.number_of_players as i32
         {
             spawn_sprite_event.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
                 sprite_path: space.sprite_path.to_string(),

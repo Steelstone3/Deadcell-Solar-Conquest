@@ -25,6 +25,14 @@ pub enum DestructionSprite {
     NoozlerScout,
     NoozlerSupportShip,
     NoozlerTorpedoShip,
+    GranokBattleCruiser,
+    GranokBomber,
+    GranokDreadnought,
+    GranokFighter,
+    GranokFrigate,
+    GranokScout,
+    GranokSupportShip,
+    GranokTorpedoShip,
 }
 
 impl Display for DestructionSprite {
@@ -125,6 +133,38 @@ impl Display for DestructionSprite {
             DestructionSprite::NoozlerTorpedoShip => write!(
                 formatter,
                 "images/factions/noozler/starships/battlecruiser/noozler_torpedo_ship_destruction.png"
+            ),
+            DestructionSprite::GranokBattleCruiser => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_destruction.png"
+            ),
+            DestructionSprite::GranokBomber => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_destruction.png"
+            ),
+            DestructionSprite::GranokDreadnought => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_destruction.png"
+            ),
+            DestructionSprite::GranokFighter => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_destruction.png"
+            ),
+            DestructionSprite::GranokFrigate => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_destruction.png"
+            ),
+            DestructionSprite::GranokScout => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_destruction.png"
+            ),
+            DestructionSprite::GranokSupportShip => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_destruction.png"
+            ),
+            DestructionSprite::GranokTorpedoShip => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_destruction.png"
             ),
         }
     }

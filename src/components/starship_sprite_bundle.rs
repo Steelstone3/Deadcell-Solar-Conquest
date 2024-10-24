@@ -183,6 +183,63 @@ impl StarshipSpriteBundle {
                 firing_sprite: FiringSprite::NoozlerTorpedoShip,
                 destruction_sprite: DestructionSprite::NoozlerTorpedoShip,
             },
+            // TODO Animation sprite sheets
+            StarshipSprite::GranokBattleCruiser => Self {
+                starship_sprite,
+                shield_sprite: ShieldSprite::GranokBattleCruiser,
+                engine_sprite: EngineSprite::GranokBattleCruiser,
+                firing_sprite: FiringSprite::GranokBattleCruiser,
+                destruction_sprite: DestructionSprite::GranokBattleCruiser,
+            },
+            StarshipSprite::GranokBomber => Self {
+                starship_sprite,
+                shield_sprite: ShieldSprite::GranokBomber,
+                engine_sprite: EngineSprite::GranokBomber,
+                firing_sprite: FiringSprite::GranokBomber,
+                destruction_sprite: DestructionSprite::GranokBomber,
+            },
+            StarshipSprite::GranokDreadnought => Self {
+                starship_sprite,
+                shield_sprite: ShieldSprite::GranokDreadnought,
+                engine_sprite: EngineSprite::GranokDreadnought,
+                firing_sprite: FiringSprite::GranokDreadnought,
+                destruction_sprite: DestructionSprite::GranokDreadnought,
+            },
+            StarshipSprite::GranokFighter => Self {
+                starship_sprite,
+                shield_sprite: ShieldSprite::GranokFighter,
+                engine_sprite: EngineSprite::GranokFighter,
+                firing_sprite: FiringSprite::GranokFighter,
+                destruction_sprite: DestructionSprite::GranokFighter,
+            },
+            StarshipSprite::GranokFrigate => Self {
+                starship_sprite,
+                shield_sprite: ShieldSprite::GranokFrigate,
+                engine_sprite: EngineSprite::GranokFrigate,
+                firing_sprite: FiringSprite::GranokFrigate,
+                destruction_sprite: DestructionSprite::GranokFrigate,
+            },
+            StarshipSprite::GranokScout => Self {
+                starship_sprite,
+                shield_sprite: ShieldSprite::GranokScout,
+                engine_sprite: EngineSprite::GranokScout,
+                firing_sprite: FiringSprite::GranokScout,
+                destruction_sprite: DestructionSprite::GranokScout,
+            },
+            StarshipSprite::GranokSupportShip => Self {
+                starship_sprite,
+                shield_sprite: ShieldSprite::GranokSupportShip,
+                engine_sprite: EngineSprite::GranokSupportShip,
+                firing_sprite: FiringSprite::GranokSupportShip,
+                destruction_sprite: DestructionSprite::GranokSupportShip,
+            },
+            StarshipSprite::GranokTorpedoShip => Self {
+                starship_sprite,
+                shield_sprite: ShieldSprite::GranokTorpedoShip,
+                engine_sprite: EngineSprite::GranokTorpedoShip,
+                firing_sprite: FiringSprite::GranokTorpedoShip,
+                destruction_sprite: DestructionSprite::GranokTorpedoShip,
+            },
         }
     }
 }

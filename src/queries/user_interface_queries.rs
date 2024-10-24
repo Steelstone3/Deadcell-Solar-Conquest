@@ -1,44 +1,30 @@
+use crate::components::{
+    space_facility::SpaceFacility,
+    starship::Starship,
+    user_interface::{Selectable, SelectedSprite},
+};
 use bevy::{
-    ecs::query::{Changed, QueryData, QueryFilter},
-    prelude::Entity,
-    ui::{BorderColor, Interaction},
-};
-
-use crate::components::user_interface::{
-    SelectFacilitySpawnButton, SelectStarshipSpawnButton, SpawnMenuButton, SpawnSubMenuButton,
+    ecs::query::QueryData,
+    prelude::{Entity, Transform},
+    sprite::Sprite,
 };
 
 #[derive(QueryData)]
-pub struct SpawnSubMenuQuery {
+pub struct SelectableQuery {
+    pub transform: &'static Transform,
+    pub sprite: &'static Sprite,
     pub entity: Entity,
-    pub sub_menu: &'static SpawnSubMenuButton,
+    pub selectable: &'static Selectable,
 }
 
 #[derive(QueryData)]
-#[query_data(mutable)]
-pub struct SelectSpawnMenuButtonQuery {
-    pub interaction: &'static Interaction,
-    pub border_color: &'static mut BorderColor,
-    pub button: &'static SpawnMenuButton,
+pub struct SelectionQuery {
+    pub entity: Option<Entity>,
+    pub selected: &'static SelectedSprite,
 }
 
 #[derive(QueryData)]
-#[query_data(mutable)]
-pub struct SelectStarshipSpawnButtonQuery {
-    pub interaction: &'static Interaction,
-    pub border_color: &'static mut BorderColor,
-    pub button: &'static SelectStarshipSpawnButton,
-}
-
-#[derive(QueryData)]
-#[query_data(mutable)]
-pub struct SelectSpaceFacilitySpawnButtonQuery {
-    pub interaction: &'static Interaction,
-    pub border_color: &'static mut BorderColor,
-    pub button: &'static SelectFacilitySpawnButton,
-}
-
-#[derive(QueryFilter)]
-pub struct ButtonFilters {
-    changed_interaction: Changed<Interaction>,
+pub struct TypeCheckQuery {
+    pub space_facility: Option<&'static SpaceFacility>,
+    pub spaceship: Option<&'static Starship>,
 }

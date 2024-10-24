@@ -1,9 +1,21 @@
+use bevy::{
+    ecs::{event::EventWriter, system::Commands},
+    prelude::{EventReader, Res},
+    transform::components::Transform,
+    utils::tracing,
+};
+
 use crate::{
-    assets::user_interace::icons::{
-        space_facility_icons::SpaceFacilityIcon, starship_icons::StarshipIcon,
+    assets::{
+        images::faction_starship_sprite::starship_sprite::StarshipSprite,
+        user_interface::icons::{
+            space_facility_icons::SpaceFacilityIcon, starship_icons::StarshipIcon,
+        },
     },
     components::{
-        controllable::Movement, space_facility::SpaceFacility, starship::Starship,
+        controllable::Movement,
+        space_facility::SpaceFacility,
+        starship::{ShipSpeed, Starship},
         user_interface::Selectable,
     },
     events::{
@@ -13,16 +25,10 @@ use crate::{
     resources::spawn_menu_selection::SpawnMenuSelection,
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
-use bevy::{
-    ecs::{event::EventWriter, system::Commands},
-    prelude::{EventReader, Res},
-    transform::components::Transform,
-    utils::tracing,
-};
 
 pub fn spawner(
     mut commands: Commands,
-    selected_item: Res<SpawnMenuSelection>,
+    spawn_menu_selection: Res<SpawnMenuSelection>,
     mut right_mouse_events: EventReader<MouseRightClickEvent>,
     mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
 ) {
@@ -33,14 +39,14 @@ pub fn spawner(
             ..Default::default()
         };
 
-        match selected_item.selection {
+        match spawn_menu_selection.selection {
             SpawnSelection::None => {}
             SpawnSelection::Other => {}
             SpawnSelection::MultiSelection => {}
             SpawnSelection::StarshipConstructionYard => {
                 spawn_starship(
                     &mut transform,
-                    &selected_item,
+                    &spawn_menu_selection,
                     &mut spawn_sprite_event,
                     &mut commands,
                 );
@@ -48,7 +54,7 @@ pub fn spawner(
             SpawnSelection::SupportShip => {
                 spawn_space_facility(
                     &mut transform,
-                    &selected_item,
+                    &spawn_menu_selection,
                     &mut spawn_sprite_event,
                     &mut commands,
                 );
@@ -56,7 +62,7 @@ pub fn spawner(
             SpawnSelection::Starbase => {
                 spawn_starship(
                     &mut transform,
-                    &selected_item,
+                    &spawn_menu_selection,
                     &mut spawn_sprite_event,
                     &mut commands,
                 );
@@ -96,6 +102,11 @@ fn spawn_starship(
 
     if selected_item.starship_selection != StarshipIcon::None {
         let starship = Starship::new_from_icon(selected_item.starship_selection);
+
+        let ship_speed = ShipSpeed::new_from_ship_type(StarshipSprite::starship_type_convert_from(
+            starship.starship_sprite_bundle.starship_sprite,
+        ));
+
         transform.translation.z = starship.size_component.z_index;
 
         spawn_sprite_event.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
@@ -107,6 +118,8 @@ fn spawn_starship(
                 .insert(Selectable)
                 .insert(Movement {
                     target_location: transform.translation,
+                    max_speed: ship_speed.speed,
+                    current_speed: 0.0,
                 })
                 .id(),
         }));
