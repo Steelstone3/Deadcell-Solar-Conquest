@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy_egui::EguiPlugin;
 use plugins::{
     event_handlers::EventHandlersPlugin, events::EventsPlugin,
     groups::developer_plugin_group::DeveloperPluginGroup, resources::ResourcesPlugin,
@@ -12,7 +13,6 @@ mod plugins;
 mod queries;
 mod resources;
 mod systems;
-mod types;
 
 fn main() {
     // env::set_var("RUST_BACKTRACE", "1");
@@ -34,6 +34,7 @@ fn main() {
                     }),
                     ..Default::default()
                 }),
+            EguiPlugin,
             EventsPlugin,
             EventHandlersPlugin,
             ResourcesPlugin,

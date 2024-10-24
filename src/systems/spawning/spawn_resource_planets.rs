@@ -1,8 +1,7 @@
 use crate::{
-    components::planet::Planet,
+    components::planet::{Planet, PLANET_CLOSEST_DISTANCE_TO_SUN},
     events::spawn_sprite_event::{SpawnAnimatedSprite, SpawnSprite, SpawnSpriteEvent},
     queries::space_queries::SunQuery,
-    resources::constants::PLANET_CLOSEST_DISTANCE_TO_SUN,
 };
 use bevy::{
     ecs::{event::EventWriter, system::Commands},

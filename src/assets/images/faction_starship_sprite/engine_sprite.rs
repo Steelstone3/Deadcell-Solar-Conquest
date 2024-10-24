@@ -25,8 +25,17 @@ pub enum EngineSprite {
     NoozlerScout,
     NoozlerSupportShip,
     NoozlerTorpedoShip,
+    GranokBattleCruiser,
+    GranokBomber,
+    GranokDreadnought,
+    GranokFighter,
+    GranokFrigate,
+    GranokScout,
+    GranokSupportShip,
+    GranokTorpedoShip,
 }
 
+// TODO asset paths
 impl Display for EngineSprite {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -125,6 +134,38 @@ impl Display for EngineSprite {
             EngineSprite::NoozlerTorpedoShip => write!(
                 formatter,
                 "images/factions/noozler/starships/battlecruiser/noozler_torpedo_ship_engines.png"
+            ),
+            EngineSprite::GranokBattleCruiser => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_engines.png"
+            ),
+            EngineSprite::GranokBomber => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_engines.png"
+            ),
+            EngineSprite::GranokDreadnought => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_engines.png"
+            ),
+            EngineSprite::GranokFighter => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_engines.png"
+            ),
+            EngineSprite::GranokFrigate => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_engines.png"
+            ),
+            EngineSprite::GranokScout => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_engines.png"
+            ),
+            EngineSprite::GranokSupportShip => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_engines.png"
+            ),
+            EngineSprite::GranokTorpedoShip => write!(
+                formatter,
+                "images/factions/granok/starships/battlecruiser/granok_torpedo_ship_engines.png"
             ),
         }
     }

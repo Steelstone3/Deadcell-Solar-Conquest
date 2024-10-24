@@ -1,10 +1,10 @@
 [package]
-name = "superior-space-domination"
-version = "0.4.2"
+name = "deadcell-solar-conquest"
+version = "0.5.0"
 authors = ["Skippy <steelstone3@gmail.com>", "Demengies <Demengies@gmail.com>"]
 edition = "2021"
-homepage = "https://github.com/Steelstone3/Superior-Space-Fighters"
-repository = "https://github.com/Steelstone3/Superior-Space-Fighters"
+homepage = "https://github.com/Steelstone3/Deadcell-Solar-Conquest"
+repository = "https://github.com/Steelstone3/Deadcell-Solar-Conquest"
 license = "GPLv3"
 readme = "README.md"
 include = []
@@ -12,21 +12,11 @@ include = []
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [target.'cfg(target_os = "linux")'.dependencies]
-bevy = { version = "0.14", default-features = false, features = [
-    "x11",
-    "wayland",
-    "bevy_ui",
-    "multi_threaded",
-    "png",
-    "vorbis",
-    "bevy_gizmos",
-    "default_font",
-] }
 wayland-sys = "0.31"
 
 [dependencies]
 bevy = "0.14"
-bevy_save = "0.14"
+bevy_egui = "0.30"
 float-lerp = "0"
 rand = "0"
 rand_derive2 = "0"

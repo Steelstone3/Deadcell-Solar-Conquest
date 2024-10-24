@@ -1,8 +1,15 @@
 use crate::{
-    components::{controllable::Movement, starship::Starship, user_interface::Selectable},
+    assets::images::{
+        faction_starship_sprite::starship_sprite::StarshipSprite, starship_type::StarshipType,
+    },
+    components::{
+        controllable::Movement,
+        starship::{ShipSpeed, Starship},
+        user_interface::Selectable,
+    },
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     queries::faction_queries::SpaceStationQuery,
-    resources::faction::{PlayerFaction, StarshipType},
+    resources::faction::PlayerFaction,
 };
 use bevy::prelude::{Commands, EventWriter, Query, Res};
 
@@ -20,6 +27,10 @@ pub fn spawn_starter_spaceship(
         let mut starship_transform = *space_station_query.transform;
         starship_transform.translation.z = starship.size_component.z_index;
 
+        let ship_speed = ShipSpeed::new_from_ship_type(StarshipSprite::starship_type_convert_from(
+            starship.starship_sprite_bundle.starship_sprite,
+        ));
+
         spawn_sprite_event.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: starship.starship_sprite_bundle.starship_sprite.to_string(),
             size: starship.size_component.size,
@@ -29,6 +40,8 @@ pub fn spawn_starter_spaceship(
                 .insert(Selectable)
                 .insert(Movement {
                     target_location: starship_transform.translation,
+                    max_speed: ship_speed.speed,
+                    current_speed: 0.0,
                 })
                 .id(),
         }));

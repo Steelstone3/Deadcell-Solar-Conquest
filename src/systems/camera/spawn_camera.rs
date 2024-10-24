@@ -4,11 +4,11 @@ use bevy::{
     utils::default,
 };
 
-use crate::components::space_station::SpaceStation;
+use crate::components::space_facility::SpaceFacility;
 
 pub fn spawn_camera(
     mut commands: Commands,
-    space_station_transform_query: Query<&Transform, With<SpaceStation>>,
+    space_station_transform_query: Query<&Transform, With<SpaceFacility>>,
 ) {
     let Ok(space_station_transform) = space_station_transform_query.get_single() else {
         return;

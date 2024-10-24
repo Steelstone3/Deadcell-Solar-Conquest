@@ -52,20 +52,3 @@ impl Display for MusicSound {
         }
     }
 }
-
-// Left in as an example
-#[cfg(test)]
-mod music_should {
-    // use super::*;
-    // use rstest::rstest;
-
-    #[test]
-    fn example() {
-        // Given
-
-        // When
-
-        // Then
-        assert_eq!(1, 1);
-    }
-}
