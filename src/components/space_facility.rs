@@ -8,7 +8,7 @@ use crate::{
 };
 use bevy::{ecs::component::Component, math::Vec2};
 
-const SIZE: f32 = SPACE_TILE_SIZE;
+const SIZE: f32 = SPACE_TILE_SIZE * 1.5;
 const SPACE_FACILITY_SIZE: Vec2 = Vec2::new(SIZE, SIZE);
 
 #[derive(Component, Clone, Copy)]
