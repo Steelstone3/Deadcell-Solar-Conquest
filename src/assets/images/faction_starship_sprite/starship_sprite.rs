@@ -138,23 +138,7 @@ impl Display for StarshipSprite {
                 formatter,
                 "images/factions/noozler/starships/dreadnought/noozler_dreadnought.png"
             ),
-            StarshipSprite::GranokBattleCruiser => write!(
-                formatter,
-                "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
-            ),
-            StarshipSprite::GranokBomber => write!(
-                formatter,
-                "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
-            ),
-            StarshipSprite::GranokDreadnought => write!(
-                formatter,
-                "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
-            ),
-            StarshipSprite::GranokFighter => write!(
-                formatter,
-                "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
-            ),
-            StarshipSprite::GranokFrigate => write!(
+            StarshipSprite::GranokSupportShip => write!(
                 formatter,
                 "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
             ),
@@ -162,11 +146,27 @@ impl Display for StarshipSprite {
                 formatter,
                 "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
             ),
-            StarshipSprite::GranokSupportShip => write!(
+            StarshipSprite::GranokFighter => write!(
                 formatter,
                 "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
             ),
             StarshipSprite::GranokTorpedoShip => write!(
+                formatter,
+                "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
+            ),
+            StarshipSprite::GranokBomber => write!(
+                formatter,
+                "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
+            ),
+            StarshipSprite::GranokFrigate => write!(
+                formatter,
+                "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
+            ),
+            StarshipSprite::GranokBattleCruiser => write!(
+                formatter,
+                "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
+            ),
+            StarshipSprite::GranokDreadnought => write!(
                 formatter,
                 "images/factions/granok/starships/torpedo_ship/granok_torpedo_ship.png"
             ),
