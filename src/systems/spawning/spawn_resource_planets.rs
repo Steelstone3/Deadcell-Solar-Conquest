@@ -34,6 +34,7 @@ pub fn spawn_resource_planets(
                         planet.size_component.size.x as u32,
                         planet.size_component.size.y as u32,
                     )) as f32;
+            transform.translation.z = planet.size_component.z_index;
 
             spawn_animated_sprite_event.send(SpawnSpriteEvent::spawn_animated_sprite(
                 SpawnSprite {
