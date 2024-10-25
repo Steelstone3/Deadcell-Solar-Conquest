@@ -32,12 +32,12 @@ pub fn controllable_move_to_target(
         if distance_to_target <= 60.0 {
             controllable_query.0.current_speed =
                 (current_transform.translation - target_location).length();
-        } else if controllable_query.0.current_speed < controllable_query.0.max_speed {
+        } else if controllable_query.0.current_speed < controllable_query.0.maximum_speed {
             controllable_query.0.current_speed = controllable_query
                 .0
                 .current_speed
                 .add(0.5)
-                .clamp(0.0, controllable_query.0.max_speed);
+                .clamp(0.0, controllable_query.0.maximum_speed);
         }
 
         controllable_query.1.translation +=

@@ -40,7 +40,7 @@ pub fn spawn_starter_spaceship(
                 .insert(Selectable)
                 .insert(Movement {
                     target_location: starship_transform.translation,
-                    max_speed: ship_speed.speed,
+                    maximum_speed: ship_speed.speed,
                     current_speed: 0.0,
                 })
                 .id(),

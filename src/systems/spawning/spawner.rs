@@ -118,7 +118,7 @@ fn spawn_starship(
                 .insert(Selectable)
                 .insert(Movement {
                     target_location: transform.translation,
-                    max_speed: ship_speed.speed,
+                    maximum_speed: ship_speed.speed,
                     current_speed: 0.0,
                 })
                 .id(),
