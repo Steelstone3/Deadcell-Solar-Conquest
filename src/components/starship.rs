@@ -14,11 +14,7 @@ use bevy::{ecs::component::Component, math::Vec2};
 
 // TODO spawned starships take damage a radius 1.5 to 2 times the suns size (mechanic)
 
-const SIZE: f32 = TILE_SIZE;
-
-const FAST_SHIP_SPEED: f32 = 100.0;
-const MEDIUM_SHIP_SPEED: f32 = 75.0;
-const SLOW_SHIP_SPEED: f32 = 50.0;
+const SIZE: f32 = TILE_SIZE * 16.0;
 
 #[derive(Component)]
 pub struct Starship {
@@ -50,7 +46,7 @@ impl Starship {
             starship_sprite_bundle: StarshipSpriteBundle::new(starship_sprite),
             faction: Faction::determine_faction(starship_sprite),
             size_component: SizeComponent {
-                size: Vec2::new(TILE_SIZE, TILE_SIZE),
+                size: Vec2::new(SIZE, SIZE),
                 z_index: 5.0,
             },
             weapon: Weapon::new(starship_sprite),
@@ -58,23 +54,52 @@ impl Starship {
     }
 }
 
-pub struct ShipSpeed {
+pub struct StarshipSpeed {
     pub speed: f32,
 }
 
-impl ShipSpeed {
-    pub fn new_from_ship_type(ship_type: StarshipType) -> ShipSpeed {
+impl StarshipSpeed {
+    pub fn new_from_starship_type(starship_type: StarshipType) -> StarshipSpeed {
+        let very_fast_speed: f32 = 1000.0;
+        let fast_speed: f32 = 500.0;
+        let medium_speed: f32 = 350.0;
+        let slow_speed: f32 = 175.0;
+        let very_slow_speed: f32 = 125.0;
+
         Self {
-            speed: match ship_type {
-                StarshipType::SupportShip => MEDIUM_SHIP_SPEED,
-                StarshipType::Scout => FAST_SHIP_SPEED,
-                StarshipType::Fighter => FAST_SHIP_SPEED,
-                StarshipType::TorpedoShip => SLOW_SHIP_SPEED,
-                StarshipType::Bomber => MEDIUM_SHIP_SPEED,
-                StarshipType::Frigate => SLOW_SHIP_SPEED,
-                StarshipType::BattleCruiser => MEDIUM_SHIP_SPEED,
-                StarshipType::Dreadnought => SLOW_SHIP_SPEED,
+            speed: match starship_type {
+                StarshipType::SupportShip => medium_speed,
+                StarshipType::Scout => very_fast_speed,
+                StarshipType::Fighter => fast_speed,
+                StarshipType::TorpedoShip => medium_speed,
+                StarshipType::Bomber => medium_speed,
+                StarshipType::Frigate => slow_speed,
+                StarshipType::BattleCruiser => slow_speed,
+                StarshipType::Dreadnought => very_slow_speed,
             },
         }
+    }
+}
+
+#[cfg(test)]
+mod starship_speed_should {
+    use super::*;
+    use rstest::rstest;
+
+    #[rstest]
+    #[case(StarshipType::SupportShip, 350.0)]
+    #[case(StarshipType::Scout, 1000.0)]
+    #[case(StarshipType::Fighter, 500.0)]
+    #[case(StarshipType::TorpedoShip, 350.0)]
+    #[case(StarshipType::Bomber, 350.0)]
+    #[case(StarshipType::Frigate, 175.0)]
+    #[case(StarshipType::BattleCruiser, 175.0)]
+    #[case(StarshipType::Dreadnought, 125.0)]
+    fn new_from_starship_type(#[case] starship_type: StarshipType, #[case] speed: f32) {
+        // When
+        let actual_starship_speed = StarshipSpeed::new_from_starship_type(starship_type);
+
+        // Then
+        assert_eq!(speed, actual_starship_speed.speed);
     }
 }

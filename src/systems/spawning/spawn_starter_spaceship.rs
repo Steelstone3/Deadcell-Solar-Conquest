@@ -4,7 +4,7 @@ use crate::{
     },
     components::{
         controllable::Movement,
-        starship::{ShipSpeed, Starship},
+        starship::{StarshipSpeed, Starship},
         user_interface::Selectable,
     },
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
@@ -27,7 +27,7 @@ pub fn spawn_starter_spaceship(
         let mut starship_transform = *space_station_query.transform;
         starship_transform.translation.z = starship.size_component.z_index;
 
-        let ship_speed = ShipSpeed::new_from_ship_type(StarshipSprite::starship_type_convert_from(
+        let ship_speed = StarshipSpeed::new_from_starship_type(StarshipSprite::starship_type_convert_from(
             starship.starship_sprite_bundle.starship_sprite,
         ));
 

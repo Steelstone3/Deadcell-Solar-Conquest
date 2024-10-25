@@ -8,6 +8,7 @@ use bevy::{
 
 use crate::components::controllable::Movement;
 
+// TODO add to queries
 pub fn controllable_move_to_target(
     time: Res<Time>,
     mut controllable_queries: Query<(&mut Movement, &mut Transform)>,
@@ -29,14 +30,14 @@ pub fn controllable_move_to_target(
         let rotate_to_target = Quat::from_rotation_arc(Vec3::Y, to_target.extend(0.0));
         controllable_query.1.rotation = controllable_query.1.rotation.lerp(rotate_to_target, 0.05);
 
-        if distance_to_target <= 60.0 {
+        if distance_to_target <= 100.0 {
             controllable_query.0.current_speed =
                 (current_transform.translation - target_location).length();
         } else if controllable_query.0.current_speed < controllable_query.0.maximum_speed {
             controllable_query.0.current_speed = controllable_query
                 .0
                 .current_speed
-                .add(0.5)
+                .add(5.0)
                 .clamp(0.0, controllable_query.0.maximum_speed);
         }
 

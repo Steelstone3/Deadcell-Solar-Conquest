@@ -12,6 +12,8 @@ use crate::{
     resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
 };
 
+// TODO better spacing
+// TODO better distribution across the map (maybe spawn zones)
 pub fn spawn_suns(
     mut commands: Commands,
     mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
