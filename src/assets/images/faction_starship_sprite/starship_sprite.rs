@@ -5,74 +5,74 @@ use std::fmt::Display;
 
 #[derive(PartialEq, Clone, Copy, Debug)]
 pub enum StarshipSprite {
-    AtarkBattleCruiser,
-    AtarkBomber,
-    AtarkDreadnought,
-    AtarkFighter,
-    AtarkFrigate,
-    AtarkScout,
     AtarkSupportShip,
+    AtarkScout,
+    AtarkFighter,
     AtarkTorpedoShip,
-    KarcanBattleCruiser,
-    KarcanBomber,
-    KarcanDreadnought,
-    KarcanFighter,
-    KarcanFrigate,
-    KarcanScout,
+    AtarkBomber,
+    AtarkFrigate,
+    AtarkBattleCruiser,
+    AtarkDreadnought,
     KarcanSupportShip,
+    KarcanScout,
+    KarcanFighter,
     KarcanTorpedoShip,
-    NoozlerBattleCruiser,
-    NoozlerBomber,
-    NoozlerDreadnought,
-    NoozlerFighter,
-    NoozlerFrigate,
-    NoozlerScout,
+    KarcanBomber,
+    KarcanFrigate,
+    KarcanBattleCruiser,
+    KarcanDreadnought,
     NoozlerSupportShip,
+    NoozlerScout,
+    NoozlerFighter,
     NoozlerTorpedoShip,
-    GranokBattleCruiser,
-    GranokBomber,
-    GranokDreadnought,
-    GranokFighter,
-    GranokFrigate,
-    GranokScout,
+    NoozlerBomber,
+    NoozlerFrigate,
+    NoozlerBattleCruiser,
+    NoozlerDreadnought,
     GranokSupportShip,
+    GranokScout,
+    GranokFighter,
     GranokTorpedoShip,
+    GranokBomber,
+    GranokFrigate,
+    GranokBattleCruiser,
+    GranokDreadnought,
 }
 
 impl Display for StarshipSprite {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            StarshipSprite::AtarkBattleCruiser => write!(
+            StarshipSprite::AtarkSupportShip => write!(
                 formatter,
-                "images/factions/atark/starships/battlecruiser/atark_battlecruiser.png"
-            ),
-            StarshipSprite::AtarkBomber => write!(
-                formatter,
-                "images/factions/atark/starships/bomber/atark_bomber.png"
-            ),
-            StarshipSprite::AtarkDreadnought => write!(
-                formatter,
-                "images/factions/atark/starships/dreadnought/atark_dreadnought.png"
-            ),
-            StarshipSprite::AtarkFighter => write!(
-                formatter,
-                "images/factions/atark/starships/fighter/atark_fighter.png"
-            ),
-            StarshipSprite::AtarkFrigate => write!(
-                formatter,
-                "images/factions/atark/starships/frigate/atark_frigate.png"
+                "images/factions/atark/starships/support_ship/atark_support_ship.png"
             ),
             StarshipSprite::AtarkScout => write!(
                 formatter,
                 "images/factions/atark/starships/scout/atark_scout.png"
             ),
-            StarshipSprite::AtarkSupportShip => write!(
+            StarshipSprite::AtarkFighter => write!(
                 formatter,
-                "images/factions/atark/starships/support_ship/atark_support_ship.png"
+                "images/factions/atark/starships/fighter/atark_fighter.png"
             ),
             StarshipSprite::AtarkTorpedoShip => write!(
                 formatter,
                 "images/factions/atark/starships/torpedo_ship/atark_torpedo_ship.png"
+            ),
+            StarshipSprite::AtarkBomber => write!(
+                formatter,
+                "images/factions/atark/starships/bomber/atark_bomber.png"
+            ),
+            StarshipSprite::AtarkFrigate => write!(
+                formatter,
+                "images/factions/atark/starships/frigate/atark_frigate.png"
+            ),
+            StarshipSprite::AtarkBattleCruiser => write!(
+                formatter,
+                "images/factions/atark/starships/battlecruiser/atark_battlecruiser.png"
+            ),
+            StarshipSprite::AtarkDreadnought => write!(
+                formatter,
+                "images/factions/atark/starships/dreadnought/atark_dreadnought.png"
             ),
             StarshipSprite::KarcanBattleCruiser => write!(
                 formatter,
