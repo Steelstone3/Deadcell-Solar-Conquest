@@ -74,37 +74,37 @@ impl Display for StarshipSprite {
                 formatter,
                 "images/factions/atark/starships/dreadnought/atark_dreadnought.png"
             ),
-            StarshipSprite::KarcanBattleCruiser => write!(
+            StarshipSprite::KarcanSupportShip => write!(
                 formatter,
-                "images/factions/karcan/starships/battlecruiser/karcan_battlecruiser.png"
-            ),
-            StarshipSprite::KarcanBomber => write!(
-                formatter,
-                "images/factions/karcan/starships/bomber/karcan_bomber.png"
-            ),
-            StarshipSprite::KarcanDreadnought => write!(
-                formatter,
-                "images/factions/karcan/starships/dreadnought/karcan_dreadnought.png"
-            ),
-            StarshipSprite::KarcanFighter => write!(
-                formatter,
-                "images/factions/karcan/starships/fighter/karcan_fighter.png"
-            ),
-            StarshipSprite::KarcanFrigate => write!(
-                formatter,
-                "images/factions/karcan/starships/frigate/karcan_frigate.png"
+                "images/factions/karcan/starships/support_ship/karcan_support_ship.png"
             ),
             StarshipSprite::KarcanScout => write!(
                 formatter,
                 "images/factions/karcan/starships/scout/karcan_scout.png"
             ),
-            StarshipSprite::KarcanSupportShip => write!(
+            StarshipSprite::KarcanFighter => write!(
                 formatter,
-                "images/factions/karcan/starships/support_ship/karcan_support_ship.png"
+                "images/factions/karcan/starships/fighter/karcan_fighter.png"
             ),
             StarshipSprite::KarcanTorpedoShip => write!(
                 formatter,
                 "images/factions/karcan/starships/torpedo_ship/karcan_torpedo_ship.png"
+            ),
+            StarshipSprite::KarcanBomber => write!(
+                formatter,
+                "images/factions/karcan/starships/bomber/karcan_bomber.png"
+            ),
+            StarshipSprite::KarcanFrigate => write!(
+                formatter,
+                "images/factions/karcan/starships/frigate/karcan_frigate.png"
+            ),
+            StarshipSprite::KarcanBattleCruiser => write!(
+                formatter,
+                "images/factions/karcan/starships/battlecruiser/karcan_battlecruiser.png"
+            ),
+            StarshipSprite::KarcanDreadnought => write!(
+                formatter,
+                "images/factions/karcan/starships/dreadnought/karcan_dreadnought.png"
             ),
             StarshipSprite::NoozlerBattleCruiser => write!(
                 formatter,
