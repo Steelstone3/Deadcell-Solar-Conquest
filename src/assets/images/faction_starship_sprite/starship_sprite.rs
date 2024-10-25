@@ -215,38 +215,38 @@ impl StarshipSprite {
 
     pub fn starship_type_convert_from(starship_sprite: StarshipSprite) -> StarshipType {
         match starship_sprite {
-            StarshipSprite::AtarkBattleCruiser
-            | StarshipSprite::KarcanBattleCruiser
-            | StarshipSprite::NoozlerBattleCruiser
-            | StarshipSprite::GranokBattleCruiser => StarshipType::BattleCruiser,
-            StarshipSprite::AtarkBomber
-            | StarshipSprite::KarcanBomber
-            | StarshipSprite::NoozlerBomber
-            | StarshipSprite::GranokBomber => StarshipType::Bomber,
-            StarshipSprite::AtarkDreadnought
-            | StarshipSprite::KarcanDreadnought
-            | StarshipSprite::NoozlerDreadnought
-            | StarshipSprite::GranokDreadnought => StarshipType::Dreadnought,
-            StarshipSprite::AtarkFighter
-            | StarshipSprite::KarcanFighter
-            | StarshipSprite::NoozlerFighter
-            | StarshipSprite::GranokFighter => StarshipType::Fighter,
-            StarshipSprite::AtarkFrigate
-            | StarshipSprite::KarcanFrigate
-            | StarshipSprite::NoozlerFrigate
-            | StarshipSprite::GranokFrigate => StarshipType::Frigate,
-            StarshipSprite::AtarkScout
-            | StarshipSprite::KarcanScout
-            | StarshipSprite::NoozlerScout
-            | StarshipSprite::GranokScout => StarshipType::Scout,
             StarshipSprite::AtarkSupportShip
             | StarshipSprite::KarcanSupportShip
             | StarshipSprite::NoozlerSupportShip
             | StarshipSprite::GranokSupportShip => StarshipType::SupportShip,
+            StarshipSprite::AtarkScout
+            | StarshipSprite::KarcanScout
+            | StarshipSprite::NoozlerScout
+            | StarshipSprite::GranokScout => StarshipType::Scout,
+            StarshipSprite::AtarkFighter
+            | StarshipSprite::KarcanFighter
+            | StarshipSprite::NoozlerFighter
+            | StarshipSprite::GranokFighter => StarshipType::Fighter,
             StarshipSprite::AtarkTorpedoShip
             | StarshipSprite::KarcanTorpedoShip
             | StarshipSprite::NoozlerTorpedoShip
             | StarshipSprite::GranokTorpedoShip => StarshipType::TorpedoShip,
+            StarshipSprite::AtarkBomber
+            | StarshipSprite::KarcanBomber
+            | StarshipSprite::NoozlerBomber
+            | StarshipSprite::GranokBomber => StarshipType::Bomber,
+            StarshipSprite::AtarkFrigate
+            | StarshipSprite::KarcanFrigate
+            | StarshipSprite::NoozlerFrigate
+            | StarshipSprite::GranokFrigate => StarshipType::Frigate,
+            StarshipSprite::AtarkBattleCruiser
+            | StarshipSprite::KarcanBattleCruiser
+            | StarshipSprite::NoozlerBattleCruiser
+            | StarshipSprite::GranokBattleCruiser => StarshipType::BattleCruiser,
+            StarshipSprite::AtarkDreadnought
+            | StarshipSprite::KarcanDreadnought
+            | StarshipSprite::NoozlerDreadnought
+            | StarshipSprite::GranokDreadnought => StarshipType::Dreadnought,
         }
     }
 }
@@ -289,7 +289,10 @@ mod starship_sprite_should {
     #[case(StarshipIcon::NoozlerTorpedoShip, StarshipSprite::NoozlerTorpedoShip)]
     #[case(StarshipIcon::NoozlerBomber, StarshipSprite::NoozlerBomber)]
     #[case(StarshipIcon::NoozlerFrigate, StarshipSprite::NoozlerFrigate)]
-    #[case(StarshipIcon::NoozlerBattleCruiser, StarshipSprite::NoozlerBattleCruiser)]
+    #[case(
+        StarshipIcon::NoozlerBattleCruiser,
+        StarshipSprite::NoozlerBattleCruiser
+    )]
     #[case(StarshipIcon::NoozlerDreadnought, StarshipSprite::NoozlerDreadnought)]
     #[case(StarshipIcon::GranokSupportShip, StarshipSprite::GranokSupportShip)]
     #[case(StarshipIcon::GranokScout, StarshipSprite::GranokScout)]
@@ -311,6 +314,46 @@ mod starship_sprite_should {
     }
 
     #[rstest]
-    #[ignore = "to do"]
-    fn starship_type_convert_from() {}
+    #[case(StarshipSprite::AtarkSupportShip, StarshipType::SupportShip)]
+    #[case(StarshipSprite::AtarkScout, StarshipType::Scout)]
+    #[case(StarshipSprite::AtarkFighter, StarshipType::Fighter)]
+    #[case(StarshipSprite::AtarkTorpedoShip, StarshipType::TorpedoShip)]
+    #[case(StarshipSprite::AtarkBomber, StarshipType::Bomber)]
+    #[case(StarshipSprite::AtarkFrigate, StarshipType::Frigate)]
+    #[case(StarshipSprite::AtarkBattleCruiser, StarshipType::BattleCruiser)]
+    #[case(StarshipSprite::AtarkDreadnought, StarshipType::Dreadnought)]
+    #[case(StarshipSprite::KarcanSupportShip, StarshipType::SupportShip)]
+    #[case(StarshipSprite::KarcanScout, StarshipType::Scout)]
+    #[case(StarshipSprite::KarcanFighter, StarshipType::Fighter)]
+    #[case(StarshipSprite::KarcanTorpedoShip, StarshipType::TorpedoShip)]
+    #[case(StarshipSprite::KarcanBomber, StarshipType::Bomber)]
+    #[case(StarshipSprite::KarcanFrigate, StarshipType::Frigate)]
+    #[case(StarshipSprite::KarcanBattleCruiser, StarshipType::BattleCruiser)]
+    #[case(StarshipSprite::KarcanDreadnought, StarshipType::Dreadnought)]
+    #[case(StarshipSprite::NoozlerSupportShip, StarshipType::SupportShip)]
+    #[case(StarshipSprite::NoozlerScout, StarshipType::Scout)]
+    #[case(StarshipSprite::NoozlerFighter, StarshipType::Fighter)]
+    #[case(StarshipSprite::NoozlerTorpedoShip, StarshipType::TorpedoShip)]
+    #[case(StarshipSprite::NoozlerBomber, StarshipType::Bomber)]
+    #[case(StarshipSprite::NoozlerFrigate, StarshipType::Frigate)]
+    #[case(StarshipSprite::NoozlerBattleCruiser, StarshipType::BattleCruiser)]
+    #[case(StarshipSprite::NoozlerDreadnought, StarshipType::Dreadnought)]
+    #[case(StarshipSprite::GranokSupportShip, StarshipType::SupportShip)]
+    #[case(StarshipSprite::GranokScout, StarshipType::Scout)]
+    #[case(StarshipSprite::GranokFighter, StarshipType::Fighter)]
+    #[case(StarshipSprite::GranokTorpedoShip, StarshipType::TorpedoShip)]
+    #[case(StarshipSprite::GranokBomber, StarshipType::Bomber)]
+    #[case(StarshipSprite::GranokFrigate, StarshipType::Frigate)]
+    #[case(StarshipSprite::GranokBattleCruiser, StarshipType::BattleCruiser)]
+    #[case(StarshipSprite::GranokDreadnought, StarshipType::Dreadnought)]
+    fn starship_type_convert_from(
+        #[case] starship_sprite: StarshipSprite,
+        #[case] starship_type: StarshipType,
+    ) {
+        // When
+        let actual_starship_type = StarshipSprite::starship_type_convert_from(starship_sprite);
+
+        // Then
+        assert_eq!(starship_type, actual_starship_type)
+    }
 }
