@@ -253,16 +253,62 @@ impl StarshipSprite {
 
 #[cfg(test)]
 mod starship_sprite_should {
-    // use super::*;
+    use super::*;
     use rstest::rstest;
 
-    #[rstest]
-    #[ignore = "to do"]
-    fn sprite_convert_from_none() {}
+    #[test]
+    #[should_panic(expected = "Spaceship Sprite: Must have an icon to convert")]
+    fn sprite_convert_from_none() {
+        // Given
+        let starship_icon = StarshipIcon::None;
+
+        // When
+        StarshipSprite::sprite_convert_from(starship_icon);
+    }
 
     #[rstest]
-    #[ignore = "to do"]
-    fn sprite_convert_from() {}
+    #[case(StarshipIcon::AtarkSupportShip, StarshipSprite::AtarkSupportShip)]
+    #[case(StarshipIcon::AtarkScout, StarshipSprite::AtarkScout)]
+    #[case(StarshipIcon::AtarkFighter, StarshipSprite::AtarkFighter)]
+    #[case(StarshipIcon::AtarkTorpedoShip, StarshipSprite::AtarkTorpedoShip)]
+    #[case(StarshipIcon::AtarkBomber, StarshipSprite::AtarkBomber)]
+    #[case(StarshipIcon::AtarkFrigate, StarshipSprite::AtarkFrigate)]
+    #[case(StarshipIcon::AtarkBattleCruiser, StarshipSprite::AtarkBattleCruiser)]
+    #[case(StarshipIcon::AtarkDreadnought, StarshipSprite::AtarkDreadnought)]
+    #[case(StarshipIcon::KarcanSupportShip, StarshipSprite::KarcanSupportShip)]
+    #[case(StarshipIcon::KarcanScout, StarshipSprite::KarcanScout)]
+    #[case(StarshipIcon::KarcanFighter, StarshipSprite::KarcanFighter)]
+    #[case(StarshipIcon::KarcanTorpedoShip, StarshipSprite::KarcanTorpedoShip)]
+    #[case(StarshipIcon::KarcanBomber, StarshipSprite::KarcanBomber)]
+    #[case(StarshipIcon::KarcanFrigate, StarshipSprite::KarcanFrigate)]
+    #[case(StarshipIcon::KarcanBattleCruiser, StarshipSprite::KarcanBattleCruiser)]
+    #[case(StarshipIcon::KarcanDreadnought, StarshipSprite::KarcanDreadnought)]
+    #[case(StarshipIcon::NoozlerSupportShip, StarshipSprite::NoozlerSupportShip)]
+    #[case(StarshipIcon::NoozlerScout, StarshipSprite::NoozlerScout)]
+    #[case(StarshipIcon::NoozlerFighter, StarshipSprite::NoozlerFighter)]
+    #[case(StarshipIcon::NoozlerTorpedoShip, StarshipSprite::NoozlerTorpedoShip)]
+    #[case(StarshipIcon::NoozlerBomber, StarshipSprite::NoozlerBomber)]
+    #[case(StarshipIcon::NoozlerFrigate, StarshipSprite::NoozlerFrigate)]
+    #[case(StarshipIcon::NoozlerBattleCruiser, StarshipSprite::NoozlerBattleCruiser)]
+    #[case(StarshipIcon::NoozlerDreadnought, StarshipSprite::NoozlerDreadnought)]
+    #[case(StarshipIcon::GranokSupportShip, StarshipSprite::GranokSupportShip)]
+    #[case(StarshipIcon::GranokScout, StarshipSprite::GranokScout)]
+    #[case(StarshipIcon::GranokFighter, StarshipSprite::GranokFighter)]
+    #[case(StarshipIcon::GranokTorpedoShip, StarshipSprite::GranokTorpedoShip)]
+    #[case(StarshipIcon::GranokBomber, StarshipSprite::GranokBomber)]
+    #[case(StarshipIcon::GranokFrigate, StarshipSprite::GranokFrigate)]
+    #[case(StarshipIcon::GranokBattleCruiser, StarshipSprite::GranokBattleCruiser)]
+    #[case(StarshipIcon::GranokDreadnought, StarshipSprite::GranokDreadnought)]
+    fn sprite_convert_from(
+        #[case] starship_icon: StarshipIcon,
+        #[case] starship_sprite: StarshipSprite,
+    ) {
+        // When
+        let actual_starship_sprite = StarshipSprite::sprite_convert_from(starship_icon);
+
+        // Then
+        assert_eq!(starship_sprite, actual_starship_sprite);
+    }
 
     #[rstest]
     #[ignore = "to do"]
