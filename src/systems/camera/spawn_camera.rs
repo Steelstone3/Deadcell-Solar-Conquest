@@ -3,6 +3,7 @@ use bevy::{
     utils::default,
 };
 
+// TODO Work out how to spawn a camera for each player's base
 pub fn spawn_camera(
     mut commands: Commands,
     // space_station_transform_query: Query<&Transform, With<SpaceFacility>>,
