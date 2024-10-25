@@ -126,6 +126,55 @@ mod space_facility_type_should {
     }
 
     #[rstest]
-    #[ignore]
-    fn space_facility_type_convert_from() {}
+    #[case(
+        SpaceFacilityType::SpaceStation,
+        Faction::Atark,
+        SpaceFacilitySprite::AtarkSpaceStation
+    )]
+    #[case(
+        SpaceFacilityType::SpaceStation,
+        Faction::Karcan,
+        SpaceFacilitySprite::KarcanSpaceStation
+    )]
+    #[case(
+        SpaceFacilityType::SpaceStation,
+        Faction::Noozler,
+        SpaceFacilitySprite::NoozlerSpaceStation
+    )]
+    #[case(
+        SpaceFacilityType::SpaceStation,
+        Faction::Granok,
+        SpaceFacilitySprite::GranokSpaceStation
+    )]
+    #[case(
+        SpaceFacilityType::SpaceShipConstructionYard,
+        Faction::Atark,
+        SpaceFacilitySprite::AtarkSpaceShipConstructionYard
+    )]
+    #[case(
+        SpaceFacilityType::SpaceShipConstructionYard,
+        Faction::Karcan,
+        SpaceFacilitySprite::KarcanSpaceShipConstructionYard
+    )]
+    #[case(
+        SpaceFacilityType::SpaceShipConstructionYard,
+        Faction::Noozler,
+        SpaceFacilitySprite::NoozlerSpaceShipConstructionYard
+    )]
+    #[case(
+        SpaceFacilityType::SpaceShipConstructionYard,
+        Faction::Granok,
+        SpaceFacilitySprite::GranokSpaceShipConstructionYard
+    )]
+    fn sprite_convert_from(
+        #[case] space_facility_type: SpaceFacilityType,
+        #[case] faction: Faction,
+        #[case] space_facility_sprite: SpaceFacilitySprite,
+    ) {
+        // When
+        let actual_space_facility_sprite = space_facility_type.sprite_convert_from(faction);
+
+        // Then
+        assert_eq!(space_facility_sprite, actual_space_facility_sprite);
+    }
 }
