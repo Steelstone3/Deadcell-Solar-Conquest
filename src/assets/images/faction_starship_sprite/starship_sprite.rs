@@ -106,37 +106,37 @@ impl Display for StarshipSprite {
                 formatter,
                 "images/factions/karcan/starships/dreadnought/karcan_dreadnought.png"
             ),
-            StarshipSprite::NoozlerBattleCruiser => write!(
+            StarshipSprite::NoozlerSupportShip => write!(
                 formatter,
-                "images/factions/noozler/starships/battlecruiser/noozler_battlecruiser.png"
-            ),
-            StarshipSprite::NoozlerBomber => write!(
-                formatter,
-                "images/factions/noozler/starships/bomber/noozler_bomber.png"
-            ),
-            StarshipSprite::NoozlerDreadnought => write!(
-                formatter,
-                "images/factions/noozler/starships/dreadnought/noozler_dreadnought.png"
-            ),
-            StarshipSprite::NoozlerFighter => write!(
-                formatter,
-                "images/factions/noozler/starships/fighter/noozler_fighter.png"
-            ),
-            StarshipSprite::NoozlerFrigate => write!(
-                formatter,
-                "images/factions/noozler/starships/frigate/noozler_frigate.png"
+                "images/factions/noozler/starships/support_ship/noozler_support_ship.png"
             ),
             StarshipSprite::NoozlerScout => write!(
                 formatter,
                 "images/factions/noozler/starships/scout/noozler_scout.png"
             ),
-            StarshipSprite::NoozlerSupportShip => write!(
+            StarshipSprite::NoozlerFighter => write!(
                 formatter,
-                "images/factions/noozler/starships/support_ship/noozler_support_ship.png"
+                "images/factions/noozler/starships/fighter/noozler_fighter.png"
             ),
             StarshipSprite::NoozlerTorpedoShip => write!(
                 formatter,
                 "images/factions/noozler/starships/torpedo_ship/noozler_torpedo_ship.png"
+            ),
+            StarshipSprite::NoozlerBomber => write!(
+                formatter,
+                "images/factions/noozler/starships/bomber/noozler_bomber.png"
+            ),
+            StarshipSprite::NoozlerFrigate => write!(
+                formatter,
+                "images/factions/noozler/starships/frigate/noozler_frigate.png"
+            ),
+            StarshipSprite::NoozlerBattleCruiser => write!(
+                formatter,
+                "images/factions/noozler/starships/battlecruiser/noozler_battlecruiser.png"
+            ),
+            StarshipSprite::NoozlerDreadnought => write!(
+                formatter,
+                "images/factions/noozler/starships/dreadnought/noozler_dreadnought.png"
             ),
             StarshipSprite::GranokBattleCruiser => write!(
                 formatter,
