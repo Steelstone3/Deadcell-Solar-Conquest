@@ -12,13 +12,15 @@ use crate::{
     resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
 };
 
+// TODO better spacing
+// TODO better distribution across the map (maybe spawn zones)
 pub fn spawn_suns(
     mut commands: Commands,
     mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
     game_settings: Res<GameSettings>,
 ) {
     let mut rng = rand::thread_rng();
-    let number_of_suns = rng.gen_range(3..6);
+    let number_of_suns = game_settings.number_of_players;
 
     for _ in 0..number_of_suns {
         let sun = Sun::new(random());
