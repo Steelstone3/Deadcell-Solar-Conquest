@@ -4,7 +4,7 @@ use crate::{assets::images::sun_sprite::SunSprite, resources::constants::SPACE_T
 
 use super::size_component::SizeComponent;
 
-const SIZE: f32 = SPACE_TILE_SIZE; // minimum size
+const SIZE: f32 = SPACE_TILE_SIZE * 4.0; // minimum size
 const SUN_SIZE: Vec2 = Vec2::new(SIZE, SIZE);
 
 #[derive(Component, Clone, Copy)]

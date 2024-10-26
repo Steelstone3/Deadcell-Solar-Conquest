@@ -26,7 +26,7 @@ impl Plugin for StartPlugin {
         );
         app.add_systems(
             Startup,
-            (spawn_starter_spaceship, spawn_camera).after(spawn_space_stations),
+            (spawn_starter_spaceship).after(spawn_space_stations),
         );
     }
 }

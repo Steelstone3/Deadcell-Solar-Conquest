@@ -35,7 +35,6 @@ impl Display for CommanderIcon {
                     "user_interface/icons/starships/noozler/noozler_commander.png"
                 )
             }
-            // TODO create asset
             CommanderIcon::GranokCommander => {
                 write!(
                     formatter,
@@ -57,5 +56,24 @@ impl CommanderIcon {
             Faction::Noozler => CommanderIcon::NoozlerCommander,
             Faction::Granok => CommanderIcon::GranokCommander,
         }
+    }
+}
+
+#[cfg(test)]
+mod commander_icons_should {
+    use super::*;
+    use rstest::rstest;
+
+    #[rstest]
+    #[case(Faction::Atark, CommanderIcon::AtarkCommander)]
+    #[case(Faction::Karcan, CommanderIcon::KaranCommander)]
+    #[case(Faction::Noozler, CommanderIcon::NoozlerCommander)]
+    #[case(Faction::Granok, CommanderIcon::GranokCommander)]
+    fn convert_from(#[case] faction: Faction, #[case] commander_icon: CommanderIcon) {
+        // When
+        let actual_commander_icon = CommanderIcon::convert_from(faction);
+
+        // Then
+        assert_eq!(commander_icon, actual_commander_icon);
     }
 }

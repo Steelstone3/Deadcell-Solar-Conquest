@@ -15,7 +15,7 @@ use crate::{
     components::{
         controllable::Movement,
         space_facility::SpaceFacility,
-        starship::{ShipSpeed, Starship},
+        starship::{Starship, StarshipSpeed},
         user_interface::Selectable,
     },
     events::{
@@ -103,9 +103,10 @@ fn spawn_starship(
     if selected_item.starship_selection != StarshipIcon::None {
         let starship = Starship::new_from_icon(selected_item.starship_selection);
 
-        let ship_speed = ShipSpeed::new_from_ship_type(StarshipSprite::starship_type_convert_from(
-            starship.starship_sprite_bundle.starship_sprite,
-        ));
+        let ship_speed =
+            StarshipSpeed::new_from_starship_type(StarshipSprite::starship_type_convert_from(
+                starship.starship_sprite_bundle.starship_sprite,
+            ));
 
         transform.translation.z = starship.size_component.z_index;
 
@@ -118,7 +119,7 @@ fn spawn_starship(
                 .insert(Selectable)
                 .insert(Movement {
                     target_location: transform.translation,
-                    max_speed: ship_speed.speed,
+                    maximum_speed: ship_speed.speed,
                     current_speed: 0.0,
                 })
                 .id(),
