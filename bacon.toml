@@ -87,4 +87,9 @@ j = "job:test-coverage"
 # c = "jobs:clippy"
 f = "job:format"
 u = "job:update"
-# v = "jobs:check"
+# a = "jobs:check"
+
+# shortcuts
+
+# h = help page
+# q = quit

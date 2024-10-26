@@ -4,8 +4,8 @@ use rand::Rng;
 
 use super::size_component::SizeComponent;
 
-pub const PLANET_CLOSEST_DISTANCE_TO_SUN: f32 = SIZE + SPACE_TILE_SIZE * 1.5; // minimum distance
-const SIZE: f32 = SPACE_TILE_SIZE / 2.0; // maximum size
+pub const PLANET_CLOSEST_DISTANCE_TO_SUN: f32 = SIZE + SPACE_TILE_SIZE; // minimum distance
+const SIZE: f32 = SPACE_TILE_SIZE * 2.0; // maximum size
 
 #[derive(Component, Clone, Copy)]
 pub struct Planet {
