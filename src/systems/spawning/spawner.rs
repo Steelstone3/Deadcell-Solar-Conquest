@@ -13,13 +13,14 @@ use crate::{
         },
     },
     components::{
-        controllable::Movement,
-        space_facility::SpaceFacility,
-        starship::{Starship, StarshipSpeed},
-        user_interface::Selectable,
+        faction::{
+            space_facility::SpaceFacility,
+            starship::{Starship, StarshipSpeed},
+        },
+        user_interface::{controllable::Movement, selection::Selectable},
     },
     events::{
-        mouse_right_click_event::MouseRightClickEvent,
+        input_events::MouseRightClickEvent,
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     },
     resources::spawn_menu_selection::SpawnMenuSelection,

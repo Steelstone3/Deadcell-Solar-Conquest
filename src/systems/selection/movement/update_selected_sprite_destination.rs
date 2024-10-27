@@ -1,8 +1,8 @@
 use bevy::prelude::{Query, Transform, With, Without};
 
-use crate::components::{tracking::Tracking, user_interface::SelectedSprite};
+use crate::components::user_interface::{selection::SelectedSprite, tracking::Tracking};
 
-pub fn update_selected_sprite_location(
+pub fn update_selected_sprite_destination(
     mut selected_sprite_queries: Query<(&Tracking, &mut Transform), With<SelectedSprite>>,
     mut entity_to_follow_queries: Query<&mut Transform, Without<Tracking>>,
 ) {

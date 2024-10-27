@@ -16,17 +16,11 @@ pub struct StartPlugin;
 
 impl Plugin for StartPlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
-        app.add_systems(Startup, (spawn_space, spawn_camera, spawn_suns));
-        app.add_systems(
-            Startup,
-            (
-                spawn_space_stations.after(spawn_suns),
-                spawn_resource_planets.after(spawn_suns),
-            ),
-        );
-        app.add_systems(
-            Startup,
-            (spawn_starter_spaceship).after(spawn_space_stations),
-        );
+        app.add_systems(Startup, spawn_space);
+        app.add_systems(Startup, spawn_camera);
+        app.add_systems(Startup, spawn_suns);
+        app.add_systems(Startup, spawn_space_stations.after(spawn_suns));
+        app.add_systems(Startup, spawn_resource_planets.after(spawn_suns));
+        app.add_systems(Startup, spawn_starter_spaceship.after(spawn_space_stations));
     }
 }

@@ -6,10 +6,10 @@ use bevy::{
     time::Time,
 };
 
-use crate::components::controllable::Movement;
+use crate::components::user_interface::controllable::Movement;
 
 // TODO add to queries
-pub fn controllable_move_to_target(
+pub fn move_to_point(
     time: Res<Time>,
     mut controllable_queries: Query<(&mut Movement, &mut Transform)>,
 ) {

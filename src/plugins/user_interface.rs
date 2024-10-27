@@ -1,9 +1,8 @@
 use crate::systems::{
+    selection::select_sprite::{set_selection_type, sprite_selection},
     spawning::spawner::spawner,
     user_interface::{
-        interactions::clear_all_selected::clear_all_selected,
-        layouts::spawn_menu::spawn_menu,
-        sprite_selection::{set_selection_type, sprite_selection},
+        interactions::clear_all_selected::clear_all_selected, layouts::spawn_menu::spawn_menu,
     },
 };
 use bevy::{
@@ -17,6 +16,7 @@ impl Plugin for UserInterfacePlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
         app.add_systems(Update, spawn_menu);
         app.add_systems(Update, sprite_selection.pipe(set_selection_type));
-        app.add_systems(Update, (clear_all_selected, spawner));
+        app.add_systems(Update, clear_all_selected);
+        app.add_systems(Update, spawner);
     }
 }
