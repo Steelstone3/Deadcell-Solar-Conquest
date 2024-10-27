@@ -1,4 +1,4 @@
-pub mod move_to_point;
+pub mod draw_multiple_selection_box;
+pub mod movement;
+pub mod select_multiple_sprites;
 pub mod select_sprite;
-pub mod set_destination;
-pub mod update_selected_sprite_destination;

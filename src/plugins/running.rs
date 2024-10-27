@@ -7,7 +7,7 @@ use crate::{
             camera_zoom_keyboard::camera_zoom_keyboard,
             camera_zoom_mouse_and_touchpad::camera_zoom_mouse_and_touchpad,
         },
-        selection::{
+        selection::movement::{
             move_to_point::move_to_point, set_destination::set_destination,
             update_selected_sprite_destination::update_selected_sprite_destination,
         },
