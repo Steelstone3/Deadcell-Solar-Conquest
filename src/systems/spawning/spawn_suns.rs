@@ -7,7 +7,7 @@ use bevy::{
 use rand::{random, Rng};
 
 use crate::{
-    components::sun::Sun,
+    components::map::sun::Sun,
     events::spawn_sprite_event::{SpawnAnimatedSprite, SpawnSprite, SpawnSpriteEvent},
     resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
 };

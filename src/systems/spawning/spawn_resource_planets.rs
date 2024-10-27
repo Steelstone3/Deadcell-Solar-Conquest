@@ -1,5 +1,5 @@
 use crate::{
-    components::planet::{Planet, PLANET_CLOSEST_DISTANCE_TO_SUN},
+    components::map::planet::{Planet, PLANET_CLOSEST_DISTANCE_TO_SUN},
     events::spawn_sprite_event::{SpawnAnimatedSprite, SpawnSprite, SpawnSpriteEvent},
     queries::space_queries::SunQuery,
 };

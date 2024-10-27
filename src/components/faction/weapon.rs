@@ -1,8 +1,8 @@
-use super::size_component::SizeComponent;
 use crate::{
     assets::images::faction_starship_sprite::{
         starship_sprite::StarshipSprite, weapon_sprite::WeaponSprite,
     },
+    components::sprite_component::size_component::SizeComponent,
     resources::{constants::TILE_SIZE, faction::Faction},
 };
 use bevy::{ecs::component::Component, math::Vec2};

@@ -1,8 +1,9 @@
 use bevy::prelude::{App, Plugin};
 
 use crate::events::{
-    mouse_click_event::MouseClickEvent, mouse_right_click_event::MouseRightClickEvent,
-    spawn_sprite_event::SpawnSpriteEvent, user_interface_event::UserInterfaceEvent,
+    input_events::{MouseClickEvent, MouseRightClickEvent},
+    spawn_sprite_event::SpawnSpriteEvent,
+    user_interface_events::UserInterfaceEvent,
 };
 
 pub struct EventsPlugin;

@@ -1,13 +1,4 @@
-pub mod animation_timer;
-pub mod closest_selection;
-pub mod controllable;
-pub mod planet;
-pub mod size_component;
-pub mod space;
-pub mod space_facility;
-pub mod starship;
-pub mod starship_sprite_bundle;
-pub mod sun;
-pub mod tracking;
+pub mod faction;
+pub mod map;
+pub mod sprite_component;
 pub mod user_interface;
-pub mod weapon;

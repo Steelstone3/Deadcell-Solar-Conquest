@@ -1,8 +1,10 @@
 use bevy::{ecs::component::Component, math::Vec2};
 
-use crate::{assets::images::sun_sprite::SunSprite, resources::constants::SPACE_TILE_SIZE};
-
-use super::size_component::SizeComponent;
+use crate::{
+    assets::images::sun_sprite::SunSprite,
+    components::sprite_component::size_component::SizeComponent,
+    resources::constants::SPACE_TILE_SIZE,
+};
 
 const SIZE: f32 = SPACE_TILE_SIZE * 4.0; // minimum size
 const SUN_SIZE: Vec2 = Vec2::new(SIZE, SIZE);
