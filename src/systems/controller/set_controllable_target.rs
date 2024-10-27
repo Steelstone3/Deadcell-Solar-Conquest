@@ -4,7 +4,7 @@ use bevy::{
 };
 
 use crate::{
-    components::controllable::Movement, events::mouse_right_click_event::MouseRightClickEvent,
+    components::controllable::Movement, events::input_events::MouseRightClickEvent,
     resources::spawn_menu_selection::SpawnMenuSelection,
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };

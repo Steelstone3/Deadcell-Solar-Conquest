@@ -1,5 +1,5 @@
 use crate::{
-    events::user_interface_event::UserInterfaceEvent,
+    events::user_interface_events::UserInterfaceEvent,
     queries::user_interface_queries::SelectionQuery,
     resources::spawn_menu_selection::SpawnMenuSelection,
 };

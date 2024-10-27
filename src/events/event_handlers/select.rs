@@ -9,9 +9,7 @@ use bevy::{
     window::Window,
 };
 
-use crate::events::{
-    mouse_click_event::MouseClickEvent, mouse_right_click_event::MouseRightClickEvent,
-};
+use crate::events::input_events::{MouseClickEvent, MouseRightClickEvent};
 
 pub fn handle_mouse_input(
     mut mouse_buttons_events: EventReader<MouseButtonInput>,

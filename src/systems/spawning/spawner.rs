@@ -19,8 +19,7 @@ use crate::{
         user_interface::Selectable,
     },
     events::{
-        mouse_right_click_event::MouseRightClickEvent,
-        spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+        input_events::MouseRightClickEvent, spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}
     },
     resources::spawn_menu_selection::SpawnMenuSelection,
     systems::user_interface::interactions::spawn_selection::SpawnSelection,

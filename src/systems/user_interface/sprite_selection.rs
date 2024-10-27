@@ -8,9 +8,7 @@ use crate::{
         closest_selection::ClosestSelection, tracking::Tracking, user_interface::SelectedSprite,
     },
     events::{
-        mouse_click_event::MouseClickEvent,
-        spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-        user_interface_event::UserInterfaceEvent,
+        input_events::MouseClickEvent, spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}, user_interface_events::UserInterfaceEvent
     },
     queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery},
     resources::spawn_menu_selection::SpawnMenuSelection,
