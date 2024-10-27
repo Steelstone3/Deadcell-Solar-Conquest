@@ -3,9 +3,8 @@ use crate::{
         faction_starship_sprite::starship_sprite::StarshipSprite, starship_type::StarshipType,
     },
     components::{
-        controllable::Movement,
-        starship::{Starship, StarshipSpeed},
-        user_interface::Selectable,
+        faction::starship::{Starship, StarshipSpeed},
+        user_interface::{controllable::Movement, selection::Selectable},
     },
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     queries::faction_queries::SpaceStationQuery,

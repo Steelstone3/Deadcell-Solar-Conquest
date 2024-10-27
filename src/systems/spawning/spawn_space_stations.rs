@@ -8,7 +8,7 @@ use rand::Rng;
 
 use crate::{
     assets::images::space_facility_type::SpaceFacilityType,
-    components::{space_facility::SpaceFacility, user_interface::Selectable},
+    components::{faction::space_facility::SpaceFacility, user_interface::selection::Selectable},
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     queries::space_queries::SunQuery,
     resources::faction::PlayerFaction,

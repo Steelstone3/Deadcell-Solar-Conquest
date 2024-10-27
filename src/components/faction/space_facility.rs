@@ -1,9 +1,9 @@
-use super::size_component::SizeComponent;
 use crate::{
     assets::{
         images::space_facility_sprite::SpaceFacilitySprite,
         user_interface::icons::space_facility_icons::SpaceFacilityIcon,
     },
+    components::sprite_component::size_component::SizeComponent,
     resources::constants::SPACE_TILE_SIZE,
 };
 use bevy::{ecs::component::Component, math::Vec2};

@@ -4,7 +4,7 @@ use bevy::{
 };
 
 use crate::{
-    components::controllable::Movement, events::input_events::MouseRightClickEvent,
+    components::user_interface::controllable::Movement, events::input_events::MouseRightClickEvent,
     resources::spawn_menu_selection::SpawnMenuSelection,
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
@@ -13,6 +13,7 @@ use crate::{
 pub fn set_controllable_target(
     mut right_mouse_event_reader: EventReader<MouseRightClickEvent>,
     selection_resource: Res<SpawnMenuSelection>,
+    // TODO make a query
     mut selected_moveable_query: Query<(&mut Movement, &Transform)>,
 ) {
     for event in right_mouse_event_reader.read() {
