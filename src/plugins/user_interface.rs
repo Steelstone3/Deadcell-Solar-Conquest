@@ -1,5 +1,5 @@
 use crate::systems::{
-    selection::sprite_selection::{set_selection_type, sprite_selection},
+    selection::select_sprite::{set_selection_type, sprite_selection},
     spawning::spawner::spawner,
     user_interface::{
         interactions::clear_all_selected::clear_all_selected, layouts::spawn_menu::spawn_menu,
