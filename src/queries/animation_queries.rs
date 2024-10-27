@@ -1,6 +1,5 @@
+use crate::components::user_interface::animation_timer::AnimationTimer;
 use bevy::{ecs::query::QueryData, sprite::TextureAtlas};
-
-use crate::components::animation_timer::AnimationTimer;
 
 #[derive(QueryData)]
 #[query_data(mutable)]

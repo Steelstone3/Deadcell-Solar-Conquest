@@ -1,12 +1,13 @@
-use super::{
-    size_component::SizeComponent, starship_sprite_bundle::StarshipSpriteBundle, weapon::Weapon,
-};
+use super::weapon::Weapon;
 use crate::{
     assets::{
         images::{
             faction_starship_sprite::starship_sprite::StarshipSprite, starship_type::StarshipType,
         },
         user_interface::icons::starship_icons::StarshipIcon,
+    },
+    components::sprite_component::{
+        size_component::SizeComponent, starship_sprite_bundle::StarshipSpriteBundle,
     },
     resources::{constants::TILE_SIZE, faction::Faction},
 };

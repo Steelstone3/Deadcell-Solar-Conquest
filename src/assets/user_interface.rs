@@ -1,2 +1,2 @@
 pub mod icons;
-pub mod team;
+pub mod selection_indicator;

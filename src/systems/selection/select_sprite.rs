@@ -4,13 +4,13 @@ use crate::{
         space_facility_sprite::SpaceFacilitySprite, space_facility_type::SpaceFacilityType,
         starship_type::StarshipType,
     },
-    components::{
-        closest_selection::ClosestSelection, tracking::Tracking, user_interface::SelectedSprite,
+    components::user_interface::{
+        closest_selection::ClosestSelection, selection::SelectedSprite, tracking::Tracking,
     },
     events::{
-        mouse_click_event::MouseClickEvent,
+        input_events::MouseClickEvent,
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-        user_interface_event::UserInterfaceEvent,
+        user_interface_events::UserInterfaceEvent,
     },
     queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery},
     resources::spawn_menu_selection::SpawnMenuSelection,

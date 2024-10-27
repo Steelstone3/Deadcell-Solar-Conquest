@@ -1,5 +1,6 @@
-use crate::components::sun::Sun;
 use bevy::{ecs::query::QueryData, transform::components::Transform};
+
+use crate::components::map::sun::Sun;
 
 #[derive(QueryData)]
 pub struct SunQuery {

@@ -1,6 +1,6 @@
 use bevy::{ecs::query::QueryData, transform::components::Transform};
 
-use crate::components::space_facility::SpaceFacility;
+use crate::components::faction::space_facility::SpaceFacility;
 
 #[derive(QueryData)]
 pub struct SpaceStationQuery {

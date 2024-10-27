@@ -1,7 +1,6 @@
 use crate::components::{
-    space_facility::SpaceFacility,
-    starship::Starship,
-    user_interface::{Selectable, SelectedSprite},
+    faction::{space_facility::SpaceFacility, starship::Starship},
+    user_interface::selection::{Selectable, SelectedSprite},
 };
 use bevy::{
     ecs::query::QueryData,
