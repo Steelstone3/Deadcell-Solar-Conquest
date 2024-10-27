@@ -5,7 +5,7 @@ pub enum SpawnSelection {
     None, // Mothing selected
     Other, // Anything else
     #[allow(dead_code)]
-    MultiSelection, // Use when multi-selecting
+    MultipleSelections, // Use when multi-selecting
     StarshipConstructionYard, // Only
     SupportShip, // Only
     Starbase, // Only

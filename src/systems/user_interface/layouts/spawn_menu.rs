@@ -15,7 +15,7 @@ pub fn spawn_menu(
     match spawn_menu_selection.selection {
         SpawnSelection::None => {}
         SpawnSelection::Other => {}
-        SpawnSelection::MultiSelection => {}
+        SpawnSelection::MultipleSelections => {}
         SpawnSelection::StarshipConstructionYard => {
             // TODO AH Creates a window in a window this should move to using the exisiting window
             egui::Window::new("Spawn Menu").show(contexts.ctx_mut(), |ui| {

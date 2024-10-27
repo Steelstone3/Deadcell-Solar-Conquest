@@ -1,5 +1,7 @@
 use crate::{
-    events::event_handlers::select::handle_mouse_input,
+    events::event_handlers::handle_mouse_input::{
+        handle_left_click, handle_left_click_with_modifier, handle_right_click,
+    },
     systems::{
         animation::animate::animate_sprites,
         camera::{
@@ -23,7 +25,9 @@ impl Plugin for RunningPlugin {
         app.add_systems(Update, camera_zoom_mouse_and_touchpad);
         app.add_systems(Update, camera_movement);
         app.add_systems(Update, camera_position_reset);
-        app.add_systems(Update, handle_mouse_input);
+        app.add_systems(Update, handle_left_click);
+        app.add_systems(Update, handle_left_click_with_modifier);
+        app.add_systems(Update, handle_right_click);
         app.add_systems(Update, animate_sprites);
         app.add_systems(Update, set_destination);
         app.add_systems(Update, move_to_point);

@@ -8,9 +8,8 @@ use crate::{
         closest_selection::ClosestSelection, selection::SelectedSprite, tracking::Tracking,
     },
     events::{
-        input_events::MouseClickEvent,
+        input_events::MouseLeftClickEvent,
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-        user_interface_events::UserInterfaceEvent,
     },
     queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery},
     resources::spawn_menu_selection::SpawnMenuSelection,
@@ -21,10 +20,9 @@ use bevy::{
     math::Vec3Swizzles,
     prelude::{Commands, EventReader, EventWriter, In, Query, ResMut},
 };
-use rand::random;
 
-pub fn sprite_selection(
-    mut select_event_reader: EventReader<MouseClickEvent>,
+pub fn select_sprite(
+    mut select_event_reader: EventReader<MouseLeftClickEvent>,
     selectable_query: Query<SelectableQuery>,
     mut spawn_sprite_writer: EventWriter<SpawnSpriteEvent>,
     mut commands: Commands,
@@ -32,11 +30,11 @@ pub fn sprite_selection(
 ) -> Result<ClosestSelection, ()> {
     let mut closest = ClosestSelection::default();
 
-    let Some(event) = select_event_reader.read().last() else {
+    let Some(select) = select_event_reader.read().last() else {
         return Err(());
     };
 
-    let cursor_position = event.cursor_world_position;
+    let cursor_position = select.cursor_world_position;
 
     //get list of selectables that are in range of mouse cursor
     for selectable in selectable_query.iter() {
@@ -86,7 +84,7 @@ pub fn sprite_selection(
             }
         }
 
-        let selection = SelectedSprite::new(random());
+        let selection = SelectedSprite::default();
         let selection_entity = commands
             .spawn(selection)
             .insert(Tracking {
@@ -113,7 +111,6 @@ pub fn set_selection_type(
     In(closest_selection): In<Result<ClosestSelection, ()>>,
     type_check_query: Query<TypeCheckQuery>,
     mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
-    mut user_interface_event: EventWriter<UserInterfaceEvent>,
 ) {
     //if closest sprite was found
     if let Ok(closest_selection) = closest_selection {
@@ -154,8 +151,6 @@ pub fn set_selection_type(
             }
 
             spawn_menu_selection.selected_entity = closest_selection.entity;
-
-            user_interface_event.send(UserInterfaceEvent {});
         };
     }
 }
