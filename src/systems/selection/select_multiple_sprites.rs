@@ -4,7 +4,14 @@ use bevy::{
 };
 
 use crate::{
-    components::user_interface::{selection::SelectedSprite, tracking::Tracking}, events::{selection_events::SelectionAreaEvent, spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}}, queries::user_interface_queries::{SelectableQuery, TypeCheckQuery}, resources::spawn_menu_selection::SpawnMenuSelection, systems::user_interface::interactions::spawn_selection::SpawnSelection
+    components::user_interface::{selection::SelectedSprite, tracking::Tracking},
+    events::{
+        selection_events::SelectionAreaEvent,
+        spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+    },
+    queries::user_interface_queries::{SelectableQuery, TypeCheckQuery},
+    resources::spawn_menu_selection::SpawnMenuSelection,
+    systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 
 // TODO finish this off
@@ -21,14 +28,7 @@ pub fn select_multiple_sprites(
     };
 
     for selectable in selectable_queries.iter() {
-        // let Some(size) = selectable.sprite.custom_size else {
-        //     return;
-        // };
-
-        // TODO at this point the selection box has despawned (approximately) with the area the box sent in this event
-
-        // TODO use this area to determine which starships exist within it (inclusive for those on the border)
-
+        // create an area out of the two cursor points
         let area = Rect::new(
             selection_area.selection_area.start.x,
             selection_area.selection_area.start.y,
@@ -41,33 +41,36 @@ pub fn select_multiple_sprites(
             selectable.transform.translation.y,
         );
 
+        // check if a selectable entity exists within the area
         if area.contains(selectable_location) {
-            // TODO For starships only
-            SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
-            spawn_menu_selection.selection = SpawnSelection::MultipleSelections;
+            if let Ok(selection_type) = type_check_query.get(selectable.entity) {
+                // select the entity if it is a type of starship
+                if let Some(_) = selection_type.starship {
+                    SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+                    spawn_menu_selection.selection = SpawnSelection::MultipleSelections;
 
+                    // create a selection indicator entity
+                    let selection = SelectedSprite::default();
+                    let selection_entity = commands
+                        .spawn(selection)
+                        .insert(Tracking {
+                            entity_to_follow: selectable.entity,
+                        })
+                        .id();
 
-            let selection = SelectedSprite::default();
-            let selection_entity = commands
-            .spawn(selection)
-            .insert(Tracking {
-                entity_to_follow: selectable.entity,
-            })
-            .id();
+                    let Some(size) = selectable.sprite.custom_size else {
+                        return;
+                    };
 
-            let Some(size) = selectable.sprite.custom_size else {
-                return;
-            };
-
-            spawn_sprite_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
-                sprite_path: selection.sprite_path.to_string(),
-                size,
-                transform: *selectable.transform,
-                entity: selection_entity,
-            }));
-        
-            // TODO select these starships
-            // TODO assign the SpawnSelection resource to MultipleSelections
+                    // spawn the selection indicator entity
+                    spawn_sprite_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+                        sprite_path: selection.sprite_path.to_string(),
+                        size,
+                        transform: *selectable.transform,
+                        entity: selection_entity,
+                    }));
+                }
+            }
         }
     }
 }

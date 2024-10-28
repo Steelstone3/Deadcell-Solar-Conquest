@@ -130,7 +130,7 @@ pub fn set_selection_type(
                     spawn_menu_selection.selection = SpawnSelection::Starbase;
                     info!("Starbase Selected");
                 }
-            } else if let Some(spaceship) = selection_type.spaceship {
+            } else if let Some(spaceship) = selection_type.starship {
                 SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
 
                 let spaceship_type = StarshipSprite::starship_type_convert_from(
