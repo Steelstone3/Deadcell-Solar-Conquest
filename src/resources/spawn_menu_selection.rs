@@ -10,7 +10,7 @@ use crate::{
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 
-#[derive(Resource, Clone, Copy)]
+#[derive(Resource)]
 pub struct SpawnMenuSelection {
     pub selection: SpawnSelection,
     pub selected_entities: [Entity; 10],
@@ -65,7 +65,7 @@ impl SpawnMenuSelection {
         spawn_menu_selection.space_facility_selection = SpaceFacilityIcon::None;
     }
 
-    pub fn add_selection(mut self, entity: Entity) {
+    pub fn add_selection(&mut self, entity: Entity) {
         let mut index = 0;
 
         for selected_entity in self.selected_entities {
