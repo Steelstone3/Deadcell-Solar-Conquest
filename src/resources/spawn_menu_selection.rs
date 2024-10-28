@@ -10,10 +10,12 @@ use crate::{
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 
+pub const MAXIMUM_SELECTIONS: usize = 10;
+
 #[derive(Resource)]
 pub struct SpawnMenuSelection {
     pub selection: SpawnSelection,
-    pub selected_entities: [Entity; 10],
+    pub selected_entities: [Entity; MAXIMUM_SELECTIONS],
     pub starship_selection: StarshipIcon,
     pub space_facility_selection: SpaceFacilityIcon,
 }
@@ -76,6 +78,8 @@ impl SpawnMenuSelection {
             index += 1;
         }
 
-        self.selected_entities[index as usize] = entity;
+        if index <= self.selected_entities.len() - 1 && !self.selected_entities.contains(&entity) {
+            self.selected_entities[index as usize] = entity;
+        }
     }
 }

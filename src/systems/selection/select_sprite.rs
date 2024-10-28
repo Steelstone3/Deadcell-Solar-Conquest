@@ -12,7 +12,7 @@ use crate::{
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     },
     queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery},
-    resources::spawn_menu_selection::SpawnMenuSelection,
+    resources::spawn_menu_selection::{SpawnMenuSelection, MAXIMUM_SELECTIONS},
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 use bevy::{
@@ -77,31 +77,32 @@ pub fn select_sprite(
 
     //if valid selection found then spawn selection
     if closest.distance != -1.0 {
-        //Clear selection before makeing new selection
-        for selection_query in selection_queries.iter() {
-            if let Some(selected_entity) = selection_query.entity {
-                commands.entity(selected_entity).despawn();
-            }
+        let mut number_of_selected = 0;
+
+        for _ in selection_queries.iter() {
+            number_of_selected += 1;
         }
 
-        let selection = SelectedSprite::default();
-        let selection_entity = commands
-            .spawn(selection)
-            .insert(Tracking {
-                entity_to_follow: closest.entity,
-            })
-            .id();
+        if number_of_selected < MAXIMUM_SELECTIONS {
+            let selection = SelectedSprite::default();
+            let selection_entity = commands
+                .spawn(selection)
+                .insert(Tracking {
+                    entity_to_follow: closest.entity,
+                })
+                .id();
 
-        let Some(size) = closest.sprite.custom_size else {
-            return Err(());
-        };
+            let Some(size) = closest.sprite.custom_size else {
+                return Err(());
+            };
 
-        spawn_sprite_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
-            sprite_path: selection.sprite_path.to_string(),
-            size,
-            transform: closest.transform,
-            entity: selection_entity,
-        }));
+            spawn_sprite_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+                sprite_path: selection.sprite_path.to_string(),
+                size,
+                transform: closest.transform,
+                entity: selection_entity,
+            }));
+        }
     }
 
     Ok(closest)
