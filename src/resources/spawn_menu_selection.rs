@@ -67,13 +67,13 @@ impl SpawnMenuSelection {
 
     pub fn add_selection(mut self, entity: Entity) {
         let mut index = 0;
-        
+
         for selected_entity in self.selected_entities {
             if selected_entity == Entity::PLACEHOLDER {
-               break;
+                break;
             }
 
-            index +=1;
+            index += 1;
         }
 
         self.selected_entities[index as usize] = entity;
