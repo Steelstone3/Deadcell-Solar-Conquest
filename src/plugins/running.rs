@@ -10,7 +10,7 @@ use crate::{
             camera_zoom_mouse_and_touchpad::camera_zoom_mouse_and_touchpad,
         },
         selection::movement::{
-            move_to_point::move_to_point, set_destination::set_destination,
+            move_to_point::move_to_point, set_destination::{set_multiple_destination, set_single_destination},
             update_selected_sprite_destination::update_selected_sprite_destination,
         },
     },
@@ -29,7 +29,8 @@ impl Plugin for RunningPlugin {
         app.add_systems(Update, handle_left_click_with_modifier);
         app.add_systems(Update, handle_right_click);
         app.add_systems(Update, animate_sprites);
-        app.add_systems(Update, set_destination);
+        app.add_systems(Update, set_single_destination);
+        app.add_systems(Update, set_multiple_destination);
         app.add_systems(Update, move_to_point);
         app.add_systems(Update, update_selected_sprite_destination);
     }
