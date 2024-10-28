@@ -69,6 +69,9 @@ pub fn select_multiple_sprites(
                         transform: *selectable.transform,
                         entity: selection_entity,
                     }));
+
+                    // selected entities
+
                 }
             }
         }
