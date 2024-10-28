@@ -70,22 +70,22 @@ impl SpawnMenuSelection {
 
         self.selected_entity = entity;
     }
-    
+
     pub fn multi_selection(&mut self, entity: Entity) {
         // reset selected entity
         self.selected_entity = Entity::PLACEHOLDER;
 
         let mut index = 0;
-        
+
         for selected_entity in self.selected_entities {
             if selected_entity == Entity::PLACEHOLDER {
                 break;
             }
             index += 1;
         }
-        
-        if index <= self.selected_entities.len() - 1 && !self.selected_entities.contains(&entity) {
-            self.selected_entities[index as usize] = entity;
+
+        if index < self.selected_entities.len() && !self.selected_entities.contains(&entity) {
+            self.selected_entities[index] = entity;
         }
     }
 }

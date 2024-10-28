@@ -10,7 +10,8 @@ use crate::{
             camera_zoom_mouse_and_touchpad::camera_zoom_mouse_and_touchpad,
         },
         selection::movement::{
-            move_to_point::move_to_point, set_destination::{set_multiple_destination, set_single_destination},
+            move_to_point::move_to_point,
+            set_destination::{set_multiple_destination, set_single_destination},
             update_selected_sprite_destination::update_selected_sprite_destination,
         },
     },
