@@ -14,7 +14,7 @@ use crate::{
 pub struct SpawnMenuSelection {
     pub selection: SpawnSelection,
     pub selected_entity: Entity,
-    pub selected_entities: [Entity; 5],
+    pub selected_entities: [Entity; 10],
     pub starship_selection: StarshipIcon,
     pub space_facility_selection: SpaceFacilityIcon,
 }
@@ -25,6 +25,11 @@ impl Default for SpawnMenuSelection {
             selection: SpawnSelection::None,
             selected_entity: Entity::PLACEHOLDER,
             selected_entities: [
+                Entity::PLACEHOLDER,
+                Entity::PLACEHOLDER,
+                Entity::PLACEHOLDER,
+                Entity::PLACEHOLDER,
+                Entity::PLACEHOLDER,
                 Entity::PLACEHOLDER,
                 Entity::PLACEHOLDER,
                 Entity::PLACEHOLDER,
@@ -47,6 +52,11 @@ impl SpawnMenuSelection {
             Entity::PLACEHOLDER,
             Entity::PLACEHOLDER,
             Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
         ];
         spawn_menu_selection.starship_selection = StarshipIcon::None;
         spawn_menu_selection.space_facility_selection = SpaceFacilityIcon::None;
@@ -61,6 +71,11 @@ impl SpawnMenuSelection {
     pub fn single_selection(&mut self, entity: Entity) {
         // reset selected entities
         self.selected_entities = [
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
             Entity::PLACEHOLDER,
             Entity::PLACEHOLDER,
             Entity::PLACEHOLDER,
