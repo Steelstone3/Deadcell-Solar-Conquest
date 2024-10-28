@@ -45,7 +45,7 @@ pub fn select_multiple_sprites(
         if area.contains(selectable_location) {
             if let Ok(selection_type) = type_check_query.get(selectable.entity) {
                 // select the entity if it is a type of starship
-                if let Some(_) = selection_type.starship {
+                if selection_type.starship.is_some() {
                     SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
                     spawn_menu_selection.selection = SpawnSelection::MultipleSelections;
 
