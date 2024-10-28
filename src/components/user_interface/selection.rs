@@ -9,10 +9,10 @@ pub struct SelectedSprite {
     pub sprite_path: SelectionIndicator,
 }
 
-impl SelectedSprite {
-    pub fn new(team_selection_sprite: SelectionIndicator) -> Self {
+impl Default for SelectedSprite {
+    fn default() -> Self {
         Self {
-            sprite_path: team_selection_sprite,
+            sprite_path: SelectionIndicator::SelectionIndicator,
         }
     }
 }

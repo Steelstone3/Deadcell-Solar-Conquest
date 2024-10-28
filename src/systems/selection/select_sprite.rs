@@ -8,9 +8,8 @@ use crate::{
         closest_selection::ClosestSelection, selection::SelectedSprite, tracking::Tracking,
     },
     events::{
-        input_events::MouseClickEvent,
+        input_events::MouseLeftClickEvent,
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-        user_interface_events::UserInterfaceEvent,
     },
     queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery},
     resources::spawn_menu_selection::SpawnMenuSelection,
@@ -21,25 +20,24 @@ use bevy::{
     math::Vec3Swizzles,
     prelude::{Commands, EventReader, EventWriter, In, Query, ResMut},
 };
-use rand::random;
 
-pub fn sprite_selection(
-    mut select_event_reader: EventReader<MouseClickEvent>,
-    selectable_query: Query<SelectableQuery>,
+pub fn select_sprite(
+    mut select_event_reader: EventReader<MouseLeftClickEvent>,
+    selectable_queries: Query<SelectableQuery>,
     mut spawn_sprite_writer: EventWriter<SpawnSpriteEvent>,
     mut commands: Commands,
     selection_queries: Query<SelectionQuery>,
 ) -> Result<ClosestSelection, ()> {
     let mut closest = ClosestSelection::default();
 
-    let Some(event) = select_event_reader.read().last() else {
+    let Some(select) = select_event_reader.read().last() else {
         return Err(());
     };
 
-    let cursor_position = event.cursor_world_position;
+    let cursor_position = select.cursor_world_position;
 
     //get list of selectables that are in range of mouse cursor
-    for selectable in selectable_query.iter() {
+    for selectable in selectable_queries.iter() {
         let Some(size) = selectable.sprite.custom_size else {
             return Err(());
         };
@@ -79,14 +77,14 @@ pub fn sprite_selection(
 
     //if valid selection found then spawn selection
     if closest.distance != -1.0 {
-        //Clear selection before makeing new selection
+        // clear previous selected
         for selection_query in selection_queries.iter() {
             if let Some(selected_entity) = selection_query.entity {
                 commands.entity(selected_entity).despawn();
             }
         }
 
-        let selection = SelectedSprite::new(random());
+        let selection = SelectedSprite::default();
         let selection_entity = commands
             .spawn(selection)
             .insert(Tracking {
@@ -113,14 +111,13 @@ pub fn set_selection_type(
     In(closest_selection): In<Result<ClosestSelection, ()>>,
     type_check_query: Query<TypeCheckQuery>,
     mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
-    mut user_interface_event: EventWriter<UserInterfaceEvent>,
 ) {
     //if closest sprite was found
     if let Ok(closest_selection) = closest_selection {
         //Detmine the type of selection for the ui
         if let Ok(selection_type) = type_check_query.get(closest_selection.entity) {
             if let Some(space_facility) = selection_type.space_facility {
-                SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+                spawn_menu_selection.default_selection();
 
                 let space_facility_type = SpaceFacilitySprite::space_facility_type_convert_from(
                     space_facility.sprite_path,
@@ -133,8 +130,8 @@ pub fn set_selection_type(
                     spawn_menu_selection.selection = SpawnSelection::Starbase;
                     info!("Starbase Selected");
                 }
-            } else if let Some(spaceship) = selection_type.spaceship {
-                SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+            } else if let Some(spaceship) = selection_type.starship {
+                spawn_menu_selection.default_selection();
 
                 let spaceship_type = StarshipSprite::starship_type_convert_from(
                     spaceship.starship_sprite_bundle.starship_sprite,
@@ -147,15 +144,13 @@ pub fn set_selection_type(
                     spawn_menu_selection.selection = SpawnSelection::Other;
                 }
             } else {
-                SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+                spawn_menu_selection.default_selection();
 
                 spawn_menu_selection.selection = SpawnSelection::Other;
                 info!("Other Selected");
             }
 
-            spawn_menu_selection.selected_entity = closest_selection.entity;
-
-            user_interface_event.send(UserInterfaceEvent {});
+            spawn_menu_selection.single_selection(closest_selection.entity);
         };
     }
 }
