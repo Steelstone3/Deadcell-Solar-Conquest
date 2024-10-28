@@ -9,7 +9,7 @@ use crate::{
         selection_events::SelectionAreaEvent,
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     },
-    queries::user_interface_queries::{SelectableQuery, TypeCheckQuery},
+    queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery},
     resources::spawn_menu_selection::SpawnMenuSelection,
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
@@ -18,6 +18,7 @@ use crate::{
 pub fn select_multiple_sprites(
     mut commands: Commands,
     mut selection_area_reader: EventReader<SelectionAreaEvent>,
+    selection_queries: Query<SelectionQuery>,
     selectable_queries: Query<SelectableQuery>,
     type_check_query: Query<TypeCheckQuery>,
     mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
@@ -26,6 +27,13 @@ pub fn select_multiple_sprites(
     let Some(selection_area) = selection_area_reader.read().last() else {
         return;
     };
+
+    // clear previous selected
+    for selection_query in selection_queries.iter() {
+        if let Some(selected_entity) = selection_query.entity {
+            commands.entity(selected_entity).despawn();
+        }
+    }
 
     for selectable in selectable_queries.iter() {
         // create an area out of the two cursor points

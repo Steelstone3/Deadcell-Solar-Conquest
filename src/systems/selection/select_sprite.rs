@@ -77,7 +77,7 @@ pub fn select_sprite(
 
     //if valid selection found then spawn selection
     if closest.distance != -1.0 {
-        //Clear selection before makeing new selection
+        // clear previous selected
         for selection_query in selection_queries.iter() {
             if let Some(selected_entity) = selection_query.entity {
                 commands.entity(selected_entity).despawn();
