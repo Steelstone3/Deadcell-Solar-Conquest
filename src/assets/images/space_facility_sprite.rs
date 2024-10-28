@@ -1,5 +1,6 @@
 use bevy::reflect::Reflect;
 use rand_derive2::RandGen;
+use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
 use crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon;
@@ -7,7 +8,7 @@ use crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIco
 use super::space_facility_type::SpaceFacilityType;
 
 #[allow(clippy::enum_variant_names)]
-#[derive(RandGen, Debug, PartialEq, Reflect, Clone, Copy)]
+#[derive(RandGen, Debug, PartialEq, Reflect, Clone, Copy, Serialize, Deserialize)]
 pub enum SpaceFacilitySprite {
     AtarkSpaceStation,
     KarcanSpaceStation,

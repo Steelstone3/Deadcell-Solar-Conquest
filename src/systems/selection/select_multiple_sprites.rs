@@ -72,7 +72,7 @@ pub fn select_multiple_sprites(
                     };
 
                     // spawn the selection indicator entity
-                    spawn_sprite_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+                    spawn_sprite_writer.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
                         sprite_path: selection.sprite_path.to_string(),
                         size,
                         transform: *selectable.transform,

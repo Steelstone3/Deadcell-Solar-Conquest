@@ -1,8 +1,9 @@
 use bevy::reflect::Reflect;
 use rand_derive2::RandGen;
+use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-#[derive(RandGen, Copy, Clone, Debug, PartialEq, Reflect)]
+#[derive(RandGen, Copy, Clone, Debug, PartialEq, Reflect, Deserialize, Serialize)]
 pub enum PlanetSprite {
     AridWorld1,
     AridWorld2,

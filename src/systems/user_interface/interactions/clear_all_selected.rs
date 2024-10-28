@@ -4,9 +4,9 @@ use crate::{
 };
 use bevy::{
     ecs::system::ResMut,
-    input::{keyboard::KeyCode, ButtonInput},
+    input::{ButtonInput, keyboard::KeyCode},
+    log::tracing,
     prelude::{Commands, Query},
-    utils::tracing,
 };
 
 pub fn clear_all_selected(

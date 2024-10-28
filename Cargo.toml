@@ -1,8 +1,8 @@
 [package]
 name = "deadcell-solar-conquest"
-version = "0.5.4"
+version = "0.6.0"
 authors = ["Skippy <steelstone3@gmail.com>", "Demengies <Demengies@gmail.com>"]
-edition = "2021"
+edition = "2024"
 homepage = "https://github.com/Steelstone3/Deadcell-Solar-Conquest"
 repository = "https://github.com/Steelstone3/Deadcell-Solar-Conquest"
 license = "GPLv3"
@@ -15,11 +15,18 @@ include = []
 wayland-sys = "0.31"
 
 [dependencies]
-bevy = "0.14"
-bevy_egui = "0.30"
-float-lerp = "0"
+# Fixed version dependencies
+bevy = { version = "0.16", features = ["serialize"] }
+bevy_renet = { version = "2" }
+serde = { version = "1", features = ["derive"] }
+renet_visualizer = { version = "1", features = ["bevy"] }
+bevy_egui = "0.36"
+bincode = "2"
 rand = "0"
+
+# Latest and greatest dependencies
 rand_derive2 = "0"
+float-lerp = "0"
 rayon = "1"
 rstest = "0"
 

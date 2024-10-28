@@ -14,7 +14,7 @@ use crate::{
     resources::faction::PlayerFaction,
 };
 
-pub fn spawn_space_stations(
+pub fn spawn_space_facilities(
     mut commands: Commands,
     sun_queries: Query<SunQuery>,
     mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
@@ -37,7 +37,7 @@ pub fn spawn_space_stations(
         let transform = Transform::from_xyz(x, y, space_station.size_component.z_index)
             .with_rotation(Quat::from_rotation_z(angle.to_radians()));
 
-        spawn_sprite_event.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+        spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: space_station.sprite_path.to_string(),
             size: space_station.size_component.size,
             transform,
