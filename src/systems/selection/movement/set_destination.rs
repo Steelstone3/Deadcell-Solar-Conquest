@@ -42,8 +42,8 @@ pub fn set_multiple_destination(
 ) {
     for event in right_mouse_event_reader.read() {
         if selection_resource.selection != SpawnSelection::None {
-            for selected in selection_resource.selected_entities {
-                let Ok(mut selected_entity) = selected_moveable_queries.get_mut(selected) else {
+            for selected in &selection_resource.selected_entities {
+                let Ok(mut selected_entity) = selected_moveable_queries.get_mut(*selected) else {
                     return;
                 };
 

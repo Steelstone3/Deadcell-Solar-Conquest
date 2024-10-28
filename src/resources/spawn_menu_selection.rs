@@ -11,7 +11,7 @@ use crate::{
 pub struct SpawnMenuSelection {
     pub selection: SpawnSelection,
     pub selected_entity: Entity,
-    pub selected_entities: [Entity; 10],
+    pub selected_entities: Vec<Entity>,
     pub starship_selection: StarshipIcon,
     pub space_facility_selection: SpaceFacilityIcon,
 }
@@ -21,18 +21,7 @@ impl Default for SpawnMenuSelection {
         Self {
             selection: SpawnSelection::None,
             selected_entity: Entity::PLACEHOLDER,
-            selected_entities: [
-                Entity::PLACEHOLDER,
-                Entity::PLACEHOLDER,
-                Entity::PLACEHOLDER,
-                Entity::PLACEHOLDER,
-                Entity::PLACEHOLDER,
-                Entity::PLACEHOLDER,
-                Entity::PLACEHOLDER,
-                Entity::PLACEHOLDER,
-                Entity::PLACEHOLDER,
-                Entity::PLACEHOLDER,
-            ],
+            selected_entities: vec![],
             starship_selection: StarshipIcon::None,
             space_facility_selection: SpaceFacilityIcon::None,
         }
@@ -43,18 +32,7 @@ impl SpawnMenuSelection {
     pub fn reset_all(&mut self) {
         self.selection = SpawnSelection::None;
         self.selected_entity = Entity::PLACEHOLDER;
-        self.selected_entities = [
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-        ];
+        self.selected_entities = vec![];
         self.starship_selection = StarshipIcon::None;
         self.space_facility_selection = SpaceFacilityIcon::None;
     }
@@ -67,18 +45,7 @@ impl SpawnMenuSelection {
 
     pub fn single_selection(&mut self, entity: Entity) {
         // reset selected entities
-        self.selected_entities = [
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-            Entity::PLACEHOLDER,
-        ];
+        self.selected_entities = vec![];
 
         self.selected_entity = entity;
     }
@@ -87,17 +54,8 @@ impl SpawnMenuSelection {
         // reset selected entity
         self.selected_entity = Entity::PLACEHOLDER;
 
-        let mut index = 0;
-
-        for selected_entity in self.selected_entities {
-            if selected_entity == Entity::PLACEHOLDER {
-                break;
-            }
-            index += 1;
-        }
-
-        if index < self.selected_entities.len() && !self.selected_entities.contains(&entity) {
-            self.selected_entities[index] = entity;
+        if !self.selected_entities.contains(&entity) {
+            self.selected_entities.push(entity);
         }
     }
 }
