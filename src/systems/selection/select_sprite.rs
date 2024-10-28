@@ -150,7 +150,7 @@ pub fn set_selection_type(
                 info!("Other Selected");
             }
 
-            spawn_menu_selection.selected_entity = closest_selection.entity;
+            spawn_menu_selection.single_selection(closest_selection.entity);
         };
     }
 }

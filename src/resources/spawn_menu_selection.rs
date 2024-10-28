@@ -67,9 +67,11 @@ impl SpawnMenuSelection {
             Entity::PLACEHOLDER,
             Entity::PLACEHOLDER,
         ];
+
+        self.selected_entity = entity;
     }
     
-    pub fn add_selection(&mut self, entity: Entity) {
+    pub fn multi_selection(&mut self, entity: Entity) {
         // reset selected entity
         self.selected_entity = Entity::PLACEHOLDER;
 
