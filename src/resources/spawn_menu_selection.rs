@@ -14,6 +14,7 @@ use crate::{
 pub struct SpawnMenuSelection {
     pub selection: SpawnSelection,
     pub selected_entity: Entity,
+    pub selected_entities: [Entity; 5],
     pub starship_selection: StarshipIcon,
     pub space_facility_selection: SpaceFacilityIcon,
 }
@@ -23,6 +24,13 @@ impl Default for SpawnMenuSelection {
         Self {
             selection: SpawnSelection::None,
             selected_entity: Entity::PLACEHOLDER,
+            selected_entities: [
+                Entity::PLACEHOLDER,
+                Entity::PLACEHOLDER,
+                Entity::PLACEHOLDER,
+                Entity::PLACEHOLDER,
+                Entity::PLACEHOLDER,
+            ],
             starship_selection: StarshipIcon::None,
             space_facility_selection: SpaceFacilityIcon::None,
         }
@@ -33,6 +41,13 @@ impl SpawnMenuSelection {
     pub fn reset_all(spawn_menu_selection: &mut ResMut<'_, SpawnMenuSelection>) {
         spawn_menu_selection.selection = SpawnSelection::None;
         spawn_menu_selection.selected_entity = Entity::PLACEHOLDER;
+        spawn_menu_selection.selected_entities = [
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+        ];
         spawn_menu_selection.starship_selection = StarshipIcon::None;
         spawn_menu_selection.space_facility_selection = SpaceFacilityIcon::None;
     }
@@ -41,5 +56,24 @@ impl SpawnMenuSelection {
         spawn_menu_selection.selection = SpawnSelection::None;
         spawn_menu_selection.starship_selection = StarshipIcon::None;
         spawn_menu_selection.space_facility_selection = SpaceFacilityIcon::None;
+    }
+
+    pub fn single_selection(&mut self, entity: Entity) {
+        
+    }
+
+    pub fn add_selection(&mut self, entity: Entity) {
+        let mut index = 0;
+
+        for selected_entity in self.selected_entities {
+            if selected_entity == Entity::PLACEHOLDER {
+                break;
+            }
+            index += 1;
+        }
+
+        if index <= self.selected_entities.len() - 1 && !self.selected_entities.contains(&entity) {
+            self.selected_entities[index as usize] = entity;
+        }
     }
 }
