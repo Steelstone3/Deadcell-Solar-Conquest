@@ -18,7 +18,7 @@ pub fn clear_all_selected(
     if input.clear_just_pressed(KeyCode::Escape) {
         tracing::info!("All De-Selected");
 
-        SpawnMenuSelection::reset_all(&mut spawn_menu_selection);
+        spawn_menu_selection.reset_all();
 
         for selection_query in selection_queries.iter() {
             if let Some(selected_entity) = selection_query.entity {

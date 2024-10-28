@@ -1,7 +1,4 @@
-use bevy::{
-    ecs::system::{ResMut, Resource},
-    prelude::Entity,
-};
+use bevy::{ecs::system::Resource, prelude::Entity};
 
 use crate::{
     assets::user_interface::icons::{
@@ -43,10 +40,10 @@ impl Default for SpawnMenuSelection {
 }
 
 impl SpawnMenuSelection {
-    pub fn reset_all(spawn_menu_selection: &mut ResMut<'_, SpawnMenuSelection>) {
-        spawn_menu_selection.selection = SpawnSelection::None;
-        spawn_menu_selection.selected_entity = Entity::PLACEHOLDER;
-        spawn_menu_selection.selected_entities = [
+    pub fn reset_all(&mut self) {
+        self.selection = SpawnSelection::None;
+        self.selected_entity = Entity::PLACEHOLDER;
+        self.selected_entities = [
             Entity::PLACEHOLDER,
             Entity::PLACEHOLDER,
             Entity::PLACEHOLDER,
@@ -58,14 +55,14 @@ impl SpawnMenuSelection {
             Entity::PLACEHOLDER,
             Entity::PLACEHOLDER,
         ];
-        spawn_menu_selection.starship_selection = StarshipIcon::None;
-        spawn_menu_selection.space_facility_selection = SpaceFacilityIcon::None;
+        self.starship_selection = StarshipIcon::None;
+        self.space_facility_selection = SpaceFacilityIcon::None;
     }
 
-    pub fn default_selection(spawn_menu_selection: &mut ResMut<'_, SpawnMenuSelection>) {
-        spawn_menu_selection.selection = SpawnSelection::None;
-        spawn_menu_selection.starship_selection = StarshipIcon::None;
-        spawn_menu_selection.space_facility_selection = SpaceFacilityIcon::None;
+    pub fn default_selection(&mut self) {
+        self.selection = SpawnSelection::None;
+        self.starship_selection = StarshipIcon::None;
+        self.space_facility_selection = SpaceFacilityIcon::None;
     }
 
     pub fn single_selection(&mut self, entity: Entity) {

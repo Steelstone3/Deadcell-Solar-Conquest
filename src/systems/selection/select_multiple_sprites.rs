@@ -34,8 +34,8 @@ pub fn select_multiple_sprites(
             commands.entity(selected_entity).despawn();
         }
     }
-    SpawnMenuSelection::reset_all(&mut spawn_menu_selection);
-    
+    spawn_menu_selection.reset_all();
+
     for selectable in selectable_queries.iter() {
         // create an area out of the two cursor points
         let area = Rect::new(
@@ -55,7 +55,7 @@ pub fn select_multiple_sprites(
             if let Ok(selection_type) = type_check_query.get(selectable.entity) {
                 // select the entity if it is a type of starship
                 if selection_type.starship.is_some() {
-                    SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+                    spawn_menu_selection.default_selection();
                     spawn_menu_selection.selection = SpawnSelection::MultipleSelections;
 
                     // create a selection indicator entity
