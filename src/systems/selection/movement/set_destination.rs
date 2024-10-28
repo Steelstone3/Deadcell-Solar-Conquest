@@ -18,17 +18,17 @@ pub fn set_destination(
 ) {
     for event in right_mouse_event_reader.read() {
         if selection_resource.selection != SpawnSelection::None {
-            let Ok(mut selected_entity) =
-                selected_moveable_queries.get_mut(selection_resource.selected_entity)
-            else {
-                return;
-            };
+            for entity in selection_resource.selected_entities {
+                let Ok(mut selected_entity) = selected_moveable_queries.get_mut(entity) else {
+                    return;
+                };
 
-            selected_entity.0.target_location = Vec3::new(
-                event.cursor_world_position.x,
-                event.cursor_world_position.y,
-                selected_entity.1.translation.z,
-            );
+                selected_entity.0.target_location = Vec3::new(
+                    event.cursor_world_position.x,
+                    event.cursor_world_position.y,
+                    selected_entity.1.translation.z,
+                );
+            }
         }
     }
 }
