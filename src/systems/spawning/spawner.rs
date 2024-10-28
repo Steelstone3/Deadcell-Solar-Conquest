@@ -43,7 +43,7 @@ pub fn spawner(
         match spawn_menu_selection.selection {
             SpawnSelection::None => {}
             SpawnSelection::Other => {}
-            SpawnSelection::MultiSelection => {}
+            SpawnSelection::MultipleSelections => {}
             SpawnSelection::StarshipConstructionYard => {
                 spawn_starship(
                     &mut transform,
