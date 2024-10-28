@@ -71,7 +71,7 @@ pub fn select_multiple_sprites(
                     }));
 
                     // selected entities
-                    // spawn_menu_selection.multi_selection(entity);
+                    spawn_menu_selection.multi_selection(selectable.entity);
                 }
             }
         }
