@@ -23,7 +23,7 @@ use bevy::{
 
 pub fn select_sprite(
     mut select_event_reader: EventReader<MouseLeftClickEvent>,
-    selectable_query: Query<SelectableQuery>,
+    selectable_queries: Query<SelectableQuery>,
     mut spawn_sprite_writer: EventWriter<SpawnSpriteEvent>,
     mut commands: Commands,
     selection_queries: Query<SelectionQuery>,
@@ -37,7 +37,7 @@ pub fn select_sprite(
     let cursor_position = select.cursor_world_position;
 
     //get list of selectables that are in range of mouse cursor
-    for selectable in selectable_query.iter() {
+    for selectable in selectable_queries.iter() {
         let Some(size) = selectable.sprite.custom_size else {
             return Err(());
         };
