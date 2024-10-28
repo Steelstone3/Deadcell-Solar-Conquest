@@ -25,5 +25,5 @@ pub struct SelectionQuery {
 #[derive(QueryData)]
 pub struct TypeCheckQuery {
     pub space_facility: Option<&'static SpaceFacility>,
-    pub spaceship: Option<&'static Starship>,
+    pub starship: Option<&'static Starship>,
 }
