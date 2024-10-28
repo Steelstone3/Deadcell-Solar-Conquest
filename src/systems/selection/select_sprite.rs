@@ -77,7 +77,7 @@ pub fn select_sprite(
 
     //if valid selection found then spawn selection
     if closest.distance != -1.0 {
-        //Clear selection before makeing new selection
+        // clear previous selected
         for selection_query in selection_queries.iter() {
             if let Some(selected_entity) = selection_query.entity {
                 commands.entity(selected_entity).despawn();
@@ -117,7 +117,7 @@ pub fn set_selection_type(
         //Detmine the type of selection for the ui
         if let Ok(selection_type) = type_check_query.get(closest_selection.entity) {
             if let Some(space_facility) = selection_type.space_facility {
-                SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+                spawn_menu_selection.default_selection();
 
                 let space_facility_type = SpaceFacilitySprite::space_facility_type_convert_from(
                     space_facility.sprite_path,
@@ -131,7 +131,7 @@ pub fn set_selection_type(
                     info!("Starbase Selected");
                 }
             } else if let Some(spaceship) = selection_type.starship {
-                SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+                spawn_menu_selection.default_selection();
 
                 let spaceship_type = StarshipSprite::starship_type_convert_from(
                     spaceship.starship_sprite_bundle.starship_sprite,
@@ -144,13 +144,13 @@ pub fn set_selection_type(
                     spawn_menu_selection.selection = SpawnSelection::Other;
                 }
             } else {
-                SpawnMenuSelection::default_selection(&mut spawn_menu_selection);
+                spawn_menu_selection.default_selection();
 
                 spawn_menu_selection.selection = SpawnSelection::Other;
                 info!("Other Selected");
             }
 
-            spawn_menu_selection.selected_entity = closest_selection.entity;
+            spawn_menu_selection.single_selection(closest_selection.entity);
         };
     }
 }
