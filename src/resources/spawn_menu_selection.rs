@@ -59,19 +59,29 @@ impl SpawnMenuSelection {
     }
 
     pub fn single_selection(&mut self, entity: Entity) {
-        
+        // reset selected entities
+        self.selected_entities = [
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+            Entity::PLACEHOLDER,
+        ];
     }
-
+    
     pub fn add_selection(&mut self, entity: Entity) {
-        let mut index = 0;
+        // reset selected entity
+        self.selected_entity = Entity::PLACEHOLDER;
 
+        let mut index = 0;
+        
         for selected_entity in self.selected_entities {
             if selected_entity == Entity::PLACEHOLDER {
                 break;
             }
             index += 1;
         }
-
+        
         if index <= self.selected_entities.len() - 1 && !self.selected_entities.contains(&entity) {
             self.selected_entities[index as usize] = entity;
         }
