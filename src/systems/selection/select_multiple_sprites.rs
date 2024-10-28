@@ -34,7 +34,8 @@ pub fn select_multiple_sprites(
             commands.entity(selected_entity).despawn();
         }
     }
-
+    SpawnMenuSelection::reset_all(&mut spawn_menu_selection);
+    
     for selectable in selectable_queries.iter() {
         // create an area out of the two cursor points
         let area = Rect::new(
