@@ -25,6 +25,7 @@ rstest = "0.23"
 renet_visualizer = { version = "0.0.9", features = ["bevy"] }
 bevy = "0.14"
 bevy_egui = "0.30"
+bincode = "1.3"
 
 [workspace]
 resolver = "2"

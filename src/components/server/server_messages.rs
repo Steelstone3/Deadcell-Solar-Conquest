@@ -4,7 +4,7 @@ use renet::ClientId;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Component)]
-enum ServerMessages {
+pub enum ServerMessages {
     PlayerConnected { id: ClientId },
     PlayerDisconnected { id: ClientId },
 }

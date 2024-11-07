@@ -14,9 +14,17 @@ use crate::{
             set_destination::{set_multiple_destination, set_single_destination},
             update_selected_sprite_destination::update_selected_sprite_destination,
         },
+        server::{
+            server_sync_players::server_sync, server_update::server_update,
+            server_update_positions::server_update_positions,
+        },
     },
 };
-use bevy::app::{Plugin, Update};
+use bevy::{
+    app::{Plugin, Update},
+    prelude::{resource_exists, IntoSystemConfigs},
+};
+use bevy_renet::renet::RenetServer;
 
 pub struct RunningPlugin;
 
@@ -34,5 +42,10 @@ impl Plugin for RunningPlugin {
         app.add_systems(Update, set_multiple_destination);
         app.add_systems(Update, move_to_point);
         app.add_systems(Update, update_selected_sprite_destination);
+        app.add_systems(
+            Update,
+            (server_update, server_sync, server_update_positions)
+                .run_if(resource_exists::<RenetServer>),
+        );
     }
 }
