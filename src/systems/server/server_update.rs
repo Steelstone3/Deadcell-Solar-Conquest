@@ -32,7 +32,7 @@ pub fn server_update(
             ServerEvent::ClientDisconnected { client_id, reason } => {
                 println!("Player {} disconnected: {}", client_id, reason);
                 //on disconnect remove player from lobby
-                let index = lobby.players.retain(|&x| x != *client_id);
+                lobby.players.retain(|&x| x != *client_id);
 
                 let message =
                     bincode::serialize(&ServerMessages::PlayerDisconnected { id: *client_id })
