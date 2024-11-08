@@ -25,13 +25,6 @@ mod systems;
 
 fn main() {
     // env::set_var("RUST_BACKTRACE", "1");
-    let args: Vec<String> = std::env::args().collect();
-    let exec_type = &args[1];
-    let is_host = match exec_type.as_str() {
-        "client" => false,
-        "server" => true,
-        _ => panic!("Invalid argument, must be \"client\" or \"server\"."),
-    };
 
     let mut app = App::new();
     app.add_plugins((
@@ -60,6 +53,15 @@ fn main() {
         DeveloperPluginGroup,
     ));
 
+    client_server_setup(&mut app);
+
+    app.run();
+}
+
+fn client_server_setup(app: &mut App) {
+    let args: Vec<String> = std::env::args().collect();
+    let is_host = args.contains(&"server".to_string());
+
     if is_host {
         app.add_plugins((ServerPlugin, RenetServerPlugin, NetcodeServerPlugin));
         let (server, transport) = Server::new_renet_server();
@@ -70,6 +72,4 @@ fn main() {
         app.insert_resource(client)
             .insert_resource(client_transport);
     }
-
-    app.run();
 }
