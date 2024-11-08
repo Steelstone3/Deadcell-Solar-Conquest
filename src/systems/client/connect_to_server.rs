@@ -9,7 +9,6 @@ use renet::{
 
 use crate::systems::server::game_server::Server;
 
-
 pub fn connect_to_server(mut commands: Commands) {
     let server_addr = "127.0.0.1:5000".parse().unwrap();
     let socket = UdpSocket::bind("0.0.0.0:0").unwrap();
