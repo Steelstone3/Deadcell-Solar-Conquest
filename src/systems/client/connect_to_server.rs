@@ -7,7 +7,8 @@ use renet::{
     ConnectionConfig, RenetClient,
 };
 
-use crate::server::server::Server;
+use crate::systems::server::game_server::Server;
+
 
 pub fn connect_to_server(mut commands: Commands) {
     let server_addr = "127.0.0.1:5000".parse().unwrap();

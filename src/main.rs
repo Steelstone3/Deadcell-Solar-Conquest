@@ -4,23 +4,20 @@ use bevy_renet::{
     transport::{NetcodeClientPlugin, NetcodeServerPlugin},
     RenetClientPlugin, RenetServerPlugin,
 };
-use client::client::Client;
 use plugins::{
     client::ClientPlugin, event_handlers::EventHandlersPlugin, events::EventsPlugin,
     groups::developer_plugin_group::DeveloperPluginGroup, resources::ResourcesPlugin,
     running::RunningPlugin, server::ServerPlugin, start::StartPlugin,
     user_interface::UserInterfacePlugin,
 };
-use server::server::Server;
+use systems::{client::game_client::Client, server::game_server::Server};
 
 mod assets;
-mod client;
 mod components;
 mod events;
 mod plugins;
 mod queries;
 mod resources;
-mod server;
 mod systems;
 
 fn main() {
