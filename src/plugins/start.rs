@@ -5,7 +5,6 @@ use bevy::{
 
 use crate::systems::{
     camera::spawn_camera::spawn_camera,
-    client::connect_to_server::connect_to_server,
     spawning::{
         spawn_resource_planets::spawn_resource_planets, spawn_space::spawn_space,
         spawn_space_stations::spawn_space_stations,

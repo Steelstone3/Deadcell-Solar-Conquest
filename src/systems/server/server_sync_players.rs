@@ -5,4 +5,4 @@ use bevy::{
 use bevy_renet::renet;
 use renet::RenetServer;
 
-pub fn server_sync(mut server: ResMut<RenetServer>, query: Query<&Transform>) {}
+pub fn server_sync(_server: ResMut<RenetServer>, _query: Query<&Transform>) {}

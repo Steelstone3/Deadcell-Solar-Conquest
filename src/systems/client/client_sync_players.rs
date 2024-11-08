@@ -1,6 +1,6 @@
 use bevy::ecs::system::ResMut;
 use bevy_renet::renet;
-use renet::{ClientId, DefaultChannel, RenetClient};
+use renet::{DefaultChannel, RenetClient};
 
 use crate::{components::server::server_messages::ServerMessages, resources::lobby::Lobby};
 
