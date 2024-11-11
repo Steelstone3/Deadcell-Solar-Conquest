@@ -12,9 +12,9 @@ use crate::systems::{
     },
 };
 
-pub struct StartPlugin;
+pub struct ServerStartPlugin;
 
-impl Plugin for StartPlugin {
+impl Plugin for ServerStartPlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
         app.add_systems(Startup, spawn_space);
         app.add_systems(Startup, spawn_camera);

@@ -9,9 +9,9 @@ use crate::systems::server::{
     server_update_positions::server_update_positions,
 };
 
-pub struct ServerPlugin;
+pub struct ServerUpdatePlugin;
 
-impl Plugin for ServerPlugin {
+impl Plugin for ServerUpdatePlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
         app.add_systems(
             Update,

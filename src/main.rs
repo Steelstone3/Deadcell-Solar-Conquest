@@ -5,9 +5,10 @@ use bevy_renet::{
     RenetClientPlugin, RenetServerPlugin,
 };
 use plugins::{
-    client::ClientPlugin, event_handlers::EventHandlersPlugin, events::EventsPlugin,
+    client_start::ClientStartPlugin, client_update::ClientUpdatePlugin,
+    event_handlers::EventHandlersPlugin, events::EventsPlugin,
     groups::developer_plugin_group::DeveloperPluginGroup, resources::ResourcesPlugin,
-    running::RunningPlugin, server::ServerPlugin, start::StartPlugin,
+    running::RunningPlugin, server_start::ServerStartPlugin, server_update::ServerUpdatePlugin,
     user_interface::UserInterfacePlugin,
 };
 use systems::{client::game_client::Client, server::game_server::Server};
@@ -21,8 +22,6 @@ mod resources;
 mod systems;
 
 fn main() {
-    // env::set_var("RUST_BACKTRACE", "1");
-
     let mut app = App::new();
     app.add_plugins((
         DefaultPlugins
@@ -44,14 +43,11 @@ fn main() {
         EventsPlugin,
         EventHandlersPlugin,
         ResourcesPlugin,
-        StartPlugin,
-        RunningPlugin,
         UserInterfacePlugin,
+        RunningPlugin,
         DeveloperPluginGroup,
     ));
-
     client_server_setup(&mut app);
-
     app.run();
 }
 
@@ -60,11 +56,21 @@ fn client_server_setup(app: &mut App) {
     let is_host = args.contains(&"server".to_string());
 
     if is_host {
-        app.add_plugins((ServerPlugin, RenetServerPlugin, NetcodeServerPlugin));
+        app.add_plugins((
+            ServerStartPlugin,
+            ServerUpdatePlugin,
+            RenetServerPlugin,
+            NetcodeServerPlugin,
+        ));
         let (server, transport) = Server::new_renet_server();
         app.insert_resource(server).insert_resource(transport);
     } else {
-        app.add_plugins((ClientPlugin, RenetClientPlugin, NetcodeClientPlugin));
+        app.add_plugins((
+            ClientStartPlugin,
+            ClientUpdatePlugin,
+            RenetClientPlugin,
+            NetcodeClientPlugin,
+        ));
         let (client, client_transport) = Client::new_renet_client();
         app.insert_resource(client)
             .insert_resource(client_transport);

@@ -1,10 +1,11 @@
-pub mod client;
+pub mod client_start;
+pub mod client_update;
 pub mod developer;
 pub mod event_handlers;
 pub mod events;
 pub mod groups;
 pub mod resources;
 pub mod running;
-pub mod server;
-pub mod start;
+pub mod server_start;
+pub mod server_update;
 pub mod user_interface;
