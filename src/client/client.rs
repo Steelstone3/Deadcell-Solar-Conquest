@@ -5,7 +5,7 @@ use bevy_renet::renet::{
     ConnectionConfig, RenetClient,
 };
 
-use crate::systems::server::game_server::Server;
+use crate::server::server::Server;
 
 pub struct Client {}
 

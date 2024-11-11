@@ -1,28 +1,34 @@
-use bevy::prelude::{EventReader, ResMut};
+use bevy::prelude::{EventReader, EventWriter, ResMut};
 use bevy_renet::renet::{DefaultChannel, RenetServer, ServerEvent};
 
-use crate::{components::server::server_messages::ServerMessages, resources::lobby::Lobby};
+use crate::{
+    components::server::server_messages::ServerMessages,
+    events::player_connected::PlayerConnectedEvent, resources::lobby::Lobby,
+};
 
-pub fn server_update(
+pub fn send_server_messages(
     mut server_events: EventReader<ServerEvent>,
     mut lobby: ResMut<Lobby>,
     mut server: ResMut<RenetServer>,
+    mut player_connected_event_writer: EventWriter<PlayerConnectedEvent>,
 ) {
     for event in server_events.read() {
         match event {
             ServerEvent::ClientConnected { client_id } => {
                 println!("Player {} connected.", client_id);
-                //TODO On Player Connect add to lobby list
-
-                //Send connected message to all players
-                for &player_id in lobby.players.iter() {
-                    let message =
-                        bincode::serialize(&ServerMessages::PlayerConnected { id: player_id })
-                            .unwrap();
-                    server.send_message(*client_id, DefaultChannel::ReliableOrdered, message);
-                }
 
                 lobby.players.push(*client_id);
+
+                //Send connected message to all players
+                let message =
+                    bincode::serialize(&ServerMessages::PlayerConnected { id: *client_id })
+                        .unwrap();
+                server.broadcast_message(DefaultChannel::ReliableOrdered, message);
+                //server event to trigger sync with connected client
+                println!("Sending Player connected event");
+                player_connected_event_writer.send(PlayerConnectedEvent {
+                    client_id: *client_id,
+                });
 
                 let message =
                     bincode::serialize(&ServerMessages::PlayerConnected { id: *client_id })

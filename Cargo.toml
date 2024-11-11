@@ -15,6 +15,7 @@ include = []
 wayland-sys = "0.31"
 
 [dependencies]
+bevy = { version = "0.14", features = ["serialize"] }
 bevy_renet = { version = "0.0.12", features = ["serde"] }
 serde = { version = "1.0.214", features = ["derive"] }
 float-lerp = "0"
@@ -23,7 +24,6 @@ rand_derive2 = "0"
 rayon = "1"
 rstest = "0.23"
 renet_visualizer = { version = "0.0.9", features = ["bevy"] }
-bevy = "0.14"
 bevy_egui = "0.30"
 bincode = "1.3"
 
