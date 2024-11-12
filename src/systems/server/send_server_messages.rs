@@ -10,13 +10,13 @@ use crate::{
     components::{
         faction::{
             space_facility::{SerializableSpaceFacility, SpaceFacility},
-            starship::{self, SerializableStarship, Starship},
+            starship::{SerializableStarship, Starship},
         },
         map::{
             planet::{Planet, SerializablePlanet},
             space::{SerializableSpace, Space},
         },
-        server::server_messages::ServerMessages,
+        server::{server_messages::ServerMessages, server_object::ServerObject},
     },
     resources::lobby::Lobby,
     server::channels::GameSyncChannels,
@@ -27,7 +27,7 @@ pub fn send_server_messages(
     space_tile_query: Query<(&Space, &Transform, Entity)>,
     planet_query: Query<(&Planet, &Transform, Entity)>,
     space_facility_query: Query<(&SpaceFacility, &Transform, Entity)>,
-    starships_query: Query<(&Starship, &Transform, Entity)>,
+    starships_query: Query<(&Starship, &Transform, &ServerObject)>,
     mut server_events: EventReader<ServerEvent>,
     mut lobby: ResMut<Lobby>,
 ) {
@@ -79,11 +79,14 @@ pub fn send_server_messages(
 
                 println!("Syncing starships with connected player");
                 let mut starships: HashMap<u32, Vec<u8>> = HashMap::new();
-                for (starship, transform, entity) in starships_query.iter() {
-                    let starship =
-                        bincode::serialize(&SerializableStarship::new(*starship, *transform))
-                            .unwrap();
-                    starships.insert(entity.index(), starship.to_owned());
+                for (starship, transform, server_object) in starships_query.iter() {
+                    let starship = bincode::serialize(&SerializableStarship::new(
+                        *starship,
+                        *transform,
+                        *server_object,
+                    ))
+                    .unwrap();
+                    starships.insert(server_object.id, starship.to_owned());
                 }
                 let message = bincode::serialize(&starships).unwrap();
                 server.send_message(*client_id, GameSyncChannels::Starships, message);

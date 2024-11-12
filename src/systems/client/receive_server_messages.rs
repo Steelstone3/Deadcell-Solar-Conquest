@@ -1,24 +1,20 @@
 use bevy::{
     ecs::system::ResMut,
-    prelude::{Commands, EventWriter},
+    prelude::{Commands, EventWriter, Query, Transform},
     utils::HashMap,
 };
 use bevy_renet::renet;
 use renet::RenetClient;
 
 use crate::{
-    assets::images::space_facility_sprite,
     components::{
-        faction::{
-            space_facility::{self, SerializableSpaceFacility},
-            starship::{self, SerializableStarship},
+        faction::{space_facility::SerializableSpaceFacility, starship::SerializableStarship},
+        map::{planet::SerializablePlanet, space::SerializableSpace},
+        server::{
+            server_messages::ServerMessages,
+            server_object::{SerializableServerObject, ServerObject},
         },
-        map::{
-            planet::SerializablePlanet,
-            space::{self, SerializableSpace},
-        },
-        server::server_messages::ServerMessages,
-        user_interface::{controllable::Movement, selection::Selectable},
+        user_interface::selection::Selectable,
     },
     events::spawn_sprite_event::{SpawnAnimatedSprite, SpawnSprite, SpawnSpriteEvent},
     resources::lobby::Lobby,
@@ -30,6 +26,7 @@ pub fn receive_server_messages(
     mut lobby: ResMut<Lobby>,
     mut spawn_sprite_event_writer: EventWriter<SpawnSpriteEvent>,
     mut commands: Commands,
+    mut server_object_query: Query<(&mut Transform, &ServerObject)>,
 ) {
     while let Some(message) = client.receive_message(GameSyncChannels::Messages) {
         let server_message = bincode::deserialize(&message).unwrap();
@@ -116,8 +113,26 @@ pub fn receive_server_messages(
                     .to_string(),
                 size: starship_sprite.size_component.size,
                 transform: starship.transform,
-                entity: commands.spawn(starship_sprite).insert(Selectable).id(),
+                entity: commands
+                    .spawn(starship_sprite)
+                    .insert(Selectable)
+                    .insert(starship.server_object)
+                    .id(),
             }));
+        }
+    }
+
+    while let Some(message) = client.receive_message(GameSyncChannels::ServerObjects) {
+        let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
+
+        for mut local_server_object in server_object_query.iter_mut() {
+            for (id, data) in message.iter() {
+                let remote_server_object: SerializableServerObject =
+                    bincode::deserialize(&data).unwrap();
+                if *local_server_object.1 == remote_server_object.server_object {
+                    *local_server_object.0 = remote_server_object.transform.clone();
+                }
+            }
         }
     }
 }

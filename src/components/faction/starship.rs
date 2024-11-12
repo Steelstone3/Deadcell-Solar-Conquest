@@ -6,8 +6,11 @@ use crate::{
         },
         user_interface::icons::starship_icons::StarshipIcon,
     },
-    components::sprite_component::{
-        size_component::SizeComponent, starship_sprite_bundle::StarshipSpriteBundle,
+    components::{
+        server::server_object::ServerObject,
+        sprite_component::{
+            size_component::SizeComponent, starship_sprite_bundle::StarshipSpriteBundle,
+        },
     },
     resources::{constants::TILE_SIZE, faction::Faction},
 };
@@ -85,13 +88,15 @@ impl StarshipSpeed {
 pub struct SerializableStarship {
     pub starship: Starship,
     pub transform: Transform,
+    pub server_object: ServerObject,
 }
 
 impl SerializableStarship {
-    pub fn new(starship: Starship, transform: Transform) -> Self {
+    pub fn new(starship: Starship, transform: Transform, server_object: ServerObject) -> Self {
         Self {
             starship,
             transform,
+            server_object,
         }
     }
 }

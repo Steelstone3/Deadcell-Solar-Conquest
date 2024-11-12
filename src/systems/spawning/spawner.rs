@@ -17,6 +17,7 @@ use crate::{
             space_facility::SpaceFacility,
             starship::{Starship, StarshipSpeed},
         },
+        server::server_object::ServerObject,
         user_interface::{controllable::Movement, selection::Selectable},
     },
     events::{
@@ -112,19 +113,25 @@ fn spawn_starship(
 
         transform.translation.z = starship.size_component.z_index;
 
+        let entity = commands
+            .spawn(starship)
+            .insert(Selectable)
+            .insert(Movement {
+                target_location: transform.translation,
+                maximum_speed: ship_speed.speed,
+                current_speed: 0.0,
+            })
+            .id();
+
+        commands
+            .entity(entity)
+            .insert(ServerObject { id: entity.index() });
+
         spawn_sprite_event.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: starship.starship_sprite_bundle.starship_sprite.to_string(),
             size: starship.size_component.size,
             transform: *transform,
-            entity: commands
-                .spawn(starship)
-                .insert(Selectable)
-                .insert(Movement {
-                    target_location: transform.translation,
-                    maximum_speed: ship_speed.speed,
-                    current_speed: 0.0,
-                })
-                .id(),
+            entity,
         }));
     }
 }
