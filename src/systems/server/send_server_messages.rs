@@ -8,7 +8,10 @@ use bevy_renet::renet::{RenetServer, ServerEvent};
 
 use crate::{
     components::{
-        map::space::{SerializableSpace, Space},
+        map::{
+            planet::{Planet, SerializablePlanet},
+            space::{SerializableSpace, Space},
+        },
         server::server_messages::ServerMessages,
     },
     resources::lobby::Lobby,
@@ -18,6 +21,7 @@ use crate::{
 pub fn send_server_messages(
     mut server: ResMut<RenetServer>,
     space_tile_query: Query<(&Space, &Transform, Entity)>,
+    planet_query: Query<(&Planet, &Transform, Entity)>,
     mut server_events: EventReader<ServerEvent>,
     mut lobby: ResMut<Lobby>,
 ) {
@@ -34,19 +38,25 @@ pub fn send_server_messages(
                         .unwrap();
                 server.broadcast_message(GameSyncChannels::Messages, message);
 
-                let mut space_tiles: HashMap<u64, Vec<u8>> = HashMap::new();
+                let mut space_tiles: HashMap<u32, Vec<u8>> = HashMap::new();
                 for (space, transform, entity) in space_tile_query.iter() {
                     let space_tile =
                         bincode::serialize(&SerializableSpace::new(*space, *transform)).unwrap();
-                    space_tiles.insert(entity.to_bits(), space_tile.to_owned());
+                    space_tiles.insert(entity.index(), space_tile.to_owned());
                 }
-
                 println!("Syncing space tiles with connected player");
                 let message = bincode::serialize(&space_tiles).unwrap();
                 server.send_message(*client_id, GameSyncChannels::SpaceTiles, message);
 
                 println!("Syncing planets with connected player");
-                //TODO Sync planets
+                let mut planets: HashMap<u32, Vec<u8>> = HashMap::new();
+                for (planet, transform, entity) in planet_query.iter() {
+                    let planet =
+                        bincode::serialize(&SerializablePlanet::new(*planet, *transform)).unwrap();
+                    planets.insert(entity.index(), planet.to_owned());
+                }
+                let message = bincode::serialize(&planets).unwrap();
+                server.send_message(*client_id, GameSyncChannels::Planets, message);
 
                 println!("Syncing space facilities with connected player");
                 //TODO Sync planets

@@ -3,13 +3,14 @@ use crate::{
     components::sprite_component::size_component::SizeComponent,
     resources::constants::SPACE_TILE_SIZE,
 };
-use bevy::{ecs::component::Component, math::Vec2};
+use bevy::{ecs::component::Component, math::Vec2, prelude::Transform};
 use rand::Rng;
+use serde::{Deserialize, Serialize};
 
 pub const PLANET_CLOSEST_DISTANCE_TO_SUN: f32 = SIZE + SPACE_TILE_SIZE; // minimum distance
 const SIZE: f32 = SPACE_TILE_SIZE * 2.0; // maximum size
 
-#[derive(Component, Clone, Copy)]
+#[derive(Component, Clone, Copy, Deserialize, Serialize)]
 pub struct Planet {
     pub sprite_path: PlanetSprite,
     pub size_component: SizeComponent,
@@ -27,5 +28,17 @@ impl Planet {
                 z_index: 2.0,
             },
         }
+    }
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct SerializablePlanet {
+    pub planet: Planet,
+    pub transform: Transform,
+}
+
+impl SerializablePlanet {
+    pub fn new(planet: Planet, transform: Transform) -> Self {
+        Self { planet, transform }
     }
 }

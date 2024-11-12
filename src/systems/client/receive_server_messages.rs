@@ -7,8 +7,11 @@ use bevy_renet::renet;
 use renet::RenetClient;
 
 use crate::{
-    components::{map::space::SerializableSpace, server::server_messages::ServerMessages},
-    events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+    components::{
+        map::{planet::SerializablePlanet, space::SerializableSpace},
+        server::server_messages::ServerMessages,
+    },
+    events::spawn_sprite_event::{SpawnAnimatedSprite, SpawnSprite, SpawnSpriteEvent},
     resources::lobby::Lobby,
     server::channels::GameSyncChannels,
 };
@@ -35,8 +38,7 @@ pub fn receive_server_messages(
 
     while let Some(message) = client.receive_message(GameSyncChannels::SpaceTiles) {
         println!("Receiving space tiles");
-
-        let message: HashMap<u64, Vec<u8>> = bincode::deserialize(&message).unwrap();
+        let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
         for (_id, data) in message.iter() {
             let space_tile: SerializableSpace = bincode::deserialize(&data).unwrap();
             let space = space_tile.space;
@@ -49,9 +51,27 @@ pub fn receive_server_messages(
         }
     }
 
-    while let Some(_message) = client.receive_message(GameSyncChannels::Planets) {
+    while let Some(message) = client.receive_message(GameSyncChannels::Planets) {
         println!("Receiving planets");
-        //TODO receive planets
+        let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
+        for (_id, data) in message.iter() {
+            println!("Spawning planet {:?}", _id);
+            let planet: SerializablePlanet = bincode::deserialize(&data).unwrap();
+            let planet_sprite = planet.planet;
+            spawn_sprite_event_writer.send(SpawnSpriteEvent::spawn_animated_sprite(
+                SpawnSprite {
+                    sprite_path: planet_sprite.sprite_path.to_string(),
+                    size: planet_sprite.size_component.size,
+                    transform: planet.transform,
+                    entity: commands.spawn(planet_sprite).id(),
+                },
+                SpawnAnimatedSprite {
+                    sprite_tile_size: 100,
+                    frame_timing: 0.1,
+                    frame_count: 50,
+                },
+            ));
+        }
     }
 
     while let Some(_message) = client.receive_message(GameSyncChannels::SpaceFacilities) {
