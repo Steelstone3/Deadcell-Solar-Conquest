@@ -7,14 +7,18 @@ use bevy_renet::renet;
 use renet::RenetClient;
 
 use crate::{
+    assets::images::space_facility_sprite,
     components::{
-        faction::space_facility::{self, SerializableSpaceFacility},
+        faction::{
+            space_facility::{self, SerializableSpaceFacility},
+            starship::{self, SerializableStarship},
+        },
         map::{
             planet::SerializablePlanet,
             space::{self, SerializableSpace},
         },
         server::server_messages::ServerMessages,
-        user_interface::selection::Selectable,
+        user_interface::{controllable::Movement, selection::Selectable},
     },
     events::spawn_sprite_event::{SpawnAnimatedSprite, SpawnSprite, SpawnSpriteEvent},
     resources::lobby::Lobby,
@@ -98,8 +102,22 @@ pub fn receive_server_messages(
         }
     }
 
-    while let Some(_message) = client.receive_message(GameSyncChannels::Starships) {
+    while let Some(message) = client.receive_message(GameSyncChannels::Starships) {
         println!("Receiving starships");
-        //TODO receive starships
+        let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
+        for (id, data) in message.iter() {
+            println!("Spawning starship {:?}", id);
+            let starship: SerializableStarship = bincode::deserialize(&data).unwrap();
+            let starship_sprite = starship.starship;
+            spawn_sprite_event_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+                sprite_path: starship_sprite
+                    .starship_sprite_bundle
+                    .starship_sprite
+                    .to_string(),
+                size: starship_sprite.size_component.size,
+                transform: starship.transform,
+                entity: commands.spawn(starship_sprite).insert(Selectable).id(),
+            }));
+        }
     }
 }

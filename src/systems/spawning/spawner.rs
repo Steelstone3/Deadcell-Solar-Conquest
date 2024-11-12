@@ -61,6 +61,7 @@ pub fn spawner(
                 );
             }
             SpawnSelection::Starbase => {
+                //TODO make func for starbases?
                 spawn_starship(
                     &mut transform,
                     &spawn_menu_selection,

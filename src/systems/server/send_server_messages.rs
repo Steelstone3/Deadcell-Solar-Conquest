@@ -8,7 +8,10 @@ use bevy_renet::renet::{RenetServer, ServerEvent};
 
 use crate::{
     components::{
-        faction::space_facility::{SerializableSpaceFacility, SpaceFacility},
+        faction::{
+            space_facility::{SerializableSpaceFacility, SpaceFacility},
+            starship::{self, SerializableStarship, Starship},
+        },
         map::{
             planet::{Planet, SerializablePlanet},
             space::{SerializableSpace, Space},
@@ -24,6 +27,7 @@ pub fn send_server_messages(
     space_tile_query: Query<(&Space, &Transform, Entity)>,
     planet_query: Query<(&Planet, &Transform, Entity)>,
     space_facility_query: Query<(&SpaceFacility, &Transform, Entity)>,
+    starships_query: Query<(&Starship, &Transform, Entity)>,
     mut server_events: EventReader<ServerEvent>,
     mut lobby: ResMut<Lobby>,
 ) {
@@ -74,7 +78,15 @@ pub fn send_server_messages(
                 server.send_message(*client_id, GameSyncChannels::SpaceFacilities, message);
 
                 println!("Syncing starships with connected player");
-                //TODO Sync planets
+                let mut starships: HashMap<u32, Vec<u8>> = HashMap::new();
+                for (starship, transform, entity) in starships_query.iter() {
+                    let starship =
+                        bincode::serialize(&SerializableStarship::new(*starship, *transform))
+                            .unwrap();
+                    starships.insert(entity.index(), starship.to_owned());
+                }
+                let message = bincode::serialize(&starships).unwrap();
+                server.send_message(*client_id, GameSyncChannels::Starships, message);
             }
             ServerEvent::ClientDisconnected { client_id, reason } => {
                 println!("Player {} disconnected: {}", client_id, reason);

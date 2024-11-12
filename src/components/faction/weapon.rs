@@ -6,11 +6,11 @@ use crate::{
     resources::{constants::TILE_SIZE, faction::Faction},
 };
 use bevy::{ecs::component::Component, math::Vec2};
+use serde::{Deserialize, Serialize};
 
 const SIZE: f32 = TILE_SIZE;
 
-#[allow(dead_code)]
-#[derive(Component)]
+#[derive(Component, Serialize, Deserialize, Clone, Copy)]
 pub struct Weapon {
     weapon_sprite: WeaponSprite,
     size: SizeComponent,

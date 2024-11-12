@@ -11,18 +11,17 @@ use crate::{
     },
     resources::{constants::TILE_SIZE, faction::Faction},
 };
-use bevy::{ecs::component::Component, math::Vec2};
+use bevy::{ecs::component::Component, math::Vec2, prelude::Transform};
+use serde::{Deserialize, Serialize};
 
 // TODO spawned starships take damage a radius 1.5 to 2 times the suns size (mechanic)
 
 const SIZE: f32 = TILE_SIZE * 16.0;
 
-#[derive(Component)]
+#[derive(Component, Serialize, Deserialize, Clone, Copy)]
 pub struct Starship {
     pub starship_sprite_bundle: StarshipSpriteBundle,
-    #[allow(dead_code)]
     pub weapon: Weapon,
-    #[allow(dead_code)]
     pub faction: Faction,
     pub size_component: SizeComponent,
 }
@@ -78,6 +77,21 @@ impl StarshipSpeed {
                 StarshipType::BattleCruiser => slow_speed,
                 StarshipType::Dreadnought => very_slow_speed,
             },
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct SerializableStarship {
+    pub starship: Starship,
+    pub transform: Transform,
+}
+
+impl SerializableStarship {
+    pub fn new(starship: Starship, transform: Transform) -> Self {
+        Self {
+            starship,
+            transform,
         }
     }
 }
