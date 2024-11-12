@@ -8,8 +8,13 @@ use renet::RenetClient;
 
 use crate::{
     components::{
-        map::{planet::SerializablePlanet, space::SerializableSpace},
+        faction::space_facility::{self, SerializableSpaceFacility},
+        map::{
+            planet::SerializablePlanet,
+            space::{self, SerializableSpace},
+        },
         server::server_messages::ServerMessages,
+        user_interface::selection::Selectable,
     },
     events::spawn_sprite_event::{SpawnAnimatedSprite, SpawnSprite, SpawnSpriteEvent},
     resources::lobby::Lobby,
@@ -54,8 +59,8 @@ pub fn receive_server_messages(
     while let Some(message) = client.receive_message(GameSyncChannels::Planets) {
         println!("Receiving planets");
         let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
-        for (_id, data) in message.iter() {
-            println!("Spawning planet {:?}", _id);
+        for (id, data) in message.iter() {
+            println!("Spawning planet {:?}", id);
             let planet: SerializablePlanet = bincode::deserialize(&data).unwrap();
             let planet_sprite = planet.planet;
             spawn_sprite_event_writer.send(SpawnSpriteEvent::spawn_animated_sprite(
@@ -74,9 +79,23 @@ pub fn receive_server_messages(
         }
     }
 
-    while let Some(_message) = client.receive_message(GameSyncChannels::SpaceFacilities) {
+    while let Some(message) = client.receive_message(GameSyncChannels::SpaceFacilities) {
         println!("Receiving space facilities");
-        //TODO receive facilities
+        let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
+        for (id, data) in message.iter() {
+            println!("Spawning space facility {:?}", id);
+            let space_facility: SerializableSpaceFacility = bincode::deserialize(&data).unwrap();
+            let space_facility_sprite = space_facility.space_facility;
+            spawn_sprite_event_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+                sprite_path: space_facility_sprite.sprite_path.to_string(),
+                size: space_facility_sprite.size_component.size,
+                transform: space_facility.transform,
+                entity: commands
+                    .spawn(space_facility_sprite)
+                    .insert(Selectable)
+                    .id(),
+            }));
+        }
     }
 
     while let Some(_message) = client.receive_message(GameSyncChannels::Starships) {

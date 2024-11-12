@@ -8,6 +8,7 @@ use bevy_renet::renet::{RenetServer, ServerEvent};
 
 use crate::{
     components::{
+        faction::space_facility::{SerializableSpaceFacility, SpaceFacility},
         map::{
             planet::{Planet, SerializablePlanet},
             space::{SerializableSpace, Space},
@@ -22,6 +23,7 @@ pub fn send_server_messages(
     mut server: ResMut<RenetServer>,
     space_tile_query: Query<(&Space, &Transform, Entity)>,
     planet_query: Query<(&Planet, &Transform, Entity)>,
+    space_facility_query: Query<(&SpaceFacility, &Transform, Entity)>,
     mut server_events: EventReader<ServerEvent>,
     mut lobby: ResMut<Lobby>,
 ) {
@@ -59,7 +61,17 @@ pub fn send_server_messages(
                 server.send_message(*client_id, GameSyncChannels::Planets, message);
 
                 println!("Syncing space facilities with connected player");
-                //TODO Sync planets
+                let mut space_facilities: HashMap<u32, Vec<u8>> = HashMap::new();
+                for (space_facility, transform, entity) in space_facility_query.iter() {
+                    let space_facility = bincode::serialize(&SerializableSpaceFacility::new(
+                        *space_facility,
+                        *transform,
+                    ))
+                    .unwrap();
+                    space_facilities.insert(entity.index(), space_facility.to_owned());
+                }
+                let message = bincode::serialize(&space_facilities).unwrap();
+                server.send_message(*client_id, GameSyncChannels::SpaceFacilities, message);
 
                 println!("Syncing starships with connected player");
                 //TODO Sync planets

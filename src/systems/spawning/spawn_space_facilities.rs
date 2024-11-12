@@ -14,7 +14,7 @@ use crate::{
     resources::faction::PlayerFaction,
 };
 
-pub fn spawn_space_stations(
+pub fn spawn_space_facilities(
     mut commands: Commands,
     sun_queries: Query<SunQuery>,
     mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
