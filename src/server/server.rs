@@ -5,6 +5,8 @@ use bevy_renet::renet::{
     ConnectionConfig, RenetServer,
 };
 
+use super::channels::GameSyncChannels;
+
 //only allow client to connect with matching protocol id.
 //Increment with each release
 const PROTOCOL_ID: u64 = 0;
@@ -31,8 +33,11 @@ impl Server {
         };
 
         let transport = NetcodeServerTransport::new(server_config, socket).unwrap();
-        let server = RenetServer::new(ConnectionConfig::default());
-
+        let server = RenetServer::new(ConnectionConfig {
+            available_bytes_per_tick: 60_000,
+            server_channels_config: GameSyncChannels::config(),
+            client_channels_config: GameSyncChannels::config(),
+        });
         (server, transport)
     }
 }

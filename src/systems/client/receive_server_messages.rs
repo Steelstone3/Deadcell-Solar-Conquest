@@ -4,12 +4,13 @@ use bevy::{
     utils::HashMap,
 };
 use bevy_renet::renet;
-use renet::{DefaultChannel, RenetClient};
+use renet::RenetClient;
 
 use crate::{
     components::{map::space::SerializableSpace, server::server_messages::ServerMessages},
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     resources::lobby::Lobby,
+    server::channels::GameSyncChannels,
 };
 
 pub fn receive_server_messages(
@@ -18,7 +19,7 @@ pub fn receive_server_messages(
     mut spawn_sprite_event_writer: EventWriter<SpawnSpriteEvent>,
     mut commands: Commands,
 ) {
-    while let Some(message) = client.receive_message(DefaultChannel::ReliableOrdered) {
+    while let Some(message) = client.receive_message(GameSyncChannels::Messages) {
         let server_message = bincode::deserialize(&message).unwrap();
         match server_message {
             ServerMessages::PlayerConnected { id } => {
@@ -32,8 +33,9 @@ pub fn receive_server_messages(
         }
     }
 
-    //TODO figure out how to sync different object types at the same time. Maybe custom chanell for each type?
-    while let Some(message) = client.receive_message(DefaultChannel::ReliableUnordered) {
+    while let Some(message) = client.receive_message(GameSyncChannels::SpaceTiles) {
+        println!("Receiving space tiles");
+
         let message: HashMap<u64, Vec<u8>> = bincode::deserialize(&message).unwrap();
         for (_id, data) in message.iter() {
             let space_tile: SerializableSpace = bincode::deserialize(&data).unwrap();
@@ -45,5 +47,20 @@ pub fn receive_server_messages(
                 entity: commands.spawn(space).id(),
             }));
         }
+    }
+
+    while let Some(_message) = client.receive_message(GameSyncChannels::Planets) {
+        println!("Receiving planets");
+        //TODO receive planets
+    }
+
+    while let Some(_message) = client.receive_message(GameSyncChannels::SpaceFacilities) {
+        println!("Receiving space facilities");
+        //TODO receive facilities
+    }
+
+    while let Some(_message) = client.receive_message(GameSyncChannels::Starships) {
+        println!("Receiving starships");
+        //TODO receive starships
     }
 }

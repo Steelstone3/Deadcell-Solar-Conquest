@@ -7,7 +7,7 @@ use renet::{
     ConnectionConfig, RenetClient,
 };
 
-use crate::server::server::Server;
+use crate::server::{channels::GameSyncChannels, server::Server};
 
 pub fn connect_to_server(mut commands: Commands) {
     let server_addr = "127.0.0.1:5000".parse().unwrap();
@@ -24,7 +24,11 @@ pub fn connect_to_server(mut commands: Commands) {
     };
 
     let transport = NetcodeClientTransport::new(current_time, authentication, socket).unwrap();
-    let client = RenetClient::new(ConnectionConfig::default());
+    let client = RenetClient::new(ConnectionConfig {
+        available_bytes_per_tick: 60_000,
+        server_channels_config: GameSyncChannels::config(),
+        client_channels_config: GameSyncChannels::config(),
+    });
 
     commands.insert_resource(transport);
     commands.insert_resource(client);
