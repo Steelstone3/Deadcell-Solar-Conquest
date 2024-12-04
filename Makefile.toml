@@ -21,7 +21,7 @@ args = ["check", "--all-features"]
 
 [tasks.lint]
 command = "cargo"
-args = ["clippy", "--all-features"]
+args = ["clippy", "--all-features", "--", "-D", "Warnings"]
 
 [tasks.test]
 command = "cargo"
