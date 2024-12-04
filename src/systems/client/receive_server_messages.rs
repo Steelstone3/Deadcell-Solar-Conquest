@@ -46,7 +46,7 @@ pub fn receive_server_messages(
         println!("Receiving space tiles");
         let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
         for (_id, data) in message.iter() {
-            let space_tile: SerializableSpace = bincode::deserialize(&data).unwrap();
+            let space_tile: SerializableSpace = bincode::deserialize(data).unwrap();
             let space = space_tile.space;
             spawn_sprite_event_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
                 sprite_path: space.sprite_path.to_string(),
@@ -62,7 +62,7 @@ pub fn receive_server_messages(
         let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
         for (id, data) in message.iter() {
             println!("Spawning planet {:?}", id);
-            let planet: SerializablePlanet = bincode::deserialize(&data).unwrap();
+            let planet: SerializablePlanet = bincode::deserialize(data).unwrap();
             let planet_sprite = planet.planet;
             spawn_sprite_event_writer.send(SpawnSpriteEvent::spawn_animated_sprite(
                 SpawnSprite {
@@ -85,7 +85,7 @@ pub fn receive_server_messages(
         let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
         for (id, data) in message.iter() {
             println!("Spawning space facility {:?}", id);
-            let space_facility: SerializableSpaceFacility = bincode::deserialize(&data).unwrap();
+            let space_facility: SerializableSpaceFacility = bincode::deserialize(data).unwrap();
             let space_facility_sprite = space_facility.space_facility;
             spawn_sprite_event_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
                 sprite_path: space_facility_sprite.sprite_path.to_string(),
@@ -104,7 +104,7 @@ pub fn receive_server_messages(
         let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
         for (id, data) in message.iter() {
             println!("Spawning starship {:?}", id);
-            let starship: SerializableStarship = bincode::deserialize(&data).unwrap();
+            let starship: SerializableStarship = bincode::deserialize(data).unwrap();
             let starship_sprite = starship.starship;
             spawn_sprite_event_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
                 sprite_path: starship_sprite
@@ -128,9 +128,9 @@ pub fn receive_server_messages(
         for mut local_server_object in server_object_query.iter_mut() {
             for (id, data) in message.iter() {
                 let remote_server_object: SerializableServerObject =
-                    bincode::deserialize(&data).unwrap();
+                    bincode::deserialize(data).unwrap();
                 if *local_server_object.1 == remote_server_object.server_object {
-                    *local_server_object.0 = remote_server_object.transform.clone();
+                    *local_server_object.0 = remote_server_object.transform;
                 }
             }
         }

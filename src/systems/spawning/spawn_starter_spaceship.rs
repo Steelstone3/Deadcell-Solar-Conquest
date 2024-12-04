@@ -50,7 +50,7 @@ pub fn spawn_starter_spaceship(
             sprite_path: starship.starship_sprite_bundle.starship_sprite.to_string(),
             size: starship.size_component.size,
             transform: starship_transform,
-            entity: entity,
+            entity,
         }));
     }
 }
