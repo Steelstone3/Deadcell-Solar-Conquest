@@ -126,7 +126,7 @@ pub fn receive_server_messages(
         let message: HashMap<u32, Vec<u8>> = bincode::deserialize(&message).unwrap();
 
         for mut local_server_object in server_object_query.iter_mut() {
-            for (id, data) in message.iter() {
+            for (_id, data) in message.iter() {
                 let remote_server_object: SerializableServerObject =
                     bincode::deserialize(data).unwrap();
                 if *local_server_object.1 == remote_server_object.server_object {
