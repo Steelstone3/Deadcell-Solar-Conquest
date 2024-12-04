@@ -1,2 +1,2 @@
 pub mod channels;
-pub mod server;
+pub mod game_server;

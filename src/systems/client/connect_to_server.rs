@@ -7,7 +7,7 @@ use renet::{
     ConnectionConfig, RenetClient,
 };
 
-use crate::server::{channels::GameSyncChannels, server::Server};
+use crate::server::{channels::GameSyncChannels, game_server::Server};
 
 pub fn connect_to_server(mut commands: Commands) {
     let server_addr = "127.0.0.1:5000".parse().unwrap();
