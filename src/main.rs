@@ -7,8 +7,7 @@ use bevy_renet::{
 use client::Client;
 use plugins::{
     client_start::ClientStartPlugin, client_update::ClientUpdatePlugin,
-    event_handlers::EventHandlersPlugin, events::EventsPlugin,
-    groups::developer_plugin_group::DeveloperPluginGroup, resources::ResourcesPlugin,
+    event_handlers::EventHandlersPlugin, events::EventsPlugin, resources::ResourcesPlugin,
     running::RunningPlugin, server_start::ServerStartPlugin, server_update::ServerUpdatePlugin,
     user_interface::UserInterfacePlugin,
 };
@@ -48,7 +47,6 @@ fn main() {
         ResourcesPlugin,
         UserInterfacePlugin,
         RunningPlugin,
-        DeveloperPluginGroup,
     ));
     client_server_setup(&mut app);
     app.run();
