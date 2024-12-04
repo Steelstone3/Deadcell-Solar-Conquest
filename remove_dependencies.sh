@@ -17,3 +17,6 @@ sudo dnf remove lld clang
 doas dnf remove lld clang
 sudo dnf remove libX11-devel alsa-lib-devel systemd-devel wayland-devel libxkbcommon-devel
 doas dnf remove libX11-devel alsa-lib-devel systemd-devel wayland-devel libxkbcommon-devel
+
+# cargo
+# cargo remove cargo make

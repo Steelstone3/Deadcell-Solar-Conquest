@@ -1,12 +1,13 @@
 use crate::assets::images::faction_starship_sprite::starship_sprite::StarshipSprite;
 use bevy::prelude::Resource;
+use serde::{Deserialize, Serialize};
 
 #[derive(Resource, Default, Clone, Copy)]
 pub struct PlayerFaction {
     pub player_faction: Faction,
 }
 
-#[derive(Default, PartialEq, Clone, Copy)]
+#[derive(Default, PartialEq, Clone, Copy, Serialize, Deserialize)]
 pub enum Faction {
     Atark,
     #[default]

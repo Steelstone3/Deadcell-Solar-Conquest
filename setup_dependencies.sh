@@ -17,3 +17,6 @@ sudo dnf install gcc-c++ lld clang
 doas dnf install gcc-c++ lld clang
 sudo dnf install libX11-devel alsa-lib-devel systemd-devel wayland-devel libxkbcommon-devel
 doas dnf install libX11-devel alsa-lib-devel systemd-devel wayland-devel libxkbcommon-devel
+
+# cargo
+cargo install cargo make

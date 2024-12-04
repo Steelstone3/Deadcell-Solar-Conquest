@@ -2,7 +2,7 @@ use bevy::app::Plugin;
 
 use crate::resources::{
     camera_settings::CameraSettings, faction::PlayerFaction, game_settings::GameSettings,
-    keybindings::KeyBindings, spawn_menu_selection::SpawnMenuSelection,
+    keybindings::KeyBindings, lobby::Lobby, spawn_menu_selection::SpawnMenuSelection,
 };
 
 pub struct ResourcesPlugin;
@@ -13,6 +13,7 @@ impl Plugin for ResourcesPlugin {
             .insert_resource(GameSettings::default())
             .insert_resource(SpawnMenuSelection::default())
             .insert_resource(PlayerFaction::default())
-            .insert_resource(KeyBindings::default());
+            .insert_resource(KeyBindings::default())
+            .init_resource::<Lobby>();
     }
 }

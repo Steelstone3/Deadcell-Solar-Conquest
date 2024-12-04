@@ -1,8 +1,9 @@
-pub mod developer;
+pub mod client_start;
+pub mod client_update;
 pub mod event_handlers;
 pub mod events;
-pub mod groups;
 pub mod resources;
 pub mod running;
-pub mod start;
+pub mod server_start;
+pub mod server_update;
 pub mod user_interface;

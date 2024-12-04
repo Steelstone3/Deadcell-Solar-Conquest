@@ -1,9 +1,11 @@
+use serde::{Deserialize, Serialize};
+
 use crate::assets::images::faction_starship_sprite::{
     destruction_sprite::DestructionSprite, engine_sprite::EngineSprite,
     firing_sprite::FiringSprite, shield_sprite::ShieldSprite, starship_sprite::StarshipSprite,
 };
 
-#[allow(dead_code)]
+#[derive(Serialize, Deserialize, Clone, Copy)]
 pub struct StarshipSpriteBundle {
     pub starship_sprite: StarshipSprite,
     pub shield_sprite: ShieldSprite,
