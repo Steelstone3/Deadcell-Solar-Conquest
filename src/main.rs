@@ -26,7 +26,7 @@ mod systems;
 #[deny(clippy::unwrap_used)]
 #[deny(clippy::expect_used)]
 #[deny(clippy::panic)]
-#[deny(clippy::unused_result_ok)]
+#[deny(unused_must_use)]
 fn main() {
     let mut app = App::new();
     app.add_plugins((
