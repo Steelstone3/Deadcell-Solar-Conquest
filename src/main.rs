@@ -23,6 +23,10 @@ mod resources;
 mod server;
 mod systems;
 
+#[deny(clippy::unwrap_used)]
+#[deny(clippy::expect_used)]
+#[deny(clippy::panic)]
+#[deny(clippy::unused_result_ok)]
 fn main() {
     let mut app = App::new();
     app.add_plugins((
