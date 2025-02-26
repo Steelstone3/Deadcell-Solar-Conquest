@@ -2,6 +2,7 @@ use bevy::prelude::{App, Plugin};
 
 use crate::events::{
     input_events::{MouseLeftClickEvent, MouseLeftClickModifierEvent, MouseRightClickEvent},
+    player_connected::PlayerConnectedEvent,
     selection_events::SelectionAreaEvent,
     spawn_sprite_event::SpawnSpriteEvent,
 };
@@ -15,5 +16,6 @@ impl Plugin for EventsPlugin {
         app.add_event::<MouseLeftClickModifierEvent>();
         app.add_event::<MouseRightClickEvent>();
         app.add_event::<SelectionAreaEvent>();
+        app.add_event::<PlayerConnectedEvent>();
     }
 }
