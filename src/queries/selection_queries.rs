@@ -1,11 +1,5 @@
-use bevy::ecs::query::QueryData;
-
 use crate::components::user_interface::multiple_selection_box::MultipleSelectionBox;
-
-use bevy::{
-    prelude::{Entity, Transform},
-    sprite::Sprite,
-};
+use bevy::{ecs::query::QueryData, prelude::Entity};
 
 #[derive(QueryData)]
 #[query_data(mutable)]
