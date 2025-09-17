@@ -1,5 +1,6 @@
 use crate::systems::{
     selection::{
+        draw_multiple_selection_box::draw_multiple_selection_box,
         select_multiple_sprites::select_multiple_sprites,
         select_sprite::{select_sprite, set_selection_type},
     },
@@ -21,7 +22,7 @@ impl Plugin for UserInterfacePlugin {
         app.add_systems(EguiPrimaryContextPass, spawn_menu);
         app.add_systems(Update, select_sprite.pipe(set_selection_type));
         app.add_systems(Update, select_multiple_sprites);
-        // app.add_systems(Update, draw_multiple_selection_box);
+        app.add_systems(Update, draw_multiple_selection_box);
         app.add_systems(Update, clear_all_selected);
         app.add_systems(Update, spawner);
     }

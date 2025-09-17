@@ -23,8 +23,6 @@ pub fn draw_multiple_selection_box(
     let Some(select) = select_event_reader.read().last() else {
         return;
     };
-
-    let entity = commands.spawn(()).id();
     let cursor_position = select.cursor_world_position;
 
     match !selection_query.is_empty() {
@@ -49,7 +47,7 @@ pub fn draw_multiple_selection_box(
                             - selection_box.multiple_selection_box.selection_area.start.y;
 
                         commands
-                            .entity(entity)
+                            .entity(selection_box.entity)
                             .insert(*selection_box.multiple_selection_box)
                             .insert(
                                 Transform::from_translation(midpoint)
@@ -68,7 +66,7 @@ pub fn draw_multiple_selection_box(
                             selection_area: selection_box.multiple_selection_box.selection_area,
                         });
 
-                        commands.entity(entity).despawn();
+                        commands.entity(selection_box.entity).despawn();
                     }
                     Err(_) => {}
                 }
