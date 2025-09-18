@@ -156,7 +156,10 @@ use crate::{
     components::{
         faction::space_facility::SerializableSpaceFacility,
         map::{planet::SerializablePlanet, space::SerializableSpace},
-        server::{server_messages::ServerMessages, server_object::ServerObject},
+        server::{
+            server_messages::ServerMessages,
+            server_object::{SerializableServerObject, ServerObject},
+        },
         user_interface::selection::Selectable,
     },
     events::{
