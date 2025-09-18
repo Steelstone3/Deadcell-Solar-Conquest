@@ -193,7 +193,7 @@ pub fn receive_server_messages(
     while let Some(message) = client.receive_message(GameSyncChannels::SpaceTiles) {
         println!("Receiving space tiles");
         let (message, _): (HashMap<u32, Vec<u8>>, usize) =
-            decode_from_slice(&message, config::standard()).unwrap();
+            decode_from_slice(&message, config::standard()).unwrap_or_default();
 
         for (_id, data) in message.iter() {
             let (space_tile, _): (SerializableSpace, usize) =

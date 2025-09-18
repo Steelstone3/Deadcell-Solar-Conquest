@@ -14,7 +14,7 @@ pub fn connect_to_server(mut commands: Commands) {
     let socket = UdpSocket::bind("0.0.0.0:0").unwrap();
     let current_time = SystemTime::now()
         .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap();
+        .unwrap_or_default();
     let client_id = current_time.as_millis() as u64;
     let authentication = ClientAuthentication::Unsecure {
         client_id,
