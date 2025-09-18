@@ -46,13 +46,13 @@ pub fn server_sync(
 
     for (transform, server_object) in server_object_query.iter() {
         let message = encode_to_vec(
-            &SerializableServerObject::new(*transform, *server_object),
+            SerializableServerObject::new(*transform, *server_object),
             config::standard(),
         )
-        .unwrap();
+        .unwrap_or_default();
         server_objects.insert(server_object.id, message);
     }
 
-    let message = encode_to_vec(&server_objects, config::standard()).unwrap();
+    let message = encode_to_vec(&server_objects, config::standard()).unwrap_or_default();
     server.broadcast_message(GameSyncChannels::ServerObjects, message);
 }

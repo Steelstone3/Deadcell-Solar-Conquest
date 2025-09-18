@@ -144,10 +144,9 @@
 use bevy::{
     ecs::{
         event::EventWriter,
-        system::{Commands, Query, ResMut},
+        system::{Commands, ResMut},
     },
     platform::collections::HashMap,
-    transform::components::Transform,
 };
 use bevy_renet::renet::RenetClient;
 use bincode::{config, serde::decode_from_slice};
@@ -156,10 +155,7 @@ use crate::{
     components::{
         faction::space_facility::SerializableSpaceFacility,
         map::{planet::SerializablePlanet, space::SerializableSpace},
-        server::{
-            server_messages::ServerMessages,
-            server_object::{SerializableServerObject, ServerObject},
-        },
+        server::server_messages::ServerMessages,
         user_interface::selection::Selectable,
     },
     events::{

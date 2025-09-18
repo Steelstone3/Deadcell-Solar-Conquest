@@ -151,24 +151,24 @@ pub fn send_server_messages(
 
                 // Send connected message
                 let message = encode_to_vec(
-                    &ServerMessages::PlayerConnected { id: *client_id },
+                    ServerMessages::PlayerConnected { id: *client_id },
                     config::standard(),
                 )
-                .unwrap();
+                .unwrap_or_default();
                 server.broadcast_message(GameSyncChannels::Messages, message);
 
                 // Sync space tiles
                 let mut space_tiles: HashMap<u32, Vec<u8>> = HashMap::new();
                 for (space, transform, entity) in space_tile_query.iter() {
                     let space_tile = encode_to_vec(
-                        &SerializableSpace::new(*space, *transform),
+                        SerializableSpace::new(*space, *transform),
                         config::standard(),
                     )
-                    .unwrap();
+                    .unwrap_or_default();
                     space_tiles.insert(entity.index(), space_tile);
                 }
                 println!("Syncing space tiles with connected player");
-                let message = encode_to_vec(&space_tiles, config::standard()).unwrap();
+                let message = encode_to_vec(&space_tiles, config::standard()).unwrap_or_default();
                 server.send_message(*client_id, GameSyncChannels::SpaceTiles, message);
 
                 // Sync planets
@@ -176,13 +176,13 @@ pub fn send_server_messages(
                 let mut planets: HashMap<u32, Vec<u8>> = HashMap::new();
                 for (planet, transform, entity) in planet_query.iter() {
                     let planet = encode_to_vec(
-                        &SerializablePlanet::new(*planet, *transform),
+                        SerializablePlanet::new(*planet, *transform),
                         config::standard(),
                     )
-                    .unwrap();
+                    .unwrap_or_default();
                     planets.insert(entity.index(), planet);
                 }
-                let message = encode_to_vec(&planets, config::standard()).unwrap();
+                let message = encode_to_vec(&planets, config::standard()).unwrap_or_default();
                 server.send_message(*client_id, GameSyncChannels::Planets, message);
 
                 // Sync space facilities
@@ -190,13 +190,13 @@ pub fn send_server_messages(
                 let mut space_facilities: HashMap<u32, Vec<u8>> = HashMap::new();
                 for (space_facility, transform, entity) in space_facility_query.iter() {
                     let space_facility = encode_to_vec(
-                        &SerializableSpaceFacility::new(*space_facility, *transform),
+                        SerializableSpaceFacility::new(*space_facility, *transform),
                         config::standard(),
                     )
-                    .unwrap();
+                    .unwrap_or_default();
                     space_facilities.insert(entity.index(), space_facility);
                 }
-                let message = encode_to_vec(&space_facilities, config::standard()).unwrap();
+                let message = encode_to_vec(&space_facilities, config::standard()).unwrap_or_default();
                 server.send_message(*client_id, GameSyncChannels::SpaceFacilities, message);
 
                 // Sync starships
@@ -204,13 +204,13 @@ pub fn send_server_messages(
                 let mut starships: HashMap<u32, Vec<u8>> = HashMap::new();
                 for (starship, transform, server_object) in starships_query.iter() {
                     let starship = encode_to_vec(
-                        &SerializableStarship::new(*starship, *transform, *server_object),
+                        SerializableStarship::new(*starship, *transform, *server_object),
                         config::standard(),
                     )
-                    .unwrap();
+                    .unwrap_or_default();
                     starships.insert(server_object.id, starship);
                 }
-                let message = encode_to_vec(&starships, config::standard()).unwrap();
+                let message = encode_to_vec(&starships, config::standard()).unwrap_or_default();
                 server.send_message(*client_id, GameSyncChannels::Starships, message);
             }
             ServerEvent::ClientDisconnected { client_id, reason } => {
@@ -221,7 +221,7 @@ pub fn send_server_messages(
                     &ServerMessages::PlayerDisconnected { id: *client_id },
                     config::standard(),
                 )
-                .unwrap();
+                .unwrap_or_default();
                 server.broadcast_message(GameSyncChannels::Messages, message);
 
                 // TODO: Despawn players' stuff on disconnect
