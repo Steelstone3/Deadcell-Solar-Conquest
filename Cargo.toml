@@ -21,7 +21,7 @@ bevy_renet = { version = "2" }
 serde = { version = "1", features = ["derive"] }
 renet_visualizer = { version = "1", features = ["bevy"] }
 bevy_egui = "0.36"
-bincode = "2"
+bincode = { version = "2", features = ["serde"] }
 rand = "0"
 
 # Latest and greatest dependencies
