@@ -58,6 +58,7 @@ impl GameSyncChannels {
         ]
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn send_message(
         &self,
         server: &mut RenetServer,

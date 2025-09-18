@@ -15,6 +15,7 @@ use bevy::{
 use bevy_renet::renet::{RenetServer, ServerEvent};
 use bincode::{config, serde::encode_to_vec};
 
+#[allow(clippy::too_many_arguments)]
 pub fn send_server_messages(
     mut server: ResMut<RenetServer>,
     space_tile_query: Query<(&Space, &Transform, Entity)>,

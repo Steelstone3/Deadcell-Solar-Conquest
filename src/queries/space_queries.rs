@@ -3,7 +3,7 @@ use bevy::{ecs::query::QueryData, transform::components::Transform};
 use crate::components::map::star::Star;
 
 #[derive(QueryData)]
-pub struct SunQuery {
+pub struct StarQuery {
     pub transform: &'static Transform,
-    pub sun: &'static Star,
+    pub star: &'static Star,
 }

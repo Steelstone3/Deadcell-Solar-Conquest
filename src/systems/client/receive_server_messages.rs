@@ -155,11 +155,7 @@ use bincode::{config, serde::decode_from_slice};
 use crate::{
     components::{
         faction::{space_facility::SerializableSpaceFacility, starship::SerializableStarship},
-        map::{
-            planet::SerializablePlanet,
-            space::SerializableSpace,
-            star::SerializableStar,
-        },
+        map::{planet::SerializablePlanet, space::SerializableSpace, star::SerializableStar},
         server::{
             server_messages::ServerMessages,
             server_object::{SerializableServerObject, ServerObject},
@@ -334,6 +330,7 @@ pub fn receive_server_messages(
         for mut local_server_object in server_object_query.iter_mut() {
             for (_id, data) in message.iter() {
                 // Deserialize inner SerializableServerObject
+                #[allow(clippy::unwrap_used)]
                 let (remote_server_object, _): (SerializableServerObject, usize) =
                     decode_from_slice(data, config::standard()).unwrap();
 

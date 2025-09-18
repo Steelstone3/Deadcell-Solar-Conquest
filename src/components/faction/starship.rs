@@ -17,7 +17,7 @@ use crate::{
 use bevy::{ecs::component::Component, math::Vec2, prelude::Transform};
 use serde::{Deserialize, Serialize};
 
-// TODO spawned starships take damage a radius 1.5 to 2 times the suns size (mechanic)
+// TODO spawned starships take damage a radius 1.5 to 2 times the stars size (mechanic)
 
 const SIZE: f32 = TILE_SIZE * 16.0;
 
