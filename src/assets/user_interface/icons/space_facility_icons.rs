@@ -4,31 +4,31 @@ use std::fmt::Display;
 
 #[derive(RandGen, Debug, PartialEq, Reflect, Clone, Copy)]
 pub enum SpaceFacilityIcon {
-    AtarkSpaceShipConstructionYard,
-    KarcanSpaceShipConstructionYard,
-    NoozlerSpaceShipConstructionYard,
-    GranokSpaceShipConstructionYard,
+    AtarkStarshipConstructionYard,
+    KarcanStarshipConstructionYard,
+    NoozlerStarshipConstructionYard,
+    GranokStarshipConstructionYard,
     None,
 }
 
 impl Display for SpaceFacilityIcon {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            SpaceFacilityIcon::AtarkSpaceShipConstructionYard => write!(
+            SpaceFacilityIcon::AtarkStarshipConstructionYard => write!(
                 formatter,
-                "user_interface/icons/space_facilities/atark/atark_spaceship_construction_yard.png"
+                "user_interface/icons/space_facilities/atark/atark_starship_construction_yard.png"
             ),
-            SpaceFacilityIcon::KarcanSpaceShipConstructionYard => write!(
+            SpaceFacilityIcon::KarcanStarshipConstructionYard => write!(
                 formatter,
-                "user_interface/icons/space_facilities/karcan/karcan_spaceship_construction_yard.png"
+                "user_interface/icons/space_facilities/karcan/karcan_starship_construction_yard.png"
             ),
-            SpaceFacilityIcon::NoozlerSpaceShipConstructionYard => write!(
+            SpaceFacilityIcon::NoozlerStarshipConstructionYard => write!(
                 formatter,
-                "user_interface/icons/space_facilities/noozler/noozler_spaceship_construction_yard.png"
+                "user_interface/icons/space_facilities/noozler/noozler_starship_construction_yard.png"
             ),
-            SpaceFacilityIcon::GranokSpaceShipConstructionYard => write!(
+            SpaceFacilityIcon::GranokStarshipConstructionYard => write!(
                 formatter,
-                "user_interface/icons/space_facilities/granok/granok_spaceship_construction_yard.png"
+                "user_interface/icons/space_facilities/granok/granok_starship_construction_yard.png"
             ),
             SpaceFacilityIcon::None => write!(formatter, ""),
         }

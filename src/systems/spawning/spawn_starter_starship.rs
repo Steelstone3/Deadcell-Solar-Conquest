@@ -13,7 +13,7 @@ use crate::{
 };
 use bevy::prelude::{Commands, EventWriter, Query, Res};
 
-pub fn spawn_starter_spaceship(
+pub fn spawn_starter_starship(
     mut commands: Commands,
     mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
     space_station_queries: Query<SpaceStationQuery>,

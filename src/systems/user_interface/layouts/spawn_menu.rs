@@ -47,10 +47,10 @@ pub fn spawn_menu(
                 egui::Window::new("Support Ship").show(ctx, |ui| {
                     // TODO AH Add images for the buttons and size to TILE_SIZE * 2.0
                     if ui
-                        .add(egui::Button::new("Spaceship Construction Yard"))
+                        .add(egui::Button::new("Starship Construction Yard"))
                         .clicked()
                     {
-                        let selection = SpaceFacilityType::SpaceShipConstructionYard;
+                        let selection = SpaceFacilityType::StarshipConstructionYard;
                         spawn_menu_selection.space_facility_selection =
                             selection.icon_convert_from(player_faction.player_faction);
                     }
@@ -58,21 +58,6 @@ pub fn spawn_menu(
             } else {
                 eprintln!("Starship failed to render");
             }
-
-            // // TODO AH Creates a window in a window this should move to using the exisiting window
-            // egui::Window::new("Spawn Menu").show(contexts.ctx_mut(), |ui| {
-            //     ui.label("Support Ship");
-
-            //     // TODO AH Add images for the buttons and size to TILE_SIZE * 2.0
-            //     if ui
-            //         .add(egui::Button::new("Spaceship Construction Yard"))
-            //         .clicked()
-            //     {
-            //         let selection = SpaceFacilityType::SpaceShipConstructionYard;
-            //         spawn_menu_selection.space_facility_selection =
-            //             selection.icon_convert_from(player_faction.player_faction);
-            //     }
-            // });
         }
         SpawnSelection::Starbase => {
             if let Ok(ctx) = contexts.ctx_mut() {
@@ -95,24 +80,6 @@ pub fn spawn_menu(
             } else {
                 eprintln!("Starship failed to render");
             }
-
-            // // TODO AH Creates a window in a window this should move to using the exisiting window
-            // egui::Window::new("Spawn Menu").show(contexts.ctx_mut(), |ui| {
-            //     ui.label("Starbase");
-
-            //     // TODO AH Add images for the buttons and size to TILE_SIZE * 2.0
-            //     if ui.add(egui::Button::new("Support Ship")).clicked() {
-            //         let selection = StarshipType::SupportShip;
-            //         spawn_menu_selection.starship_selection =
-            //             selection.icon_convert_from(player_faction.player_faction);
-            //     }
-            //     // TODO AH Add images for the buttons and size to TILE_SIZE * 2.0
-            //     if ui.add(egui::Button::new("Scout")).clicked() {
-            //         let selection = StarshipType::Scout;
-            //         spawn_menu_selection.starship_selection =
-            //             selection.icon_convert_from(player_faction.player_faction);
-            //     }
-            // });
         }
     }
 }

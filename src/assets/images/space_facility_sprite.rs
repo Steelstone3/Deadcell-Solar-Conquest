@@ -14,10 +14,10 @@ pub enum SpaceFacilitySprite {
     KarcanSpaceStation,
     NoozlerSpaceStation,
     GranokSpaceStation,
-    AtarkSpaceShipConstructionYard,
-    KarcanSpaceShipConstructionYard,
-    NoozlerSpaceShipConstructionYard,
-    GranokSpaceShipConstructionYard,
+    AtarkStarshipConstructionYard,
+    KarcanStarshipConstructionYard,
+    NoozlerStarshipConstructionYard,
+    GranokStarshipConstructionYard,
 }
 
 impl Display for SpaceFacilitySprite {
@@ -47,28 +47,28 @@ impl Display for SpaceFacilitySprite {
                     "images/factions/granok/space_facilities/granok_space_station.png"
                 )
             }
-            SpaceFacilitySprite::AtarkSpaceShipConstructionYard => {
+            SpaceFacilitySprite::AtarkStarshipConstructionYard => {
                 write!(
                     formatter,
-                    "images/factions/atark/space_facilities/atark_spaceship_construction_yard.png"
+                    "images/factions/atark/space_facilities/atark_starship_construction_yard.png"
                 )
             }
-            SpaceFacilitySprite::KarcanSpaceShipConstructionYard => {
+            SpaceFacilitySprite::KarcanStarshipConstructionYard => {
                 write!(
                     formatter,
-                    "images/factions/karcan/space_facilities/karcan_spaceship_construction_yard.png"
+                    "images/factions/karcan/space_facilities/karcan_starship_construction_yard.png"
                 )
             }
-            SpaceFacilitySprite::NoozlerSpaceShipConstructionYard => {
+            SpaceFacilitySprite::NoozlerStarshipConstructionYard => {
                 write!(
                     formatter,
-                    "images/factions/noozler/space_facilities/noozler_spaceship_construction_yard.png"
+                    "images/factions/noozler/space_facilities/noozler_starship_construction_yard.png"
                 )
             }
-            SpaceFacilitySprite::GranokSpaceShipConstructionYard => {
+            SpaceFacilitySprite::GranokStarshipConstructionYard => {
                 write!(
                     formatter,
-                    "images/factions/granok/space_facilities/granok_spaceship_construction_yard.png"
+                    "images/factions/granok/space_facilities/granok_starship_construction_yard.png"
                 )
             }
         }
@@ -78,17 +78,17 @@ impl Display for SpaceFacilitySprite {
 impl SpaceFacilitySprite {
     pub fn sprite_convert_from(space_facility_icon: SpaceFacilityIcon) -> SpaceFacilitySprite {
         match space_facility_icon {
-            SpaceFacilityIcon::AtarkSpaceShipConstructionYard => {
-                SpaceFacilitySprite::AtarkSpaceShipConstructionYard
+            SpaceFacilityIcon::AtarkStarshipConstructionYard => {
+                SpaceFacilitySprite::AtarkStarshipConstructionYard
             }
-            SpaceFacilityIcon::KarcanSpaceShipConstructionYard => {
-                SpaceFacilitySprite::KarcanSpaceShipConstructionYard
+            SpaceFacilityIcon::KarcanStarshipConstructionYard => {
+                SpaceFacilitySprite::KarcanStarshipConstructionYard
             }
-            SpaceFacilityIcon::NoozlerSpaceShipConstructionYard => {
-                SpaceFacilitySprite::NoozlerSpaceShipConstructionYard
+            SpaceFacilityIcon::NoozlerStarshipConstructionYard => {
+                SpaceFacilitySprite::NoozlerStarshipConstructionYard
             }
-            SpaceFacilityIcon::GranokSpaceShipConstructionYard => {
-                SpaceFacilitySprite::GranokSpaceShipConstructionYard
+            SpaceFacilityIcon::GranokStarshipConstructionYard => {
+                SpaceFacilitySprite::GranokStarshipConstructionYard
             }
             #[allow(clippy::panic)]
             SpaceFacilityIcon::None => {
@@ -105,11 +105,11 @@ impl SpaceFacilitySprite {
             | SpaceFacilitySprite::KarcanSpaceStation
             | SpaceFacilitySprite::NoozlerSpaceStation
             | SpaceFacilitySprite::GranokSpaceStation => SpaceFacilityType::SpaceStation,
-            SpaceFacilitySprite::AtarkSpaceShipConstructionYard
-            | SpaceFacilitySprite::KarcanSpaceShipConstructionYard
-            | SpaceFacilitySprite::NoozlerSpaceShipConstructionYard
-            | SpaceFacilitySprite::GranokSpaceShipConstructionYard => {
-                SpaceFacilityType::SpaceShipConstructionYard
+            SpaceFacilitySprite::AtarkStarshipConstructionYard
+            | SpaceFacilitySprite::KarcanStarshipConstructionYard
+            | SpaceFacilitySprite::NoozlerStarshipConstructionYard
+            | SpaceFacilitySprite::GranokStarshipConstructionYard => {
+                SpaceFacilityType::StarshipConstructionYard
             }
         }
     }
@@ -132,20 +132,20 @@ mod space_facility_sprite_should {
 
     #[rstest]
     #[case(
-        SpaceFacilityIcon::AtarkSpaceShipConstructionYard,
-        SpaceFacilitySprite::AtarkSpaceShipConstructionYard
+        SpaceFacilityIcon::AtarkStarshipConstructionYard,
+        SpaceFacilitySprite::AtarkStarshipConstructionYard
     )]
     #[case(
-        SpaceFacilityIcon::KarcanSpaceShipConstructionYard,
-        SpaceFacilitySprite::KarcanSpaceShipConstructionYard
+        SpaceFacilityIcon::KarcanStarshipConstructionYard,
+        SpaceFacilitySprite::KarcanStarshipConstructionYard
     )]
     #[case(
-        SpaceFacilityIcon::NoozlerSpaceShipConstructionYard,
-        SpaceFacilitySprite::NoozlerSpaceShipConstructionYard
+        SpaceFacilityIcon::NoozlerStarshipConstructionYard,
+        SpaceFacilitySprite::NoozlerStarshipConstructionYard
     )]
     #[case(
-        SpaceFacilityIcon::GranokSpaceShipConstructionYard,
-        SpaceFacilitySprite::GranokSpaceShipConstructionYard
+        SpaceFacilityIcon::GranokStarshipConstructionYard,
+        SpaceFacilitySprite::GranokStarshipConstructionYard
     )]
     fn sprite_convert_from(
         #[case] space_facility_icon: SpaceFacilityIcon,
@@ -161,20 +161,20 @@ mod space_facility_sprite_should {
 
     #[rstest]
     #[case(
-        SpaceFacilitySprite::AtarkSpaceShipConstructionYard,
-        SpaceFacilityType::SpaceShipConstructionYard
+        SpaceFacilitySprite::AtarkStarshipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard
     )]
     #[case(
-        SpaceFacilitySprite::KarcanSpaceShipConstructionYard,
-        SpaceFacilityType::SpaceShipConstructionYard
+        SpaceFacilitySprite::KarcanStarshipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard
     )]
     #[case(
-        SpaceFacilitySprite::NoozlerSpaceShipConstructionYard,
-        SpaceFacilityType::SpaceShipConstructionYard
+        SpaceFacilitySprite::NoozlerStarshipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard
     )]
     #[case(
-        SpaceFacilitySprite::GranokSpaceShipConstructionYard,
-        SpaceFacilityType::SpaceShipConstructionYard
+        SpaceFacilitySprite::GranokStarshipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard
     )]
     #[case(
         SpaceFacilitySprite::AtarkSpaceStation,

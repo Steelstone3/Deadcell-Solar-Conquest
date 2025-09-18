@@ -10,28 +10,28 @@ use crate::{
     assets::images::space_facility_type::SpaceFacilityType,
     components::{faction::space_facility::SpaceFacility, user_interface::selection::Selectable},
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-    queries::space_queries::SunQuery,
+    queries::space_queries::StarQuery,
     resources::faction::PlayerFaction,
 };
 
 pub fn spawn_space_facilities(
     mut commands: Commands,
-    sun_queries: Query<SunQuery>,
+    star_queries: Query<StarQuery>,
     mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
     player_faction: Res<PlayerFaction>,
 ) {
-    for sun_query in sun_queries.iter() {
+    for star_query in star_queries.iter() {
         let mut rng = rand::thread_rng();
         let angle = 360.0 / rng.gen_range(1.0..4.0) as f32;
         let space_station = SpaceFacility::new(
             SpaceFacilityType::SpaceStation.sprite_convert_from(player_faction.player_faction),
         );
 
-        let x = sun_query.transform.translation.x
-            + sun_query.sun.size_component.size.x
+        let x = star_query.transform.translation.x
+            + star_query.star.size_component.size.x
             + space_station.size_component.size.x * 1.5;
-        let y = sun_query.transform.translation.y
-            + sun_query.sun.size_component.size.x
+        let y = star_query.transform.translation.y
+            + star_query.star.size_component.size.x
             + space_station.size_component.size.y * 1.5;
 
         let transform = Transform::from_xyz(x, y, space_station.size_component.z_index)

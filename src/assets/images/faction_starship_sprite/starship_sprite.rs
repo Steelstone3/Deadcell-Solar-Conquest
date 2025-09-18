@@ -212,7 +212,7 @@ impl StarshipSprite {
             StarshipIcon::GranokBattleCruiser => StarshipSprite::GranokBattleCruiser,
             StarshipIcon::GranokDreadnought => StarshipSprite::GranokDreadnought,
             #[allow(clippy::panic)]
-            StarshipIcon::None => panic!("Spaceship Sprite: Must have an icon to convert"),
+            StarshipIcon::None => panic!("Starship Sprite: Must have an icon to convert"),
         }
     }
 
@@ -260,7 +260,7 @@ mod starship_sprite_should {
     use rstest::rstest;
 
     #[test]
-    #[should_panic(expected = "Spaceship Sprite: Must have an icon to convert")]
+    #[should_panic(expected = "Starship Sprite: Must have an icon to convert")]
     fn sprite_convert_from_none() {
         // Given
         let starship_icon = StarshipIcon::None;
