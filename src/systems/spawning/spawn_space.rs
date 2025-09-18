@@ -27,7 +27,7 @@ pub fn spawn_space(
         for y in -game_settings.map_size * game_settings.number_of_players as i32
             ..game_settings.map_size * game_settings.number_of_players as i32
         {
-            spawn_sprite_event.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+            spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
                 sprite_path: space.sprite_path.to_string(),
                 size: space.size_component.size,
                 transform: Transform {

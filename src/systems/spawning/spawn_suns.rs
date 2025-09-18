@@ -4,11 +4,14 @@ use bevy::{
     prelude::Res,
     transform::components::Transform,
 };
-use rand::{random, Rng};
+use rand::{Rng, random};
 
 use crate::{
     components::map::sun::Sun,
-    events::spawn_sprite_event::{SpawnAnimatedSprite, SpawnSprite, SpawnSpriteEvent},
+    events::{
+        spawn_animated_sprite_event::{SpawnAnimatedSprite, SpawnAnimatedSpriteEvent},
+        spawn_sprite_event::SpawnSprite,
+    },
     resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
 };
 
@@ -16,7 +19,7 @@ use crate::{
 // TODO better distribution across the map (maybe spawn zones)
 pub fn spawn_suns(
     mut commands: Commands,
-    mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
+    mut spawn_sprite_event: EventWriter<SpawnAnimatedSpriteEvent>,
     game_settings: Res<GameSettings>,
 ) {
     let mut rng = rand::thread_rng();
@@ -39,7 +42,7 @@ pub fn spawn_suns(
             ..Default::default()
         };
 
-        spawn_sprite_event.send(SpawnSpriteEvent::spawn_animated_sprite(
+        spawn_sprite_event.write(SpawnAnimatedSpriteEvent::spawn_animated_sprite(
             SpawnSprite {
                 sprite_path: sun.sprite_path.to_string(),
                 size: sun.size_component.size,

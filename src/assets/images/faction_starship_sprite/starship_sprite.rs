@@ -1,9 +1,11 @@
+use serde::{Deserialize, Serialize};
+
 use crate::assets::{
     images::starship_type::StarshipType, user_interface::icons::starship_icons::StarshipIcon,
 };
 use std::fmt::Display;
 
-#[derive(PartialEq, Clone, Copy, Debug)]
+#[derive(PartialEq, Clone, Copy, Debug, Serialize, Deserialize)]
 pub enum StarshipSprite {
     AtarkSupportShip,
     AtarkScout,
@@ -209,6 +211,7 @@ impl StarshipSprite {
             StarshipIcon::GranokFrigate => StarshipSprite::GranokFrigate,
             StarshipIcon::GranokBattleCruiser => StarshipSprite::GranokBattleCruiser,
             StarshipIcon::GranokDreadnought => StarshipSprite::GranokDreadnought,
+            #[allow(clippy::panic)]
             StarshipIcon::None => panic!("Spaceship Sprite: Must have an icon to convert"),
         }
     }

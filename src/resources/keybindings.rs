@@ -1,4 +1,4 @@
-use bevy::{ecs::system::Resource, input::keyboard::KeyCode};
+use bevy::{ecs::resource::Resource, input::keyboard::KeyCode};
 
 // TODO Some of the variables aren't used
 #[derive(Resource)]

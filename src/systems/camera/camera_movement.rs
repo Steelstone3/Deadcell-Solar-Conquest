@@ -1,6 +1,6 @@
 use bevy::{
     ecs::system::{Query, Res, ResMut},
-    input::{keyboard::KeyCode, ButtonInput},
+    input::{ButtonInput, keyboard::KeyCode},
     time::Time,
 };
 
@@ -16,7 +16,7 @@ pub fn camera_movement(
     mut cameras: Query<MutableCameraTransformQuery>,
     keybindings: Res<KeyBindings>,
 ) {
-    let Ok(mut camera) = cameras.get_single_mut() else {
+    let Ok(mut camera) = cameras.single_mut() else {
         return;
     };
     let mut left_right = 0.0;
@@ -79,11 +79,11 @@ pub fn calculate_camera_speed(
     }
     let mut new_camera_speed = camera_settings.camera_base_speed;
     if camera_settings.is_camera_slow {
-        new_camera_speed = (camera_settings.camera_slow_speed) * time.delta_seconds();
+        new_camera_speed = (camera_settings.camera_slow_speed) * time.delta_secs();
     } else if camera_settings.is_camera_fast {
-        new_camera_speed = (camera_settings.camera_fast_speed) * time.delta_seconds();
+        new_camera_speed = (camera_settings.camera_fast_speed) * time.delta_secs();
     } else {
-        new_camera_speed *= time.delta_seconds();
+        new_camera_speed *= time.delta_secs();
     }
     if is_diagonal {
         calculate_diagonal_camera_speed(new_camera_speed)

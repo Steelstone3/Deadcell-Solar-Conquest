@@ -1,4 +1,4 @@
-use bevy::{ecs::system::Resource, prelude::Entity};
+use bevy::{ecs::resource::Resource, prelude::Entity};
 
 use crate::{
     assets::user_interface::icons::{

@@ -96,7 +96,7 @@ pub fn select_sprite(
             return Err(());
         };
 
-        spawn_sprite_writer.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+        spawn_sprite_writer.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: selection.sprite_path.to_string(),
             size,
             transform: closest.transform,

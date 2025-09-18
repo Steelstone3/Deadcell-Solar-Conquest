@@ -13,12 +13,13 @@ use bevy::{
     app::{Plugin, Update},
     prelude::IntoSystem,
 };
+use bevy_egui::EguiPrimaryContextPass;
 
 pub struct UserInterfacePlugin;
 
 impl Plugin for UserInterfacePlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
-        app.add_systems(Update, spawn_menu);
+        app.add_systems(EguiPrimaryContextPass, spawn_menu);
         app.add_systems(Update, select_sprite.pipe(set_selection_type));
         app.add_systems(Update, select_multiple_sprites);
         app.add_systems(Update, draw_multiple_selection_box);

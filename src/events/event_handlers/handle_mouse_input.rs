@@ -1,6 +1,6 @@
 use bevy::{
     ecs::{event::EventWriter, system::Query},
-    input::{mouse::MouseButton, ButtonInput},
+    input::{ButtonInput, mouse::MouseButton},
     math::Vec2,
     prelude::{KeyCode, Res},
     render::camera::Camera,
@@ -28,7 +28,7 @@ pub fn handle_left_click(
         if !ctrl_modifier {
             for button in mouse_button.get_just_pressed() {
                 if *button == MouseButton::Left {
-                    left_mouse_event_writer.send(MouseLeftClickEvent {
+                    left_mouse_event_writer.write(MouseLeftClickEvent {
                         cursor_world_position,
                     });
                     return;
@@ -54,7 +54,7 @@ pub fn handle_left_click_with_modifier(
         if ctrl_modifier {
             for button in mouse_button.get_pressed() {
                 if *button == MouseButton::Left {
-                    left_mouse_modifier_event_writer.send(MouseLeftClickModifierEvent {
+                    left_mouse_modifier_event_writer.write(MouseLeftClickModifierEvent {
                         cursor_world_position,
                         just_released: false,
                     });
@@ -63,7 +63,7 @@ pub fn handle_left_click_with_modifier(
             }
             for button in mouse_button.get_just_released() {
                 if *button == MouseButton::Left {
-                    left_mouse_modifier_event_writer.send(MouseLeftClickModifierEvent {
+                    left_mouse_modifier_event_writer.write(MouseLeftClickModifierEvent {
                         cursor_world_position,
                         just_released: true,
                     });
@@ -85,7 +85,7 @@ pub fn handle_right_click(
     if let Ok(cursor_world_position) = cursor_world_position {
         for button in mouse_button.get_just_pressed() {
             if *button == MouseButton::Right {
-                right_mouse_event_writer.send(MouseRightClickEvent {
+                right_mouse_event_writer.write(MouseRightClickEvent {
                     cursor_world_position,
                 });
             }
@@ -97,10 +97,10 @@ fn get_cursor_position(
     window_query: Query<&Window>,
     camera_query: Query<(&Camera, &GlobalTransform)>,
 ) -> Result<Vec2, ()> {
-    let Ok(window) = window_query.get_single() else {
+    let Ok(window) = window_query.single() else {
         return Err(());
     };
-    let Ok(camera) = camera_query.get_single() else {
+    let Ok(camera) = camera_query.single() else {
         return Err(());
     };
 
@@ -108,10 +108,8 @@ fn get_cursor_position(
         return Err(());
     };
 
-    let Some(cursor_world_position) = camera.0.viewport_to_world_2d(camera.1, cursor_position)
-    else {
-        return Err(());
-    };
-
-    Ok(cursor_world_position)
+    match camera.0.viewport_to_world_2d(camera.1, cursor_position) {
+        Ok(cursor_world_position) => Ok(cursor_world_position),
+        Err(_) => Err(()),
+    }
 }

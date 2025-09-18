@@ -4,7 +4,8 @@ use crate::{
 };
 use bevy::{
     ecs::system::{Query, ResMut},
-    input::{keyboard::KeyCode, ButtonInput},
+    input::{ButtonInput, keyboard::KeyCode},
+    render::camera::Projection,
 };
 use float_lerp::lerp;
 
@@ -13,7 +14,7 @@ pub fn camera_zoom_keyboard(
     mut cameras: Query<MutableCameraOrthographicProjectionQuery>,
     mut camera_settings: ResMut<CameraSettings>,
 ) {
-    let Ok(mut camera) = cameras.get_single_mut() else {
+    let Ok(mut camera) = cameras.single_mut() else {
         return;
     };
 
@@ -35,5 +36,11 @@ pub fn camera_zoom_keyboard(
         camera_settings.current_zoom = 1.0;
     }
 
-    camera.projection.scale = lerp(camera.projection.scale, camera_settings.current_zoom, 0.05);
+    if let Projection::Orthographic(orthographic_projection) = &mut *camera.projection {
+        orthographic_projection.scale = lerp(
+            orthographic_projection.scale,
+            camera_settings.current_zoom,
+            0.05,
+        );
+    }
 }

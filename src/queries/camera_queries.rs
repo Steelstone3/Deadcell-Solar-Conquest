@@ -1,13 +1,13 @@
 use bevy::{
     ecs::query::QueryData,
-    render::camera::{Camera, OrthographicProjection},
+    render::camera::{Camera, Projection},
     transform::components::Transform,
 };
 
 #[derive(QueryData)]
 #[query_data(mutable)]
 pub struct MutableCameraOrthographicProjectionQuery {
-    pub projection: &'static mut OrthographicProjection,
+    pub projection: &'static mut Projection,
     pub camera: &'static Camera,
 }
 
@@ -21,6 +21,6 @@ pub struct MutableCameraTransformQuery {
 #[derive(QueryData)]
 pub struct CameraTransformOrthographicProjectionQuery {
     pub transform: &'static Transform,
-    pub projection: &'static OrthographicProjection,
+    pub projection: &'static Projection,
     pub camera: &'static Camera,
 }

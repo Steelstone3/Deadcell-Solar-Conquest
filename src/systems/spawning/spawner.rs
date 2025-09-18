@@ -1,8 +1,8 @@
 use bevy::{
     ecs::{event::EventWriter, system::Commands},
+    log::tracing,
     prelude::{EventReader, Res},
     transform::components::Transform,
-    utils::tracing,
 };
 
 use crate::{
@@ -17,6 +17,7 @@ use crate::{
             space_facility::SpaceFacility,
             starship::{Starship, StarshipSpeed},
         },
+        server::server_object::ServerObject,
         user_interface::{controllable::Movement, selection::Selectable},
     },
     events::{
@@ -61,6 +62,7 @@ pub fn spawner(
                 );
             }
             SpawnSelection::Starbase => {
+                //TODO make func for starbases?
                 spawn_starship(
                     &mut transform,
                     &spawn_menu_selection,
@@ -84,7 +86,7 @@ fn spawn_space_facility(
         let space_facility = SpaceFacility::new_from_icon(selected_item.space_facility_selection);
         transform.translation.z = space_facility.size_component.z_index;
 
-        spawn_sprite_event.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+        spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: space_facility.sprite_path.to_string(),
             size: space_facility.size_component.size,
             transform: *transform,
@@ -111,19 +113,25 @@ fn spawn_starship(
 
         transform.translation.z = starship.size_component.z_index;
 
-        spawn_sprite_event.send(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+        let entity = commands
+            .spawn(starship)
+            .insert(Selectable)
+            .insert(Movement {
+                target_location: transform.translation,
+                maximum_speed: ship_speed.speed,
+                current_speed: 0.0,
+            })
+            .id();
+
+        commands
+            .entity(entity)
+            .insert(ServerObject { id: entity.index() });
+
+        spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: starship.starship_sprite_bundle.starship_sprite.to_string(),
             size: starship.size_component.size,
             transform: *transform,
-            entity: commands
-                .spawn(starship)
-                .insert(Selectable)
-                .insert(Movement {
-                    target_location: transform.translation,
-                    maximum_speed: ship_speed.speed,
-                    current_speed: 0.0,
-                })
-                .id(),
+            entity,
         }));
     }
 }

@@ -42,6 +42,6 @@ pub fn move_to_point(
         }
 
         controllable_query.1.translation +=
-            (controllable_query.0.current_speed * current_transform.up()) * time.delta_seconds();
+            (controllable_query.0.current_speed * current_transform.up()) * time.delta_secs();
     }
 }
