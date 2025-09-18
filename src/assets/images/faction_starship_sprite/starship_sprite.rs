@@ -211,6 +211,7 @@ impl StarshipSprite {
             StarshipIcon::GranokFrigate => StarshipSprite::GranokFrigate,
             StarshipIcon::GranokBattleCruiser => StarshipSprite::GranokBattleCruiser,
             StarshipIcon::GranokDreadnought => StarshipSprite::GranokDreadnought,
+            #[allow(clippy::panic)]
             StarshipIcon::None => panic!("Spaceship Sprite: Must have an icon to convert"),
         }
     }

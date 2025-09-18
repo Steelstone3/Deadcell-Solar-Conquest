@@ -90,6 +90,7 @@ impl SpaceFacilitySprite {
             SpaceFacilityIcon::GranokSpaceShipConstructionYard => {
                 SpaceFacilitySprite::GranokSpaceShipConstructionYard
             }
+            #[allow(clippy::panic)]
             SpaceFacilityIcon::None => {
                 panic!("Space Facility Sprite: Must have an icon to convert")
             }

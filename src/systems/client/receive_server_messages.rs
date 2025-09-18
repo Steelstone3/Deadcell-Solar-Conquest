@@ -175,6 +175,7 @@ pub fn receive_server_messages(
     // mut server_object_query: Query<(&mut Transform, &ServerObject)>,
 ) {
     while let Some(message) = client.receive_message(GameSyncChannels::Messages) {
+        #[allow(clippy::unwrap_used)]
         let (server_message, _): (ServerMessages, usize) =
             decode_from_slice(&message, config::standard()).unwrap();
 
@@ -196,6 +197,7 @@ pub fn receive_server_messages(
             decode_from_slice(&message, config::standard()).unwrap_or_default();
 
         for (_id, data) in message.iter() {
+            #[allow(clippy::unwrap_used)]
             let (space_tile, _): (SerializableSpace, usize) =
                 decode_from_slice(data, config::standard()).unwrap();
 
@@ -216,6 +218,7 @@ pub fn receive_server_messages(
 
         for (id, data) in message.iter() {
             println!("Spawning planet {:?}", id);
+            #[allow(clippy::unwrap_used)]
             let (planet, _): (SerializablePlanet, usize) =
                 decode_from_slice(data, config::standard()).unwrap();
 
@@ -245,6 +248,7 @@ pub fn receive_server_messages(
 
         for (id, data) in message.iter() {
             println!("Spawning space facility {:?}", id);
+            #[allow(clippy::unwrap_used)]
             let (space_facility, _): (SerializableSpaceFacility, usize) =
                 decode_from_slice(data, config::standard()).unwrap();
 

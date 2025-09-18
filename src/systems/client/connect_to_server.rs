@@ -10,7 +10,9 @@ use renet::{ConnectionConfig, RenetClient};
 use crate::server::{channels::GameSyncChannels, game_server::Server};
 
 pub fn connect_to_server(mut commands: Commands) {
+    #[allow(clippy::unwrap_used)]
     let server_addr = "127.0.0.1:5000".parse().unwrap();
+    #[allow(clippy::unwrap_used)]
     let socket = UdpSocket::bind("0.0.0.0:0").unwrap();
     let current_time = SystemTime::now()
         .duration_since(SystemTime::UNIX_EPOCH)
@@ -23,6 +25,7 @@ pub fn connect_to_server(mut commands: Commands) {
         user_data: None,
     };
 
+    #[allow(clippy::unwrap_used)]
     let transport = NetcodeClientTransport::new(current_time, authentication, socket).unwrap();
     let client = RenetClient::new(ConnectionConfig {
         available_bytes_per_tick: 60_000,

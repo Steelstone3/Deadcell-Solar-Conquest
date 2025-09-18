@@ -17,24 +17,28 @@ impl SpaceFacilityType {
                 SpaceFacilityType::SpaceShipConstructionYard => {
                     SpaceFacilityIcon::AtarkSpaceShipConstructionYard
                 }
+                #[allow(clippy::panic)]
                 SpaceFacilityType::SpaceStation => panic!("No space station icon"),
             },
             Faction::Karcan => match self {
                 SpaceFacilityType::SpaceShipConstructionYard => {
                     SpaceFacilityIcon::KarcanSpaceShipConstructionYard
                 }
+                #[allow(clippy::panic)]
                 SpaceFacilityType::SpaceStation => panic!("No space station icon"),
             },
             Faction::Noozler => match self {
                 SpaceFacilityType::SpaceShipConstructionYard => {
                     SpaceFacilityIcon::NoozlerSpaceShipConstructionYard
                 }
+                #[allow(clippy::panic)]
                 SpaceFacilityType::SpaceStation => panic!("No space station icon"),
             },
             Faction::Granok => match self {
                 SpaceFacilityType::SpaceShipConstructionYard => {
                     SpaceFacilityIcon::GranokSpaceShipConstructionYard
                 }
+                #[allow(clippy::panic)]
                 SpaceFacilityType::SpaceStation => panic!("No space station icon"),
             },
         }

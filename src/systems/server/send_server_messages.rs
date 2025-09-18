@@ -196,7 +196,8 @@ pub fn send_server_messages(
                     .unwrap_or_default();
                     space_facilities.insert(entity.index(), space_facility);
                 }
-                let message = encode_to_vec(&space_facilities, config::standard()).unwrap_or_default();
+                let message =
+                    encode_to_vec(&space_facilities, config::standard()).unwrap_or_default();
                 server.send_message(*client_id, GameSyncChannels::SpaceFacilities, message);
 
                 // Sync starships

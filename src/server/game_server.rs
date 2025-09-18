@@ -19,11 +19,13 @@ impl Server {
     }
 
     pub fn new_renet_server() -> (RenetServer, NetcodeServerTransport) {
+        #[allow(clippy::unwrap_used)]
         let public_addr = "127.0.0.1:5000".parse().unwrap();
+        #[allow(clippy::unwrap_used)]
         let socket = UdpSocket::bind(public_addr).unwrap();
         let current_time = SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)
-            .unwrap();
+            .unwrap_or_default();
         let server_config = ServerConfig {
             current_time,
             max_clients: 64,
@@ -32,6 +34,7 @@ impl Server {
             authentication: ServerAuthentication::Unsecure,
         };
 
+        #[allow(clippy::unwrap_used)]
         let transport = NetcodeServerTransport::new(server_config, socket).unwrap();
         let server = RenetServer::new(ConnectionConfig {
             available_bytes_per_tick: 60_000,
