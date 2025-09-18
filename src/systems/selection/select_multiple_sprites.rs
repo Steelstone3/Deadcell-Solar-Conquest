@@ -51,37 +51,37 @@ pub fn select_multiple_sprites(
         );
 
         // check if a selectable entity exists within the area
-        if area.contains(selectable_location) {
-            if let Ok(selection_type) = type_check_query.get(selectable.entity) {
-                // select the entity if it is a type of starship
-                if selection_type.starship.is_some() {
-                    spawn_menu_selection.default_selection();
-                    spawn_menu_selection.selection = SpawnSelection::MultipleSelections;
+        if area.contains(selectable_location)
+            && let Ok(selection_type) = type_check_query.get(selectable.entity)
+        {
+            // select the entity if it is a type of starship
+            if selection_type.starship.is_some() {
+                spawn_menu_selection.default_selection();
+                spawn_menu_selection.selection = SpawnSelection::MultipleSelections;
 
-                    // create a selection indicator entity
-                    let selection = SelectedSprite::default();
-                    let selection_entity = commands
-                        .spawn(selection)
-                        .insert(Tracking {
-                            entity_to_follow: selectable.entity,
-                        })
-                        .id();
+                // create a selection indicator entity
+                let selection = SelectedSprite::default();
+                let selection_entity = commands
+                    .spawn(selection)
+                    .insert(Tracking {
+                        entity_to_follow: selectable.entity,
+                    })
+                    .id();
 
-                    let Some(size) = selectable.sprite.custom_size else {
-                        return;
-                    };
+                let Some(size) = selectable.sprite.custom_size else {
+                    return;
+                };
 
-                    // spawn the selection indicator entity
-                    spawn_sprite_writer.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
-                        sprite_path: selection.sprite_path.to_string(),
-                        size,
-                        transform: *selectable.transform,
-                        entity: selection_entity,
-                    }));
+                // spawn the selection indicator entity
+                spawn_sprite_writer.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+                    sprite_path: selection.sprite_path.to_string(),
+                    size,
+                    transform: *selectable.transform,
+                    entity: selection_entity,
+                }));
 
-                    // selected entities
-                    spawn_menu_selection.multi_selection(selectable.entity);
-                }
+                // selected entities
+                spawn_menu_selection.multi_selection(selectable.entity);
             }
         }
     }

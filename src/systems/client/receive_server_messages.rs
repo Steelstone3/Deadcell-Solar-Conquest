@@ -212,7 +212,7 @@ pub fn receive_server_messages(
     while let Some(message) = client.receive_message(GameSyncChannels::Planets) {
         println!("Receiving planets");
         let (message, _): (HashMap<u32, Vec<u8>>, usize) =
-            decode_from_slice(&message, config::standard()).unwrap();
+            decode_from_slice(&message, config::standard()).unwrap_or_default();
 
         for (id, data) in message.iter() {
             println!("Spawning planet {:?}", id);
@@ -241,7 +241,7 @@ pub fn receive_server_messages(
     while let Some(message) = client.receive_message(GameSyncChannels::SpaceFacilities) {
         println!("Receiving space facilities");
         let (message, _): (HashMap<u32, Vec<u8>>, usize) =
-            decode_from_slice(&message, config::standard()).unwrap();
+            decode_from_slice(&message, config::standard()).unwrap_or_default();
 
         for (id, data) in message.iter() {
             println!("Spawning space facility {:?}", id);

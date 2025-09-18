@@ -31,44 +31,36 @@ pub fn draw_multiple_selection_box(
                 // Resize Selection Box
                 let selection_box = selection_query.single_mut();
 
-                match selection_box {
-                    Ok(mut selection_box) => {
-                        selection_box.multiple_selection_box.selection_area.end = cursor_position;
-
-                        let midpoint = selection_box
-                            .multiple_selection_box
-                            .selection_area
-                            .start
-                            .lerp(selection_box.multiple_selection_box.selection_area.end, 0.5)
-                            .extend(50.0);
-                        let size_x = selection_box.multiple_selection_box.selection_area.end.x
-                            - selection_box.multiple_selection_box.selection_area.start.x;
-                        let size_y = selection_box.multiple_selection_box.selection_area.end.y
-                            - selection_box.multiple_selection_box.selection_area.start.y;
-
-                        commands
-                            .entity(selection_box.entity)
-                            .insert(*selection_box.multiple_selection_box)
-                            .insert(
-                                Transform::from_translation(midpoint)
-                                    .with_scale(Vec3::new(size_x, size_y, 6.0)),
-                            );
-                    }
-                    Err(_) => {}
+                if let Ok(mut selection_box) = selection_box {
+                    selection_box.multiple_selection_box.selection_area.end = cursor_position;
+                    let midpoint = selection_box
+                        .multiple_selection_box
+                        .selection_area
+                        .start
+                        .lerp(selection_box.multiple_selection_box.selection_area.end, 0.5)
+                        .extend(50.0);
+                    let size_x = selection_box.multiple_selection_box.selection_area.end.x
+                        - selection_box.multiple_selection_box.selection_area.start.x;
+                    let size_y = selection_box.multiple_selection_box.selection_area.end.y
+                        - selection_box.multiple_selection_box.selection_area.start.y;
+                    commands
+                        .entity(selection_box.entity)
+                        .insert(*selection_box.multiple_selection_box)
+                        .insert(
+                            Transform::from_translation(midpoint)
+                                .with_scale(Vec3::new(size_x, size_y, 6.0)),
+                        );
                 }
             }
             false => {
                 let selection_box = selection_query.single_mut();
 
-                match selection_box {
-                    Ok(selection_box) => {
-                        selection_area_writer.write(SelectionAreaEvent {
-                            selection_area: selection_box.multiple_selection_box.selection_area,
-                        });
+                if let Ok(selection_box) = selection_box {
+                    selection_area_writer.write(SelectionAreaEvent {
+                        selection_area: selection_box.multiple_selection_box.selection_area,
+                    });
 
-                        commands.entity(selection_box.entity).despawn();
-                    }
-                    Err(_) => {}
+                    commands.entity(selection_box.entity).despawn();
                 }
             }
         },
