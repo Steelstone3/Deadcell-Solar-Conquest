@@ -144,18 +144,26 @@
 use bevy::{
     ecs::{
         event::EventWriter,
-        system::{Commands, ResMut},
+        system::{Commands, Query, ResMut},
     },
     platform::collections::HashMap,
+    transform::components::Transform,
 };
 use bevy_renet::renet::RenetClient;
 use bincode::{config, serde::decode_from_slice};
 
 use crate::{
     components::{
-        faction::space_facility::SerializableSpaceFacility,
-        map::{planet::SerializablePlanet, space::SerializableSpace},
-        server::server_messages::ServerMessages,
+        faction::{space_facility::SerializableSpaceFacility, starship::SerializableStarship},
+        map::{
+            planet::SerializablePlanet,
+            space::SerializableSpace,
+            star::SerializableStar,
+        },
+        server::{
+            server_messages::ServerMessages,
+            server_object::{SerializableServerObject, ServerObject},
+        },
         user_interface::selection::Selectable,
     },
     events::{
@@ -172,7 +180,7 @@ pub fn receive_server_messages(
     mut spawn_sprite_event_writer: EventWriter<SpawnSpriteEvent>,
     mut spawn_animated_sprite_event_writer: EventWriter<SpawnAnimatedSpriteEvent>,
     mut commands: Commands,
-    // mut server_object_query: Query<(&mut Transform, &ServerObject)>,
+    mut server_object_query: Query<(&mut Transform, &ServerObject)>,
 ) {
     while let Some(message) = client.receive_message(GameSyncChannels::Messages) {
         #[allow(clippy::unwrap_used)]
@@ -211,6 +219,29 @@ pub fn receive_server_messages(
         }
     }
 
+    while let Some(message) = client.receive_message(GameSyncChannels::Starships) {
+        println!("Receiving starship");
+        let (message, _): (HashMap<u32, Vec<u8>>, usize) =
+            decode_from_slice(&message, config::standard()).unwrap_or_default();
+
+        for (_id, data) in message.iter() {
+            #[allow(clippy::unwrap_used)]
+            let (starship, _): (SerializableStarship, usize) =
+                decode_from_slice(data, config::standard()).unwrap();
+
+            spawn_sprite_event_writer.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
+                sprite_path: starship
+                    .starship
+                    .starship_sprite_bundle
+                    .starship_sprite
+                    .to_string(),
+                size: starship.starship.size_component.size,
+                transform: starship.transform,
+                entity: commands.spawn(starship.starship).id(),
+            }));
+        }
+    }
+
     while let Some(message) = client.receive_message(GameSyncChannels::Planets) {
         println!("Receiving planets");
         let (message, _): (HashMap<u32, Vec<u8>>, usize) =
@@ -241,6 +272,36 @@ pub fn receive_server_messages(
         }
     }
 
+    while let Some(message) = client.receive_message(GameSyncChannels::Stars) {
+        println!("Receiving star");
+        let (message, _): (HashMap<u32, Vec<u8>>, usize) =
+            decode_from_slice(&message, config::standard()).unwrap_or_default();
+
+        for (id, data) in message.iter() {
+            println!("Spawning star {:?}", id);
+            #[allow(clippy::unwrap_used)]
+            let (star, _): (SerializableStar, usize) =
+                decode_from_slice(data, config::standard()).unwrap();
+
+            let star_sprite = star.star;
+            spawn_animated_sprite_event_writer.write(
+                SpawnAnimatedSpriteEvent::spawn_animated_sprite(
+                    SpawnSprite {
+                        sprite_path: star_sprite.sprite_path.to_string(),
+                        size: star_sprite.size_component.size,
+                        transform: star.transform,
+                        entity: commands.spawn(star_sprite).id(),
+                    },
+                    SpawnAnimatedSprite {
+                        sprite_tile_size: 200,
+                        frame_timing: 0.1,
+                        frame_count: 50,
+                    },
+                ),
+            );
+        }
+    }
+
     while let Some(message) = client.receive_message(GameSyncChannels::SpaceFacilities) {
         println!("Receiving space facilities");
         let (message, _): (HashMap<u32, Vec<u8>>, usize) =
@@ -262,6 +323,24 @@ pub fn receive_server_messages(
                     .insert(Selectable)
                     .id(),
             }));
+        }
+    }
+
+    while let Some(message) = client.receive_message(GameSyncChannels::ServerObjects) {
+        // Decode outer HashMap<u32, Vec<u8>>
+        let (message, _): (HashMap<u32, Vec<u8>>, usize) =
+            decode_from_slice(&message, config::standard()).unwrap_or_default();
+
+        for mut local_server_object in server_object_query.iter_mut() {
+            for (_id, data) in message.iter() {
+                // Deserialize inner SerializableServerObject
+                let (remote_server_object, _): (SerializableServerObject, usize) =
+                    decode_from_slice(data, config::standard()).unwrap();
+
+                if *local_server_object.1 == remote_server_object.server_object {
+                    *local_server_object.0 = remote_server_object.transform;
+                }
+            }
         }
     }
 }

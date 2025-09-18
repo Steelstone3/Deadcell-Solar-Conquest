@@ -1,53 +1,54 @@
 use bevy::reflect::Reflect;
 use rand_derive2::RandGen;
+use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-#[derive(RandGen, Copy, Clone, Debug, PartialEq, Reflect)]
-pub enum SunSprite {
-    Sun1,
-    Sun2,
-    Sun3,
-    Sun4,
-    Sun5,
-    Sun6,
-    Sun7,
-    Sun8,
-    Sun9,
-    Sun10,
+#[derive(RandGen, Copy, Clone, Debug, PartialEq, Reflect, Deserialize, Serialize)]
+pub enum StarSprite {
+    Star1,
+    Star2,
+    Star3,
+    Star4,
+    Star5,
+    Star6,
+    Star7,
+    Star8,
+    Star9,
+    Star10,
 }
 
-impl Display for SunSprite {
+impl Display for StarSprite {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            SunSprite::Sun1 => {
-                write!(formatter, "images/suns/sun_1.png")
+            StarSprite::Star1 => {
+                write!(formatter, "images/stars/star_1.png")
             }
-            SunSprite::Sun2 => {
-                write!(formatter, "images/suns/sun_2.png")
+            StarSprite::Star2 => {
+                write!(formatter, "images/stars/star_2.png")
             }
-            SunSprite::Sun3 => {
-                write!(formatter, "images/suns/sun_3.png")
+            StarSprite::Star3 => {
+                write!(formatter, "images/stars/star_3.png")
             }
-            SunSprite::Sun4 => {
-                write!(formatter, "images/suns/sun_4.png")
+            StarSprite::Star4 => {
+                write!(formatter, "images/stars/star_4.png")
             }
-            SunSprite::Sun5 => {
-                write!(formatter, "images/suns/sun_5.png")
+            StarSprite::Star5 => {
+                write!(formatter, "images/stars/star_5.png")
             }
-            SunSprite::Sun6 => {
-                write!(formatter, "images/suns/sun_6.png")
+            StarSprite::Star6 => {
+                write!(formatter, "images/stars/star_6.png")
             }
-            SunSprite::Sun7 => {
-                write!(formatter, "images/suns/sun_7.png")
+            StarSprite::Star7 => {
+                write!(formatter, "images/stars/star_7.png")
             }
-            SunSprite::Sun8 => {
-                write!(formatter, "images/suns/sun_8.png")
+            StarSprite::Star8 => {
+                write!(formatter, "images/stars/star_8.png")
             }
-            SunSprite::Sun9 => {
-                write!(formatter, "images/suns/sun_9.png")
+            StarSprite::Star9 => {
+                write!(formatter, "images/stars/star_9.png")
             }
-            SunSprite::Sun10 => {
-                write!(formatter, "images/suns/sun_10.png")
+            StarSprite::Star10 => {
+                write!(formatter, "images/stars/star_10.png")
             }
         }
     }

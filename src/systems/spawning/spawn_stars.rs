@@ -7,7 +7,7 @@ use bevy::{
 use rand::{Rng, random};
 
 use crate::{
-    components::map::sun::Sun,
+    components::map::star::Star,
     events::{
         spawn_animated_sprite_event::{SpawnAnimatedSprite, SpawnAnimatedSpriteEvent},
         spawn_sprite_event::SpawnSprite,
@@ -17,7 +17,7 @@ use crate::{
 
 // TODO better spacing
 // TODO better distribution across the map (maybe spawn zones)
-pub fn spawn_suns(
+pub fn spawn_stars(
     mut commands: Commands,
     mut spawn_sprite_event: EventWriter<SpawnAnimatedSpriteEvent>,
     game_settings: Res<GameSettings>,
@@ -26,7 +26,7 @@ pub fn spawn_suns(
     let number_of_suns = game_settings.number_of_players;
 
     for _ in 0..number_of_suns {
-        let sun = Sun::new(random());
+        let sun = Star::new(random());
 
         let x: f32 = rng.gen_range(
             -SPACE_TILE_SIZE * ((game_settings.map_size - 1) as f32)
