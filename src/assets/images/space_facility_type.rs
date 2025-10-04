@@ -7,36 +7,36 @@ use crate::{
 #[derive(PartialEq, Debug)]
 pub enum SpaceFacilityType {
     SpaceStation,
-    SpaceShipConstructionYard,
+    StarshipConstructionYard,
 }
 
 impl SpaceFacilityType {
     pub fn icon_convert_from(&self, faction: Faction) -> SpaceFacilityIcon {
         match faction {
             Faction::Atark => match self {
-                SpaceFacilityType::SpaceShipConstructionYard => {
-                    SpaceFacilityIcon::AtarkSpaceShipConstructionYard
+                SpaceFacilityType::StarshipConstructionYard => {
+                    SpaceFacilityIcon::AtarkStarshipConstructionYard
                 }
                 #[allow(clippy::panic)]
                 SpaceFacilityType::SpaceStation => panic!("No space station icon"),
             },
             Faction::Karcan => match self {
-                SpaceFacilityType::SpaceShipConstructionYard => {
-                    SpaceFacilityIcon::KarcanSpaceShipConstructionYard
+                SpaceFacilityType::StarshipConstructionYard => {
+                    SpaceFacilityIcon::KarcanStarshipConstructionYard
                 }
                 #[allow(clippy::panic)]
                 SpaceFacilityType::SpaceStation => panic!("No space station icon"),
             },
             Faction::Noozler => match self {
-                SpaceFacilityType::SpaceShipConstructionYard => {
-                    SpaceFacilityIcon::NoozlerSpaceShipConstructionYard
+                SpaceFacilityType::StarshipConstructionYard => {
+                    SpaceFacilityIcon::NoozlerStarshipConstructionYard
                 }
                 #[allow(clippy::panic)]
                 SpaceFacilityType::SpaceStation => panic!("No space station icon"),
             },
             Faction::Granok => match self {
-                SpaceFacilityType::SpaceShipConstructionYard => {
-                    SpaceFacilityIcon::GranokSpaceShipConstructionYard
+                SpaceFacilityType::StarshipConstructionYard => {
+                    SpaceFacilityIcon::GranokStarshipConstructionYard
                 }
                 #[allow(clippy::panic)]
                 SpaceFacilityType::SpaceStation => panic!("No space station icon"),
@@ -47,26 +47,26 @@ impl SpaceFacilityType {
     pub fn sprite_convert_from(&self, faction: Faction) -> SpaceFacilitySprite {
         match faction {
             Faction::Atark => match self {
-                SpaceFacilityType::SpaceShipConstructionYard => {
-                    SpaceFacilitySprite::AtarkSpaceShipConstructionYard
+                SpaceFacilityType::StarshipConstructionYard => {
+                    SpaceFacilitySprite::AtarkStarshipConstructionYard
                 }
                 SpaceFacilityType::SpaceStation => SpaceFacilitySprite::AtarkSpaceStation,
             },
             Faction::Karcan => match self {
-                SpaceFacilityType::SpaceShipConstructionYard => {
-                    SpaceFacilitySprite::KarcanSpaceShipConstructionYard
+                SpaceFacilityType::StarshipConstructionYard => {
+                    SpaceFacilitySprite::KarcanStarshipConstructionYard
                 }
                 SpaceFacilityType::SpaceStation => SpaceFacilitySprite::KarcanSpaceStation,
             },
             Faction::Noozler => match self {
-                SpaceFacilityType::SpaceShipConstructionYard => {
-                    SpaceFacilitySprite::NoozlerSpaceShipConstructionYard
+                SpaceFacilityType::StarshipConstructionYard => {
+                    SpaceFacilitySprite::NoozlerStarshipConstructionYard
                 }
                 SpaceFacilityType::SpaceStation => SpaceFacilitySprite::NoozlerSpaceStation,
             },
             Faction::Granok => match self {
-                SpaceFacilityType::SpaceShipConstructionYard => {
-                    SpaceFacilitySprite::GranokSpaceShipConstructionYard
+                SpaceFacilityType::StarshipConstructionYard => {
+                    SpaceFacilitySprite::GranokStarshipConstructionYard
                 }
                 SpaceFacilityType::SpaceStation => SpaceFacilitySprite::GranokSpaceStation,
             },
@@ -98,24 +98,24 @@ mod space_facility_type_should {
 
     #[rstest]
     #[case::panic(
-        SpaceFacilityType::SpaceShipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard,
         Faction::Atark,
-        SpaceFacilityIcon::AtarkSpaceShipConstructionYard
+        SpaceFacilityIcon::AtarkStarshipConstructionYard
     )]
     #[case::panic(
-        SpaceFacilityType::SpaceShipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard,
         Faction::Karcan,
-        SpaceFacilityIcon::KarcanSpaceShipConstructionYard
+        SpaceFacilityIcon::KarcanStarshipConstructionYard
     )]
     #[case::panic(
-        SpaceFacilityType::SpaceShipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard,
         Faction::Noozler,
-        SpaceFacilityIcon::NoozlerSpaceShipConstructionYard
+        SpaceFacilityIcon::NoozlerStarshipConstructionYard
     )]
     #[case::panic(
-        SpaceFacilityType::SpaceShipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard,
         Faction::Granok,
-        SpaceFacilityIcon::GranokSpaceShipConstructionYard
+        SpaceFacilityIcon::GranokStarshipConstructionYard
     )]
     fn icon_convert_from(
         #[case] space_facility_type: SpaceFacilityType,
@@ -151,24 +151,24 @@ mod space_facility_type_should {
         SpaceFacilitySprite::GranokSpaceStation
     )]
     #[case(
-        SpaceFacilityType::SpaceShipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard,
         Faction::Atark,
-        SpaceFacilitySprite::AtarkSpaceShipConstructionYard
+        SpaceFacilitySprite::AtarkStarshipConstructionYard
     )]
     #[case(
-        SpaceFacilityType::SpaceShipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard,
         Faction::Karcan,
-        SpaceFacilitySprite::KarcanSpaceShipConstructionYard
+        SpaceFacilitySprite::KarcanStarshipConstructionYard
     )]
     #[case(
-        SpaceFacilityType::SpaceShipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard,
         Faction::Noozler,
-        SpaceFacilitySprite::NoozlerSpaceShipConstructionYard
+        SpaceFacilitySprite::NoozlerStarshipConstructionYard
     )]
     #[case(
-        SpaceFacilityType::SpaceShipConstructionYard,
+        SpaceFacilityType::StarshipConstructionYard,
         Faction::Granok,
-        SpaceFacilitySprite::GranokSpaceShipConstructionYard
+        SpaceFacilitySprite::GranokStarshipConstructionYard
     )]
     fn sprite_convert_from(
         #[case] space_facility_type: SpaceFacilityType,

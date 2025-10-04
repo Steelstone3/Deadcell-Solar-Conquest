@@ -123,24 +123,24 @@ pub fn set_selection_type(
                     space_facility.sprite_path,
                 );
 
-                if space_facility_type == SpaceFacilityType::SpaceShipConstructionYard {
+                if space_facility_type == SpaceFacilityType::StarshipConstructionYard {
                     spawn_menu_selection.selection = SpawnSelection::StarshipConstructionYard;
                     info!("Starship Construction Yard Selected");
                 } else {
                     spawn_menu_selection.selection = SpawnSelection::Starbase;
                     info!("Starbase Selected");
                 }
-            } else if let Some(spaceship) = selection_type.starship {
+            } else if let Some(starship) = selection_type.starship {
                 spawn_menu_selection.default_selection();
 
-                let spaceship_type = StarshipSprite::starship_type_convert_from(
-                    spaceship.starship_sprite_bundle.starship_sprite,
+                let starship_type = StarshipSprite::starship_type_convert_from(
+                    starship.starship_sprite_bundle.starship_sprite,
                 );
-                if spaceship_type == StarshipType::SupportShip {
+                if starship_type == StarshipType::SupportShip {
                     spawn_menu_selection.selection = SpawnSelection::SupportShip;
                     info!("Support Ship Selected");
                 } else {
-                    info!("Unhandled ship type {spaceship_type} selected");
+                    info!("Unhandled ship type {starship_type} selected");
                     spawn_menu_selection.selection = SpawnSelection::Other;
                 }
             } else {

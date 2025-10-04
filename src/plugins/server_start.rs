@@ -8,7 +8,7 @@ use crate::systems::{
     spawning::{
         spawn_resource_planets::spawn_resource_planets, spawn_space::spawn_space,
         spawn_space_facilities::spawn_space_facilities, spawn_stars::spawn_stars,
-        spawn_starter_spaceship::spawn_starter_spaceship,
+        spawn_starter_starship::spawn_starter_starship,
     },
 };
 
@@ -23,7 +23,7 @@ impl Plugin for ServerStartPlugin {
         app.add_systems(Startup, spawn_resource_planets.after(spawn_stars));
         app.add_systems(
             Startup,
-            spawn_starter_spaceship.after(spawn_space_facilities),
+            spawn_starter_starship.after(spawn_space_facilities),
         );
     }
 }
