@@ -16,10 +16,10 @@
 
 - Green
 - Sharp pointy
-- Starbase (Star shape)
-- Battlecruiser
-- Corvette
-- Fighter
+- [ ] Starbase (Star shape)
+- [x] Destroyer
+- [x] Corvette
+- [x] Fighter
 
 ### Universal Mechanical Contigent (Borg/ Romulan like)
 
