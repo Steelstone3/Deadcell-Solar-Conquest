@@ -6,11 +6,11 @@
 
 - Blue
 - Starbase (1 very defensive) (Hexigon)
-- [x] Battlecruiser
+- [ ] Battlecruiser
 - [x] Battleship
 - [x] Corvette
-- [x] Destroyer
-- [x] Torpedo
+- [ ] Destroyer
+- [ ] Torpedo
 
 ### Garnok Imperial Empire (Klingon Empire like)
 
