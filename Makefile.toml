@@ -1,61 +1,54 @@
-[tasks.watch]
-install_crate = "cargo-watch"
+[tasks.build]
+workspace = false
 command = "cargo"
-args = ["watch", "-c", "-x", "test", "-x", "clippy"]
-
-[tasks.client]
-command = "cargo"
-args = ["run"]
-
-[tasks.server]
-command = "cargo"
-args = ["run", "server"]
+args = ["build"]
 
 [tasks.format]
+workspace = false
 command = "cargo"
-args = ["fmt", "--all"]
+args = ["fmt"]
 
-[tasks.check]
+[tasks.check_client]
+workspace = false
 command = "cargo"
-args = ["check", "--all-features"]
+args = ["check", "-p", "deadcell-solar-conquest-client"]
 
-[tasks.lint]
+[tasks.run_client]
+workspace = false
 command = "cargo"
-args = ["clippy", "--all-features", "--", "-D", "Warnings"]
+args = ["run", "-p", "deadcell-solar-conquest-client"]
 
-[tasks.test]
+[tasks.test_client]
+workspace = false
 command = "cargo"
-args = ["test", "--all-features"]
+args = ["test", "-p", "deadcell-solar-conquest-client"]
 
-[tasks.test_coverage]
-install_crate = "tarpaulin"
+[tasks.check_server]
+workspace = false
 command = "cargo"
-args = ["tarpaulin", "--skip-clean"]
+args = ["check", "-p", "deadcell-solar-conquest-server"]
 
-# workflows
+[tasks.run_server]
+workspace = false
+command = "cargo"
+args = ["run", "-p", "deadcell-solar-conquest-server"]
 
-[tasks.check_all]
-dependencies = ["check", "format", "lint"]
+[tasks.test_server]
+workspace = false
+command = "cargo"
+args = ["test", "-p", "deadcell-solar-conquest-server"]
 
-[tasks.submit]
-dependencies = ["check", "format", "test", "lint"]
+[tasks.check_shared]
+workspace = false
+command = "cargo"
+args = ["check", "-p", "deadcell-solar-conquest-shared"]
 
-# aliases
+[tasks.run_shared]
+workspace = false
+command = "cargo"
+args = ["run", "-p", "deadcell-solar-conquest-shared"]
 
-[tasks.w]
-alias = "watch"
-
-[tasks.rc]
-alias = "client"
-
-[tasks.rs]
-alias = "server"
-
-[tasks.c]
-alias = "check_all"
-
-[tasks.s]
-alias = "submit"
-
-[tasks.tc]
-alias = "test_coverage"
+[tasks.test_shared]
+workspace = false
+command = "cargo"
+args = ["test", "-p", "deadcell-solar-conquest-shared"]

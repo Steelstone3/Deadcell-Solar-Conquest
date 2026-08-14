@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1920"
+   height="1080"
+   viewBox="0 0 1920 1080"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="destroyer.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="0.46256569"
+     inkscape:cx="706.92662"
+     inkscape:cy="588.02459"
+     inkscape:window-width="1840"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer3" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#4186aa;stroke-width:1.00157"
+       d="m 1336.051,394.3949 -4.586,186.49682"
+       id="path1" />
+    <path
+       style="fill:#4186aa;stroke-width:1.00157"
+       d="m 470,0 h 360 l 370,240 530,40 190,120 V 680 L 1733.5344,800 1200,880 830,1080 H 470 L 0,800 V 280 Z"
+       id="path2"
+       sodipodi:nodetypes="ccccccccccccc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 2">
+    <path
+       style="fill:#77afcc;fill-opacity:1;stroke-width:1.00157"
+       d="m 420,180 360,160 400,20 80,120 V 600 L 1180,720 780,740 420,900 240,780 160,650 V 440 l 80,-140"
+       id="path4"
+       sodipodi:nodetypes="cccccccccccc" />
+  </g>
+</svg>
