@@ -48,6 +48,7 @@ impl CommanderIcon {
             Faction::StarGuardAlliance => todo!(),
             Faction::UniversalMechanicalContigent => todo!(),
             Faction::VoidwalkerCollective => todo!(),
+            Faction::None => todo!(),
         }
     }
 }

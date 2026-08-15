@@ -1,5 +1,4 @@
 use crate::{
-    assets::images::starship_sprite::{StarbaseSprite, StarshipSprite, StarshipType},
     components::user_interface::{
         closest_selection::ClosestSelection, selection::SelectedSprite, tracking::Tracking,
     },
@@ -112,18 +111,15 @@ pub fn set_selection_type(
     if let Ok(closest_selection) = closest_selection {
         //Detmine the type of selection for the ui
         if let Ok(selection_type) = type_check_query.get(closest_selection.entity) {
-            if let Some(starbase) = selection_type.starbase {
+            if let Some(_) = selection_type.starbase {
                 spawn_menu_selection.default_selection();
 
                 spawn_menu_selection.selection = SpawnSelection::Starbase;
                 info!("Starship Construction Yard Selected");
-            } else if let Some(starship) = selection_type.starship {
+            } else if let Some(_) = selection_type.starship {
                 spawn_menu_selection.default_selection();
 
-                let starship_type =
-                    StarshipSprite::starship_type_convert_from(starship.starship_sprite);
-
-                // info!("Unhandled ship type {starship_type} selected");
+                info!("Unhandled ship type selected");
                 spawn_menu_selection.selection = SpawnSelection::Other;
             } else {
                 spawn_menu_selection.default_selection();

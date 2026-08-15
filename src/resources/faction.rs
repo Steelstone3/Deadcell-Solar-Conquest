@@ -14,6 +14,7 @@ pub enum Faction {
     StarGuardAlliance,
     UniversalMechanicalContigent,
     VoidwalkerCollective,
+    None
 }
 
 impl Faction {
@@ -31,6 +32,7 @@ impl Faction {
             StarshipSprite::UniversalMechanicalContigentIntelShip => Faction::UniversalMechanicalContigent,
             StarshipSprite::VoidwalkerCollectiveDreadnought => Faction::VoidwalkerCollective,
             StarshipSprite::VoidwalkerCollectiveFighter => Faction::VoidwalkerCollective,
+            StarshipSprite::None => Faction::None,
         }
     }
 }

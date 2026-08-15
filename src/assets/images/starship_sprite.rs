@@ -1,9 +1,6 @@
+use crate::resources::faction::Faction;
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
-
-use crate::{
-    assets::user_interface::icons::starship_icons::StarshipIcon, resources::faction::Faction,
-};
 
 #[derive(PartialEq, Clone, Copy, Debug, Serialize, Deserialize)]
 pub enum StarshipType {
@@ -16,19 +13,8 @@ pub enum StarshipType {
     IntelShip,
     Mothership,
     Dreadnought,
+    None,
 }
-
-impl StarshipType {
-    pub(crate) fn icon_convert_from(&self, player_faction: Faction) -> StarshipIcon {
-        todo!()
-    }
-}
-
-// impl StarshipType {
-//     pub fn icon_convert_from(&self, player_faction: crate::resources::faction::Faction) ->  {
-
-//     }
-// }
 
 #[derive(PartialEq, Clone, Copy, Debug, Serialize, Deserialize)]
 pub enum StarshipSprite {
@@ -44,6 +30,7 @@ pub enum StarshipSprite {
     UniversalMechanicalContigentIntelShip,
     VoidwalkerCollectiveDreadnought,
     VoidwalkerCollectiveFighter,
+    None,
 }
 
 impl StarshipSprite {
@@ -61,12 +48,39 @@ impl StarshipSprite {
             StarshipSprite::UniversalMechanicalContigentIntelShip => StarshipType::IntelShip,
             StarshipSprite::VoidwalkerCollectiveDreadnought => StarshipType::Dreadnought,
             StarshipSprite::VoidwalkerCollectiveFighter => StarshipType::Fighter,
+            StarshipSprite::None => StarshipType::None,
         }
     }
-    
-    pub fn sprite_convert_from(starship_icon: StarshipIcon) -> StarshipSprite {
-        match starship_icon {
-            StarshipIcon::None => todo!(),
+
+    pub fn sprite_convert_from(starship_type: StarshipType, faction: Faction) -> StarshipSprite {
+        match faction {
+            Faction::GranokImperialEmpire => match starship_type {
+                StarshipType::Corvette => StarshipSprite::GranokImperialEmpireCorvette,
+                StarshipType::Destroyer => StarshipSprite::GranokImperialEmpireDestroyer,
+                StarshipType::Fighter => StarshipSprite::GranokImperialEmpireFighter,
+                StarshipType::BattleCruiser => StarshipSprite::None,
+                StarshipType::Battleship => StarshipSprite::None,
+                StarshipType::TorpedoShip => StarshipSprite::None,
+                StarshipType::IntelShip => StarshipSprite::None,
+                StarshipType::Mothership => StarshipSprite::None,
+                StarshipType::Dreadnought => StarshipSprite::None,
+                StarshipType::None => StarshipSprite::None,
+            },
+            Faction::StarGuardAlliance => match starship_type {
+                StarshipType::Corvette => StarshipSprite::GranokImperialEmpireCorvette,
+                StarshipType::Destroyer => StarshipSprite::GranokImperialEmpireDestroyer,
+                StarshipType::Fighter => StarshipSprite::GranokImperialEmpireFighter,
+                StarshipType::BattleCruiser => StarshipSprite::None,
+                StarshipType::Battleship => StarshipSprite::None,
+                StarshipType::TorpedoShip => StarshipSprite::None,
+                StarshipType::IntelShip => StarshipSprite::None,
+                StarshipType::Mothership => StarshipSprite::None,
+                StarshipType::Dreadnought => StarshipSprite::None,
+                StarshipType::None => StarshipSprite::None,
+            },
+            Faction::UniversalMechanicalContigent => todo!(),
+            Faction::VoidwalkerCollective => todo!(),
+            Faction::None => todo!(),
         }
     }
 }
@@ -123,6 +137,7 @@ impl Display for StarshipSprite {
                 formatter,
                 "images/factions/voidwalker_collective/fighter.png"
             ),
+            StarshipSprite::None => write!(formatter, ""),
         }
     }
 }
@@ -133,21 +148,22 @@ pub enum StarbaseSprite {
     StarGuardAllianceStarbase,
     UniversalMechanicalContigentDreadnoughtMothership,
     VoidwalkerCollectiveMothership,
+    None,
 }
 
-impl StarbaseSprite {
-    pub fn sprite_convert_from(
-        space_facility_icon: crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon,
-    ) -> StarbaseSprite {
-        match space_facility_icon {
-            crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::AtarkStarshipConstructionYard => todo!(),
-            crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::KarcanStarshipConstructionYard => todo!(),
-            crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::NoozlerStarshipConstructionYard => todo!(),
-            crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::GranokStarshipConstructionYard => todo!(),
-            crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::None => todo!(),
-        }
-    }
-}
+// impl StarbaseSprite {
+//     pub fn sprite_convert_from(
+//         space_facility_icon: crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon,
+//     ) -> StarbaseSprite {
+//         match space_facility_icon {
+//             crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::AtarkStarshipConstructionYard => todo!(),
+//             crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::KarcanStarshipConstructionYard => todo!(),
+//             crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::NoozlerStarshipConstructionYard => todo!(),
+//             crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::GranokStarshipConstructionYard => todo!(),
+//             crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::None => todo!(),
+//         }
+//     }
+// }
 
 impl Display for StarbaseSprite {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -168,6 +184,10 @@ impl Display for StarbaseSprite {
                 formatter,
                 "images/factions/voidwalker_collective/mothership.png"
             ),
+            StarbaseSprite::None => write!(
+                formatter,
+                ""
+            ),
         }
     }
 }
@@ -187,6 +207,7 @@ impl StarbaseType {
                 StarbaseSprite::UniversalMechanicalContigentDreadnoughtMothership
             }
             Faction::VoidwalkerCollective => StarbaseSprite::VoidwalkerCollectiveMothership,
+            Faction::None => StarbaseSprite::None,
         }
     }
 }

@@ -1,5 +1,5 @@
 use crate::{
-    assets::{images::starship_sprite::StarbaseSprite, user_interface::icons::space_facility_icons::SpaceFacilityIcon}, components::sprite_component::size_component::SizeComponent, resources::constants::SPACE_TILE_SIZE,
+    assets::{images::starship_sprite::StarbaseSprite}, components::sprite_component::size_component::SizeComponent, resources::constants::SPACE_TILE_SIZE,
 };
 use bevy::{ecs::component::Component, math::Vec2, prelude::Transform};
 use serde::{Deserialize, Serialize};
@@ -24,17 +24,17 @@ impl Starbase {
         }
     }
 
-    pub fn new_from_icon(space_facility_icon: SpaceFacilityIcon) -> Starbase {
-        let sprite_path = StarbaseSprite::sprite_convert_from(space_facility_icon);
+    // pub fn new_from_icon(space_facility_icon: SpaceFacilityIcon) -> Starbase {
+    //     let sprite_path = StarbaseSprite::sprite_convert_from(space_facility_icon);
 
-        Self {
-            sprite_path,
-            size_component: SizeComponent {
-                size: SPACE_FACILITY_SIZE,
-                z_index: 3.0,
-            },
-        }
-    }
+    //     Self {
+    //         sprite_path,
+    //         size_component: SizeComponent {
+    //             size: SPACE_FACILITY_SIZE,
+    //             z_index: 3.0,
+    //         },
+    //     }
+    // }
 }
 
 #[derive(Serialize, Deserialize)]

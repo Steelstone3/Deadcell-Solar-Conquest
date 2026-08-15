@@ -1,8 +1,5 @@
 use crate::{
-    assets::{
-        images::starship_sprite::{StarshipSprite, StarshipType},
-        user_interface::icons::starship_icons::StarshipIcon,
-    },
+    assets::images::starship_sprite::{StarshipSprite, StarshipType},
     components::{
         server::server_object::ServerObject, sprite_component::size_component::SizeComponent,
     },
@@ -34,8 +31,8 @@ impl Starship {
         }
     }
 
-    pub fn new_from_icon(starship_selection: StarshipIcon) -> Starship {
-        let starship_sprite = StarshipSprite::sprite_convert_from(starship_selection);
+    pub fn new_from_type(starship_selection: StarshipType, faction: Faction) -> Starship {
+        let starship_sprite = StarshipSprite::sprite_convert_from(starship_selection, faction);
 
         Self {
             starship_sprite,
@@ -85,6 +82,7 @@ impl StarshipSpeed {
                 StarshipType::Battleship => slow_speed,
                 StarshipType::IntelShip => very_fast_speed,
                 StarshipType::Mothership => very_slow_speed,
+                StarshipType::None => 0.0,
             },
         }
     }
