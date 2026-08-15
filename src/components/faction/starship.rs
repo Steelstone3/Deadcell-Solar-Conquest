@@ -52,23 +52,25 @@ pub struct StarshipSpeed {
 
 impl StarshipSpeed {
     pub fn new_from_starship_type(starship_type: StarshipType) -> StarshipSpeed {
-        let very_fast_speed: f32 = 1000.0;
+        let extremely_fast_speed: f32 = 1000.0;
+        let very_fast_speed: f32 = 750.0;
         let fast_speed: f32 = 500.0;
         let medium_speed: f32 = 350.0;
-        let slow_speed: f32 = 175.0;
-        let very_slow_speed: f32 = 125.0;
+        let slow_speed: f32 = 200.0;
+        let very_slow_speed: f32 = 150.0;
+        let extremely_slow: f32 = 100.0;
 
         Self {
             speed: match starship_type {
-                StarshipType::Fighter => very_fast_speed,
-                StarshipType::TorpedoShip => medium_speed,
-                StarshipType::BattleCruiser => slow_speed,
-                StarshipType::Dreadnought => slow_speed,
+                StarshipType::Fighter => extremely_fast_speed,
+                StarshipType::TorpedoShip => very_fast_speed,
+                StarshipType::BattleCruiser => very_slow_speed,
+                StarshipType::Dreadnought => very_slow_speed,
                 StarshipType::Corvette => fast_speed,
                 StarshipType::Destroyer => medium_speed,
                 StarshipType::Battleship => slow_speed,
                 StarshipType::IntelShip => very_fast_speed,
-                StarshipType::Mothership => very_slow_speed,
+                StarshipType::Mothership => extremely_slow,
                 StarshipType::None => 0.0,
             },
         }
@@ -81,23 +83,24 @@ pub struct StarshipSize {
 
 impl StarshipSize {
     pub fn new_from_starship_type(starship_type: StarshipType) -> StarshipSize {
-        let very_small: f32 = 0.5;
-        let small: f32 = 0.75;
+        let very_small: f32 = 0.25;
+        let small: f32 = 0.5;
         let medium: f32 = 1.0;
         let large: f32 = 1.5;
-        let very_large: f32 = 3.0;
+        let very_large: f32 = 2.0;
+        let extremely_large: f32 = 3.0;
 
         Self {
             scale: match starship_type {
                 StarshipType::Fighter => very_small,
-                StarshipType::TorpedoShip => medium,
+                StarshipType::TorpedoShip => small,
                 StarshipType::BattleCruiser => large,
                 StarshipType::Dreadnought => large,
                 StarshipType::Corvette => small,
                 StarshipType::Destroyer => medium,
-                StarshipType::Battleship => large,
+                StarshipType::Battleship => very_large,
                 StarshipType::IntelShip => very_small,
-                StarshipType::Mothership => very_large,
+                StarshipType::Mothership => extremely_large,
                 StarshipType::None => 0.0,
             },
         }
