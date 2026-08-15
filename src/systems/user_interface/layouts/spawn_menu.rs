@@ -3,7 +3,6 @@ use bevy_egui::{EguiContexts, egui};
 
 use crate::{
     assets::images::starship_sprite::StarshipType,
-    components::map::star::Star,
     resources::{faction::PlayerFaction, spawn_menu_selection::SpawnMenuSelection},
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };

@@ -35,7 +35,7 @@ fn main() {
             .set(WindowPlugin {
                 primary_window: Some(Window {
                     title: "Superior Space Domination".to_string(),
-                    resolution: (640.0, 480.0).into(),
+                    resolution: (640.0_f32, 480.0_f32).into(),
                     resize_constraints: WindowResizeConstraints {
                         min_width: 640.0,
                         min_height: 480.0,

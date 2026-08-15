@@ -7,7 +7,11 @@ use bevy::{
 use rand::Rng;
 
 use crate::{
-    assets::images::starship_sprite::{StarbaseSprite, StarbaseType, StarshipType}, components::{faction::starbase::Starbase, user_interface::selection::Selectable}, events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}, queries::space_queries::StarQuery, resources::faction::PlayerFaction,
+    assets::images::starship_sprite::StarbaseType,
+    components::{faction::starbase::Starbase, user_interface::selection::Selectable},
+    events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+    queries::space_queries::StarQuery,
+    resources::faction::PlayerFaction,
 };
 
 pub fn spawn_starter_starbase(
