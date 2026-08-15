@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        dir: [client, server]
+        dir: [./client, ./server]
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        dir: [client, server]
+        dir: [./client, ./server]
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -78,7 +78,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        dir: [client, server]
+        dir: [./client, ./server]
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
