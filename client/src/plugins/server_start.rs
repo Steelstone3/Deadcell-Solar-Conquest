@@ -6,9 +6,11 @@ use bevy::{
 use crate::systems::{
     camera::spawn_camera::spawn_camera,
     spawning::{
+        new_spawn_starter_starbase::new_spawn_starter_starbase,
         spawn_resource_planets::spawn_resource_planets, spawn_space::spawn_space,
-        spawn_stars::spawn_stars, spawn_starter_starbase::spawn_starter_starbase,
+        spawn_stars::spawn_stars,
     },
+    //spawning::spawn_starter_starbase::spawn_starter_starbase,
 };
 
 pub struct ServerStartPlugin;
@@ -18,7 +20,8 @@ impl Plugin for ServerStartPlugin {
         app.add_systems(Startup, spawn_space);
         app.add_systems(Startup, spawn_camera);
         app.add_systems(Startup, spawn_stars);
-        app.add_systems(Startup, spawn_starter_starbase.after(spawn_stars));
+        app.add_systems(Startup, new_spawn_starter_starbase);
+        //app.add_systems(Startup, spawn_starter_starbase.after(spawn_stars));
         app.add_systems(Startup, spawn_resource_planets.after(spawn_stars));
     }
 }
