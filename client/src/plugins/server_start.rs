@@ -4,9 +4,11 @@ use bevy::{
 };
 
 use crate::systems::{
-    camera::spawn_camera::spawn_camera, spawning::{
-        spawn_resource_planets::spawn_resource_planets, spawn_space::spawn_space, spawn_stars::spawn_stars, spawn_starter_starbase::spawn_starter_starbase,
-    }
+    camera::spawn_camera::spawn_camera,
+    spawning::{
+        spawn_resource_planets::spawn_resource_planets, spawn_space::spawn_space,
+        spawn_stars::spawn_stars, spawn_starter_starbase::spawn_starter_starbase,
+    },
 };
 
 pub struct ServerStartPlugin;
