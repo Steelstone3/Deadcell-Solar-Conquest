@@ -33,12 +33,13 @@ impl Starship {
 
     pub fn new_from_type(starship_selection: StarshipType, faction: Faction) -> Starship {
         let starship_sprite = StarshipSprite::sprite_convert_from(starship_selection, faction);
+        let starship_size = StarshipSize::new_from_starship_type(starship_selection);
 
         Self {
             starship_sprite,
             faction: Faction::determine_faction(starship_sprite),
             size_component: SizeComponent {
-                size: Vec2::new(SIZE, SIZE),
+                size: Vec2::new(SIZE * starship_size.scale, SIZE * starship_size.scale),
                 z_index: 5.0,
             },
         }
@@ -68,6 +69,35 @@ impl StarshipSpeed {
                 StarshipType::Battleship => slow_speed,
                 StarshipType::IntelShip => very_fast_speed,
                 StarshipType::Mothership => very_slow_speed,
+                StarshipType::None => 0.0,
+            },
+        }
+    }
+}
+
+pub struct StarshipSize {
+    pub scale: f32,
+}
+
+impl StarshipSize {
+    pub fn new_from_starship_type(starship_type: StarshipType) -> StarshipSize {
+        let very_small: f32 = 0.5;
+        let small: f32 = 0.75;
+        let medium: f32 = 1.0;
+        let large: f32 = 1.5;
+        let very_large: f32 = 3.0;
+
+        Self {
+            scale: match starship_type {
+                StarshipType::Fighter => very_small,
+                StarshipType::TorpedoShip => medium,
+                StarshipType::BattleCruiser => large,
+                StarshipType::Dreadnought => large,
+                StarshipType::Corvette => small,
+                StarshipType::Destroyer => medium,
+                StarshipType::Battleship => large,
+                StarshipType::IntelShip => very_small,
+                StarshipType::Mothership => very_large,
                 StarshipType::None => 0.0,
             },
         }

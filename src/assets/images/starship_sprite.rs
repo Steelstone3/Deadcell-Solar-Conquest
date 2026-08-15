@@ -184,20 +184,6 @@ pub enum StarbaseSprite {
     None,
 }
 
-// impl StarbaseSprite {
-//     pub fn sprite_convert_from(
-//         space_facility_icon: crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon,
-//     ) -> StarbaseSprite {
-//         match space_facility_icon {
-//             crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::AtarkStarshipConstructionYard => todo!(),
-//             crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::KarcanStarshipConstructionYard => todo!(),
-//             crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::NoozlerStarshipConstructionYard => todo!(),
-//             crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::GranokStarshipConstructionYard => todo!(),
-//             crate::assets::user_interface::icons::space_facility_icons::SpaceFacilityIcon::None => todo!(),
-//         }
-//     }
-// }
-
 impl Display for StarbaseSprite {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

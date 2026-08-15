@@ -8,7 +8,7 @@ use bevy::{
 use crate::{
     assets::images::starship_sprite::{StarshipSprite, StarshipType},
     components::{
-        faction::starship::{Starship, StarshipSpeed},
+        faction::starship::{Starship, StarshipSize, StarshipSpeed},
         server::server_object::ServerObject,
         user_interface::{controllable::Movement, selection::Selectable},
     },
