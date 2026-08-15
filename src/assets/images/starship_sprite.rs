@@ -67,9 +67,45 @@ impl StarshipSprite {
                 StarshipType::None => StarshipSprite::None,
             },
             Faction::StarGuardAlliance => match starship_type {
-                StarshipType::Corvette => StarshipSprite::GranokImperialEmpireCorvette,
-                StarshipType::Destroyer => StarshipSprite::GranokImperialEmpireDestroyer,
-                StarshipType::Fighter => StarshipSprite::GranokImperialEmpireFighter,
+                StarshipType::Corvette => StarshipSprite::StarGuardAllianceCorvette,
+                StarshipType::Destroyer => StarshipSprite::StarGuardAllianceDestroyer,
+                StarshipType::Fighter => StarshipSprite::None,
+                StarshipType::BattleCruiser => StarshipSprite::StarGuardAllianceBattleCruiser,
+                StarshipType::Battleship => StarshipSprite::StarGuardAllianceBattleship,
+                StarshipType::TorpedoShip => StarshipSprite::StarGuardAllianceTorpedoShip,
+                StarshipType::IntelShip => StarshipSprite::None,
+                StarshipType::Mothership => StarshipSprite::None,
+                StarshipType::Dreadnought => StarshipSprite::None,
+                StarshipType::None => StarshipSprite::None,
+            },
+            Faction::UniversalMechanicalContigent => match starship_type {
+                StarshipType::Corvette => StarshipSprite::None,
+                StarshipType::Destroyer => StarshipSprite::UniversalMechanicalContigentDestroyer,
+                StarshipType::Fighter => StarshipSprite::None,
+                StarshipType::BattleCruiser => StarshipSprite::None,
+                StarshipType::Battleship => StarshipSprite::None,
+                StarshipType::TorpedoShip => StarshipSprite::None,
+                StarshipType::IntelShip => StarshipSprite::UniversalMechanicalContigentIntelShip,
+                StarshipType::Mothership => StarshipSprite::None,
+                StarshipType::Dreadnought => StarshipSprite::None,
+                StarshipType::None => StarshipSprite::None,
+            },
+            Faction::VoidwalkerCollective => match starship_type {
+                StarshipType::Corvette => StarshipSprite::None,
+                StarshipType::Destroyer => StarshipSprite::None,
+                StarshipType::Fighter => StarshipSprite::VoidwalkerCollectiveFighter,
+                StarshipType::BattleCruiser => StarshipSprite::None,
+                StarshipType::Battleship => StarshipSprite::None,
+                StarshipType::TorpedoShip => StarshipSprite::None,
+                StarshipType::IntelShip => StarshipSprite::None,
+                StarshipType::Mothership => StarshipSprite::None,
+                StarshipType::Dreadnought => StarshipSprite::VoidwalkerCollectiveDreadnought,
+                StarshipType::None => StarshipSprite::None,
+            },
+            Faction::None => match starship_type {
+                StarshipType::Corvette => StarshipSprite::None,
+                StarshipType::Destroyer => StarshipSprite::None,
+                StarshipType::Fighter => StarshipSprite::None,
                 StarshipType::BattleCruiser => StarshipSprite::None,
                 StarshipType::Battleship => StarshipSprite::None,
                 StarshipType::TorpedoShip => StarshipSprite::None,
@@ -78,9 +114,6 @@ impl StarshipSprite {
                 StarshipType::Dreadnought => StarshipSprite::None,
                 StarshipType::None => StarshipSprite::None,
             },
-            Faction::UniversalMechanicalContigent => todo!(),
-            Faction::VoidwalkerCollective => todo!(),
-            Faction::None => todo!(),
         }
     }
 }
@@ -184,10 +217,7 @@ impl Display for StarbaseSprite {
                 formatter,
                 "images/factions/voidwalker_collective/mothership.png"
             ),
-            StarbaseSprite::None => write!(
-                formatter,
-                ""
-            ),
+            StarbaseSprite::None => write!(formatter, ""),
         }
     }
 }

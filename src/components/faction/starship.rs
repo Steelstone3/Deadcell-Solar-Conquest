@@ -43,20 +43,6 @@ impl Starship {
             },
         }
     }
-
-    // pub fn new_from_icon(starship_icon: StarshipIcon) -> Starship {
-    //     let starship_sprite = StarshipSprite::sprite_convert_from(starship_icon);
-
-    //     Self {
-    //         starship_sprite_bundle: StarshipSpriteBundle::new(starship_sprite),
-    //         faction: Faction::determine_faction(starship_sprite),
-    //         size_component: SizeComponent {
-    //             size: Vec2::new(SIZE, SIZE),
-    //             z_index: 5.0,
-    //         },
-    //         weapon: Weapon::new(starship_sprite),
-    //     }
-    // }
 }
 
 pub struct StarshipSpeed {
