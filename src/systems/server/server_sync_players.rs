@@ -31,7 +31,7 @@ use bevy::{
     transform::components::Transform,
 };
 use bevy_renet::renet::RenetServer;
-use bincode::{config, serde::encode_to_vec};
+use bincode_next::{config, serde::encode_to_vec};
 
 use crate::{
     components::server::server_object::{SerializableServerObject, ServerObject},

@@ -150,7 +150,7 @@ use bevy::{
     transform::components::Transform,
 };
 use bevy_renet::renet::RenetClient;
-use bincode::{config, serde::decode_from_slice};
+use bincode_next::{config, serde::decode_from_slice};
 
 use crate::{
     components::{

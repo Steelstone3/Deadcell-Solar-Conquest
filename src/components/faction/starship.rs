@@ -62,7 +62,7 @@ impl StarshipSpeed {
             speed: match starship_type {
                 StarshipType::Fighter => extremely_fast_speed,
                 StarshipType::TorpedoShip => very_fast_speed,
-                StarshipType::BattleCruiser => very_slow_speed,
+                StarshipType::BattleCruiser => slow_speed,
                 StarshipType::Dreadnought => very_slow_speed,
                 StarshipType::Corvette => fast_speed,
                 StarshipType::Destroyer => medium_speed,

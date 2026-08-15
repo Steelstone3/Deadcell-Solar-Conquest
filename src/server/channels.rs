@@ -6,7 +6,7 @@ use bevy::{
     transform::components::Transform,
 };
 use bevy_renet::renet::{ChannelConfig, RenetServer, SendType};
-use bincode::{config, serde::encode_to_vec};
+use bincode_next::{config, serde::encode_to_vec};
 
 use crate::components::{
     faction::{

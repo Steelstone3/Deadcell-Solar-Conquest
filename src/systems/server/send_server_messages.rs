@@ -13,7 +13,7 @@ use bevy::{
     transform::components::Transform,
 };
 use bevy_renet::renet::{RenetServer, ServerEvent};
-use bincode::{config, serde::encode_to_vec};
+use bincode_next::{config, serde::encode_to_vec};
 
 #[allow(clippy::too_many_arguments)]
 pub fn send_server_messages(
