@@ -36,7 +36,6 @@ impl Display for CommanderIcon {
                 formatter,
                 "images/factions/voidwalker_collective/voidwalker_collective_commander.jpg"
             ),
-          
         }
     }
 }

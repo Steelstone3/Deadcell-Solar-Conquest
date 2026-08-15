@@ -26,8 +26,7 @@ pub fn spawn_menu(
                     for (label, icon) in items {
                         if ui.add(egui::Button::new(label)).clicked() {
                             let selection = icon;
-                            spawn_menu_selection.starship_selection =
-                                selection;
+                            spawn_menu_selection.starship_selection = selection;
                         }
                     }
                 });

@@ -1,6 +1,6 @@
+use crate::assets::images::starship_sprite::StarshipSprite;
 use bevy::prelude::Resource;
 use serde::{Deserialize, Serialize};
-use crate::assets::images::starship_sprite::StarshipSprite;
 
 #[derive(Resource, Default, Clone, Copy)]
 pub struct PlayerFaction {
@@ -14,7 +14,7 @@ pub enum Faction {
     StarGuardAlliance,
     UniversalMechanicalContigent,
     VoidwalkerCollective,
-    None
+    None,
 }
 
 impl Faction {
@@ -28,8 +28,12 @@ impl Faction {
             StarshipSprite::StarGuardAllianceCorvette => Faction::StarGuardAlliance,
             StarshipSprite::StarGuardAllianceDestroyer => Faction::StarGuardAlliance,
             StarshipSprite::StarGuardAllianceTorpedoShip => Faction::StarGuardAlliance,
-            StarshipSprite::UniversalMechanicalContingentDestroyer => Faction::UniversalMechanicalContigent,
-            StarshipSprite::UniversalMechanicalContingentIntelShip => Faction::UniversalMechanicalContigent,
+            StarshipSprite::UniversalMechanicalContingentDestroyer => {
+                Faction::UniversalMechanicalContigent
+            }
+            StarshipSprite::UniversalMechanicalContingentIntelShip => {
+                Faction::UniversalMechanicalContigent
+            }
             StarshipSprite::VoidwalkerCollectiveDreadnought => Faction::VoidwalkerCollective,
             StarshipSprite::VoidwalkerCollectiveFighter => Faction::VoidwalkerCollective,
             StarshipSprite::None => Faction::None,

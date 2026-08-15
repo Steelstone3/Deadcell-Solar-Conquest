@@ -1,5 +1,7 @@
 use crate::{
-    assets::images::starship_sprite::StarbaseSprite, components::sprite_component::size_component::SizeComponent, resources::constants::SPACE_TILE_SIZE,
+    assets::images::starship_sprite::StarbaseSprite,
+    components::sprite_component::size_component::SizeComponent,
+    resources::constants::SPACE_TILE_SIZE,
 };
 use bevy::{ecs::component::Component, math::Vec2, prelude::Transform};
 use serde::{Deserialize, Serialize};
