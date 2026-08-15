@@ -1,4 +1,4 @@
-use bevy::{ecs::message::Message, prelude::Event};
+use bevy::ecs::message::Message;
 
 use crate::components::user_interface::multiple_selection_box::SelectionArea;
 

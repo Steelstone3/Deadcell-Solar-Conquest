@@ -112,12 +112,12 @@ pub fn set_selection_type(
     if let Ok(closest_selection) = closest_selection {
         //Detmine the type of selection for the ui
         if let Ok(selection_type) = type_check_query.get(closest_selection.entity) {
-            if let Some(_) = selection_type.starbase {
+            if selection_type.starbase.is_some() {
                 spawn_menu_selection.default_selection();
 
                 spawn_menu_selection.selection = SpawnSelection::Starbase;
                 info!("Starship Construction Yard Selected");
-            } else if let Some(_) = selection_type.starship {
+            } else if selection_type.starship.is_some() {
                 spawn_menu_selection.default_selection();
 
                 info!("Unhandled ship type selected");

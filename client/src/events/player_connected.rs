@@ -1,4 +1,4 @@
-use bevy::{ecs::message::Message, prelude::Event};
+use bevy::ecs::message::Message;
 use bevy_renet::renet::ClientId;
 
 #[derive(Message)]
