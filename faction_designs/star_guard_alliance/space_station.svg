@@ -9,6 +9,9 @@
    id="svg1"
    sodipodi:docname="space_station.svg"
    inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   inkscape:export-filename="space_station.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -39,12 +42,12 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#4185aa;fill-opacity:1;stroke-width:1.00157"
+       style="fill:#2f586f;fill-opacity:1;stroke-width:1.00157"
        d="M 128,0 0,128 V 384 L 128,512 H 384 L 512,384 V 128 L 384,0 Z"
        id="path1"
        sodipodi:nodetypes="ccccccccc" />
     <path
-       style="fill:#76adcb;fill-opacity:1;stroke-width:1.00157"
+       style="fill:#4085aa;fill-opacity:1;stroke-width:1.00157"
        d="M 256,96 418.27417,256 256,416 192,256 Z"
        id="path2"
        sodipodi:nodetypes="ccccc" />

@@ -1,10 +1,3 @@
-use bevy::{
-    ecs::{event::EventWriter, system::Commands},
-    log::tracing,
-    prelude::{EventReader, Res},
-    transform::components::Transform,
-};
-
 use crate::{
     assets::images::starship_sprite::{StarshipSprite, StarshipType},
     components::{
@@ -18,6 +11,12 @@ use crate::{
     },
     resources::{faction::PlayerFaction, spawn_menu_selection::SpawnMenuSelection},
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
+};
+use bevy::{
+    ecs::{event::EventWriter, system::Commands},
+    log::tracing,
+    prelude::{EventReader, Res},
+    transform::components::Transform,
 };
 
 pub fn spawner(
