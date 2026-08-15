@@ -9,6 +9,8 @@ use plugins::{
     running::RunningPlugin, server_start::ServerStartPlugin, user_interface::UserInterfacePlugin,
 };
 
+use crate::plugins::client_start::ClientStartPlugin;
+
 mod assets;
 mod client;
 mod components;
@@ -48,32 +50,32 @@ fn main() {
         UserInterfacePlugin,
         RunningPlugin,
     ));
-    // client_server_setup(&mut app);
+    client_server_setup(&mut app);
     app.run();
 }
 
-// fn client_server_setup(app: &mut App) {
-//     let args: Vec<String> = std::env::args().collect();
-//     let is_host = args.contains(&"server".to_string());
+fn client_server_setup(app: &mut App) {
+    let args: Vec<String> = std::env::args().collect();
+    let is_host = args.contains(&"server".to_string());
 
-//     if is_host {
-//         app.add_plugins((
-//             ServerStartPlugin,
-//             ServerUpdatePlugin,
-//             RenetServerPlugin,
-//             NetcodeServerPlugin,
-//         ));
-//         let (server, transport) = Server::new_renet_server();
-//         app.insert_resource(server).insert_resource(transport);
-//     } else {
-//         app.add_plugins((
-//             ClientStartPlugin,
-//             ClientUpdatePlugin,
-//             RenetClientPlugin,
-//             NetcodeClientPlugin,
-//         ));
-//         let (client, client_transport) = Client::new_renet_client();
-//         app.insert_resource(client)
-//             .insert_resource(client_transport);
-//     }
-// }
+    if is_host {
+        app.add_plugins((
+            ServerStartPlugin,
+            // ServerUpdatePlugin,
+            RenetServerPlugin,
+            NetcodeServerPlugin,
+        ));
+        // let (server, transport) = Server::new_renet_server();
+        // app.insert_resource(server).insert_resource(transport);
+    } else {
+        app.add_plugins((
+            ClientStartPlugin,
+            // ClientUpdatePlugin,
+            RenetClientPlugin,
+            NetcodeClientPlugin,
+        ));
+        // let (client, client_transport) = Client::new_renet_client();
+        // app.insert_resource(client)
+            // .insert_resource(client_transport);
+    }
+}

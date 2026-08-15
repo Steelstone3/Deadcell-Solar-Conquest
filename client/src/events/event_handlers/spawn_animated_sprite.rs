@@ -9,7 +9,7 @@ use bevy::{
         system::{Commands, Res, ResMut},
     },
     image::{TextureAtlas, TextureAtlasLayout},
-    math::{IVec2, UVec2},
+    math::UVec2,
     sprite::Sprite,
 };
 
