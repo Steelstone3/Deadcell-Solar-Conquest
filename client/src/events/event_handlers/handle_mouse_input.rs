@@ -1,11 +1,5 @@
 use bevy::{
-    ecs::{event::EventWriter, system::Query},
-    input::{ButtonInput, mouse::MouseButton},
-    math::Vec2,
-    prelude::{KeyCode, Res},
-    render::camera::Camera,
-    transform::components::GlobalTransform,
-    window::Window,
+    ecs::{event::EventWriter, system::{Commands, Query}}, input::{ButtonInput, mouse::MouseButton}, math::Vec2, prelude::{KeyCode, Res}, render::camera::Camera, transform::components::GlobalTransform, window::Window,
 };
 
 use crate::events::input_events::{
@@ -43,7 +37,7 @@ pub fn handle_left_click_with_modifier(
     keyboard_button: Res<ButtonInput<KeyCode>>,
     window_query: Query<&Window>,
     camera_query: Query<(&Camera, &GlobalTransform)>,
-    mut left_mouse_modifier_event_writer: EventWriter<MouseLeftClickModifierEvent>,
+    mut commands: Commands,
 ) {
     let cursor_world_position = get_cursor_position(window_query, camera_query);
 
@@ -52,18 +46,21 @@ pub fn handle_left_click_with_modifier(
             || keyboard_button.pressed(KeyCode::ControlRight);
 
         if ctrl_modifier {
+            // Left mouse held down
             for button in mouse_button.get_pressed() {
                 if *button == MouseButton::Left {
-                    left_mouse_modifier_event_writer.write(MouseLeftClickModifierEvent {
+                    commands.trigger(MouseLeftClickModifierEvent {
                         cursor_world_position,
                         just_released: false,
                     });
                     return;
                 }
             }
+
+            // Left mouse just released
             for button in mouse_button.get_just_released() {
                 if *button == MouseButton::Left {
-                    left_mouse_modifier_event_writer.write(MouseLeftClickModifierEvent {
+                    commands.trigger(MouseLeftClickModifierEvent {
                         cursor_world_position,
                         just_released: true,
                     });
@@ -73,6 +70,7 @@ pub fn handle_left_click_with_modifier(
         }
     }
 }
+
 
 pub fn handle_right_click(
     mouse_button: Res<ButtonInput<MouseButton>>,
