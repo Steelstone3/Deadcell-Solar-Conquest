@@ -19,7 +19,8 @@ wayland-sys = "0.31"
 bevy = { version = "0.16", features = ["serialize"] }
 bevy_renet = { version = "2" }
 serde = { version = "1", features = ["derive"] }
-renet_visualizer = { version = "1", features = ["bevy"] }
+#renet_visualizer = { version = "1", features = ["bevy"] }
+renet_visualizer = "3"
 bevy_egui = "0.36"
 bincode-next = { version = "3", features = ["serde"] }
 rand = "0.8"
