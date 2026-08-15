@@ -10,8 +10,8 @@ pub struct PlayerFaction {
 #[derive(Default, PartialEq, Clone, Copy, Serialize, Deserialize)]
 pub enum Faction {
     GranokImperialEmpire,
-    #[default]
     StarGuardAlliance,
+    #[default]
     UniversalMechanicalContigent,
     VoidwalkerCollective,
     None
@@ -28,8 +28,8 @@ impl Faction {
             StarshipSprite::StarGuardAllianceCorvette => Faction::StarGuardAlliance,
             StarshipSprite::StarGuardAllianceDestroyer => Faction::StarGuardAlliance,
             StarshipSprite::StarGuardAllianceTorpedoShip => Faction::StarGuardAlliance,
-            StarshipSprite::UniversalMechanicalContigentDestroyer => Faction::UniversalMechanicalContigent,
-            StarshipSprite::UniversalMechanicalContigentIntelShip => Faction::UniversalMechanicalContigent,
+            StarshipSprite::UniversalMechanicalContingentDestroyer => Faction::UniversalMechanicalContigent,
+            StarshipSprite::UniversalMechanicalContingentIntelShip => Faction::UniversalMechanicalContigent,
             StarshipSprite::VoidwalkerCollectiveDreadnought => Faction::VoidwalkerCollective,
             StarshipSprite::VoidwalkerCollectiveFighter => Faction::VoidwalkerCollective,
             StarshipSprite::None => Faction::None,

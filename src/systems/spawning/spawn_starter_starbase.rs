@@ -7,8 +7,12 @@ use bevy::{
 use rand::Rng;
 
 use crate::{
-    assets::images::starship_sprite::StarbaseType,
-    components::{faction::starbase::Starbase, user_interface::selection::Selectable},
+    assets::images::starship_sprite::{StarbaseSprite, StarbaseType, StarshipType},
+    components::{
+        faction::{starbase::Starbase, starship::StarshipSpeed},
+        map::star,
+        user_interface::{controllable::Movement, selection::Selectable},
+    },
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     queries::space_queries::StarQuery,
     resources::faction::PlayerFaction,
@@ -23,28 +27,42 @@ pub fn spawn_starter_starbase(
     for star_query in star_queries.iter() {
         let mut rng = rand::thread_rng();
         let angle = 360.0 / rng.gen_range(1.0..4.0) as f32;
-        let space_station = Starbase::new(
-            StarbaseType::Starbase.sprite_convert_from(player_faction.player_faction),
-        );
+
+        let starbase_sprite = StarbaseSprite::sprite_convert_from(player_faction.player_faction);
+
+        let starbase = Starbase::new(starbase_sprite);
 
         let x = star_query.transform.translation.x
             + star_query.star.size_component.size.x
-            + space_station.size_component.size.x * 1.5;
+            + starbase.size_component.size.x * 1.5;
         let y = star_query.transform.translation.y
             + star_query.star.size_component.size.x
-            + space_station.size_component.size.y * 1.5;
+            + starbase.size_component.size.y * 1.5;
 
-        let transform = Transform::from_xyz(x, y, space_station.size_component.z_index)
+        let transform = Transform::from_xyz(x, y, starbase.size_component.z_index)
             .with_rotation(Quat::from_rotation_z(angle.to_radians()));
 
+        let starbase_type = StarbaseType::starbase_type_convert_from(starbase_sprite);
+
+        let mut maximum_speed = 0.0;
+
+        if starbase_type == StarbaseType::Mothership {
+            maximum_speed = StarshipSpeed::new_from_starship_type(StarshipType::Mothership).speed;
+        }
+
         spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
-            sprite_path: space_station.sprite_path.to_string(),
-            size: space_station.size_component.size,
+            sprite_path: starbase.sprite_path.to_string(),
+            size: starbase.size_component.size,
             transform,
             entity: commands
-                .spawn(space_station)
+                .spawn(starbase)
                 .insert(Selectable)
                 .insert(transform)
+                .insert(Movement {
+                    target_location: transform.translation,
+                    maximum_speed,
+                    current_speed: 0.0,
+                })
                 .id(),
         }));
     }

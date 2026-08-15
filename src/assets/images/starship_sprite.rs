@@ -26,8 +26,8 @@ pub enum StarshipSprite {
     StarGuardAllianceCorvette,
     StarGuardAllianceDestroyer,
     StarGuardAllianceTorpedoShip,
-    UniversalMechanicalContigentDestroyer,
-    UniversalMechanicalContigentIntelShip,
+    UniversalMechanicalContingentDestroyer,
+    UniversalMechanicalContingentIntelShip,
     VoidwalkerCollectiveDreadnought,
     VoidwalkerCollectiveFighter,
     None,
@@ -44,8 +44,8 @@ impl StarshipSprite {
             StarshipSprite::StarGuardAllianceCorvette => StarshipType::Corvette,
             StarshipSprite::StarGuardAllianceDestroyer => StarshipType::Destroyer,
             StarshipSprite::StarGuardAllianceTorpedoShip => StarshipType::TorpedoShip,
-            StarshipSprite::UniversalMechanicalContigentDestroyer => StarshipType::Destroyer,
-            StarshipSprite::UniversalMechanicalContigentIntelShip => StarshipType::IntelShip,
+            StarshipSprite::UniversalMechanicalContingentDestroyer => StarshipType::Destroyer,
+            StarshipSprite::UniversalMechanicalContingentIntelShip => StarshipType::IntelShip,
             StarshipSprite::VoidwalkerCollectiveDreadnought => StarshipType::Dreadnought,
             StarshipSprite::VoidwalkerCollectiveFighter => StarshipType::Fighter,
             StarshipSprite::None => StarshipType::None,
@@ -80,12 +80,12 @@ impl StarshipSprite {
             },
             Faction::UniversalMechanicalContigent => match starship_type {
                 StarshipType::Corvette => StarshipSprite::None,
-                StarshipType::Destroyer => StarshipSprite::UniversalMechanicalContigentDestroyer,
+                StarshipType::Destroyer => StarshipSprite::UniversalMechanicalContingentDestroyer,
                 StarshipType::Fighter => StarshipSprite::None,
                 StarshipType::BattleCruiser => StarshipSprite::None,
                 StarshipType::Battleship => StarshipSprite::None,
                 StarshipType::TorpedoShip => StarshipSprite::None,
-                StarshipType::IntelShip => StarshipSprite::UniversalMechanicalContigentIntelShip,
+                StarshipType::IntelShip => StarshipSprite::UniversalMechanicalContingentIntelShip,
                 StarshipType::Mothership => StarshipSprite::None,
                 StarshipType::Dreadnought => StarshipSprite::None,
                 StarshipType::None => StarshipSprite::None,
@@ -153,14 +153,13 @@ impl Display for StarshipSprite {
                 formatter,
                 "images/factions/star_guard_alliance/torpedo_ship.png"
             ),
-            StarshipSprite::UniversalMechanicalContigentDestroyer => write!(
+            StarshipSprite::UniversalMechanicalContingentDestroyer => write!(
                 formatter,
-                "images/factions/universal_mechanical_contigent/destroyer.png"
+                "images/factions/universal_mechanical_contingent/destroyer.png"
             ),
-
-            StarshipSprite::UniversalMechanicalContigentIntelShip => write!(
+            StarshipSprite::UniversalMechanicalContingentIntelShip => write!(
                 formatter,
-                "images/factions/universal_mechanical_contigent/intel_ship.png"
+                "images/factions/universal_mechanical_contingent/intel_ship.png"
             ),
             StarshipSprite::VoidwalkerCollectiveDreadnought => write!(
                 formatter,
@@ -184,6 +183,20 @@ pub enum StarbaseSprite {
     None,
 }
 
+impl StarbaseSprite {
+    pub fn sprite_convert_from(player_faction: Faction) -> StarbaseSprite {
+        match player_faction {
+            Faction::GranokImperialEmpire => StarbaseSprite::GranokImperialEmpireStarbase,
+            Faction::StarGuardAlliance => StarbaseSprite::StarGuardAllianceStarbase,
+            Faction::UniversalMechanicalContigent => {
+                StarbaseSprite::UniversalMechanicalContigentDreadnoughtMothership
+            }
+            Faction::VoidwalkerCollective => StarbaseSprite::VoidwalkerCollectiveMothership,
+            Faction::None => StarbaseSprite::None,
+        }
+    }
+}
+
 impl Display for StarbaseSprite {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -197,7 +210,7 @@ impl Display for StarbaseSprite {
             ),
             StarbaseSprite::UniversalMechanicalContigentDreadnoughtMothership => write!(
                 formatter,
-                "images/factions/universal_mechanical_contigent/dreadnought_mothership.png"
+                "images/factions/universal_mechanical_contingent/mothership.png"
             ),
             StarbaseSprite::VoidwalkerCollectiveMothership => write!(
                 formatter,
@@ -212,18 +225,19 @@ impl Display for StarbaseSprite {
 pub enum StarbaseType {
     Mothership,
     Starbase,
+    None,
 }
 
 impl StarbaseType {
-    pub fn sprite_convert_from(&self, player_faction: Faction) -> StarbaseSprite {
-        match player_faction {
-            Faction::GranokImperialEmpire => StarbaseSprite::GranokImperialEmpireStarbase,
-            Faction::StarGuardAlliance => StarbaseSprite::StarGuardAllianceStarbase,
-            Faction::UniversalMechanicalContigent => {
-                StarbaseSprite::UniversalMechanicalContigentDreadnoughtMothership
+    pub fn starbase_type_convert_from(starbase_sprite: StarbaseSprite) -> StarbaseType {
+        match starbase_sprite {
+            StarbaseSprite::GranokImperialEmpireStarbase => StarbaseType::Starbase,
+            StarbaseSprite::StarGuardAllianceStarbase => StarbaseType::Starbase,
+            StarbaseSprite::UniversalMechanicalContigentDreadnoughtMothership => {
+                StarbaseType::Mothership
             }
-            Faction::VoidwalkerCollective => StarbaseSprite::VoidwalkerCollectiveMothership,
-            Faction::None => StarbaseSprite::None,
+            StarbaseSprite::VoidwalkerCollectiveMothership => StarbaseType::Mothership,
+            StarbaseSprite::None => StarbaseType::None,
         }
     }
 }

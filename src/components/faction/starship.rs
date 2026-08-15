@@ -81,7 +81,7 @@ pub struct StarshipSize {
 
 impl StarshipSize {
     pub fn new_from_starship_type(starship_type: StarshipType) -> StarshipSize {
-        let very_small: f32 = 0.25;
+        let very_small: f32 = 0.4;
         let small: f32 = 0.5;
         let medium: f32 = 1.0;
         let large: f32 = 1.5;
