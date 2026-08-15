@@ -6,26 +6,19 @@ use bevy::{
 };
 
 use crate::{
-    assets::{
-        images::faction_starship_sprite::starship_sprite::StarshipSprite,
-        user_interface::icons::{
-            space_facility_icons::SpaceFacilityIcon, starship_icons::StarshipIcon,
-        },
-    },
-    components::{
+    assets::{images::starship_sprite::StarshipSprite, user_interface::icons::{
+        space_facility_icons::SpaceFacilityIcon, starship_icons::StarshipIcon,
+    }}, components::{
         faction::{
-            space_facility::SpaceFacility,
+            starbase::Starbase,
             starship::{Starship, StarshipSpeed},
         },
         server::server_object::ServerObject,
         user_interface::{controllable::Movement, selection::Selectable},
-    },
-    events::{
+    }, events::{
         input_events::MouseRightClickEvent,
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-    },
-    resources::spawn_menu_selection::SpawnMenuSelection,
-    systems::user_interface::interactions::spawn_selection::SpawnSelection,
+    }, resources::spawn_menu_selection::SpawnMenuSelection, systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 
 pub fn spawner(
@@ -45,24 +38,7 @@ pub fn spawner(
             SpawnSelection::None => {}
             SpawnSelection::Other => {}
             SpawnSelection::MultipleSelections => {}
-            SpawnSelection::StarshipConstructionYard => {
-                spawn_starship(
-                    &mut transform,
-                    &spawn_menu_selection,
-                    &mut spawn_sprite_event,
-                    &mut commands,
-                );
-            }
-            SpawnSelection::SupportShip => {
-                spawn_space_facility(
-                    &mut transform,
-                    &spawn_menu_selection,
-                    &mut spawn_sprite_event,
-                    &mut commands,
-                );
-            }
             SpawnSelection::Starbase => {
-                //TODO make func for starbases?
                 spawn_starship(
                     &mut transform,
                     &spawn_menu_selection,
@@ -83,7 +59,7 @@ fn spawn_space_facility(
     tracing::info!("space facility at {:?}", transform.translation);
 
     if selected_item.space_facility_selection != SpaceFacilityIcon::None {
-        let space_facility = SpaceFacility::new_from_icon(selected_item.space_facility_selection);
+        let space_facility = Starbase::new_from_icon(selected_item.space_facility_selection);
         transform.translation.z = space_facility.size_component.z_index;
 
         spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
@@ -108,7 +84,7 @@ fn spawn_starship(
 
         let ship_speed =
             StarshipSpeed::new_from_starship_type(StarshipSprite::starship_type_convert_from(
-                starship.starship_sprite_bundle.starship_sprite,
+                starship.starship_sprite,
             ));
 
         transform.translation.z = starship.size_component.z_index;
@@ -128,7 +104,7 @@ fn spawn_starship(
             .insert(ServerObject { id: entity.index() });
 
         spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
-            sprite_path: starship.starship_sprite_bundle.starship_sprite.to_string(),
+            sprite_path: starship.starship_sprite.to_string(),
             size: starship.size_component.size,
             transform: *transform,
             entity,

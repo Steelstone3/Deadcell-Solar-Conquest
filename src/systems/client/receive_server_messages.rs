@@ -154,7 +154,7 @@ use bincode::{config, serde::decode_from_slice};
 
 use crate::{
     components::{
-        faction::{space_facility::SerializableSpaceFacility, starship::SerializableStarship},
+        faction::{starbase::SerializableSpaceFacility, starship::SerializableStarship},
         map::{planet::SerializablePlanet, space::SerializableSpace, star::SerializableStar},
         server::{
             server_messages::ServerMessages,
@@ -226,11 +226,7 @@ pub fn receive_server_messages(
                 decode_from_slice(data, config::standard()).unwrap();
 
             spawn_sprite_event_writer.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
-                sprite_path: starship
-                    .starship
-                    .starship_sprite_bundle
-                    .starship_sprite
-                    .to_string(),
+                sprite_path: starship.starship.starship_sprite.to_string(),
                 size: starship.starship.size_component.size,
                 transform: starship.transform,
                 entity: commands.spawn(starship.starship).id(),

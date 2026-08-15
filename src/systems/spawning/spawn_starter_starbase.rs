@@ -7,14 +7,10 @@ use bevy::{
 use rand::Rng;
 
 use crate::{
-    assets::images::space_facility_type::SpaceFacilityType,
-    components::{faction::space_facility::SpaceFacility, user_interface::selection::Selectable},
-    events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-    queries::space_queries::StarQuery,
-    resources::faction::PlayerFaction,
+    assets::images::starship_sprite::{StarbaseSprite, StarbaseType, StarshipType}, components::{faction::starbase::Starbase, user_interface::selection::Selectable}, events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}, queries::space_queries::StarQuery, resources::faction::PlayerFaction,
 };
 
-pub fn spawn_space_facilities(
+pub fn spawn_starter_starbase(
     mut commands: Commands,
     star_queries: Query<StarQuery>,
     mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
@@ -23,8 +19,8 @@ pub fn spawn_space_facilities(
     for star_query in star_queries.iter() {
         let mut rng = rand::thread_rng();
         let angle = 360.0 / rng.gen_range(1.0..4.0) as f32;
-        let space_station = SpaceFacility::new(
-            SpaceFacilityType::SpaceStation.sprite_convert_from(player_faction.player_faction),
+        let space_station = Starbase::new(
+            StarbaseType::Starbase.sprite_convert_from(player_faction.player_faction),
         );
 
         let x = star_query.transform.translation.x

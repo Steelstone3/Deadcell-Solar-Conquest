@@ -1,6 +1,6 @@
 use crate::{
     components::{
-        faction::{space_facility::SpaceFacility, starship::Starship},
+        faction::{starbase::Starbase, starship::Starship},
         map::{planet::Planet, space::Space, star::Star},
         server::{server_messages::ServerMessages, server_object::ServerObject},
     },
@@ -20,7 +20,7 @@ pub fn send_server_messages(
     mut server: ResMut<RenetServer>,
     space_tile_query: Query<(&Space, &Transform, Entity)>,
     planet_query: Query<(&Planet, &Transform, Entity)>,
-    space_facility_query: Query<(&SpaceFacility, &Transform, Entity)>,
+    space_facility_query: Query<(&Starbase, &Transform, Entity)>,
     starships_query: Query<(&Starship, &Transform, &ServerObject)>,
     star_query: Query<(&Star, &Transform, Entity)>,
     mut server_events: EventReader<ServerEvent>,

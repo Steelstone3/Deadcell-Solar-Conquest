@@ -2,9 +2,7 @@ use bevy::prelude::{Res, ResMut};
 use bevy_egui::{EguiContexts, egui};
 
 use crate::{
-    assets::images::{space_facility_type::SpaceFacilityType, starship_type::StarshipType},
-    resources::{faction::PlayerFaction, spawn_menu_selection::SpawnMenuSelection},
-    systems::user_interface::interactions::spawn_selection::SpawnSelection,
+    assets::images::starship_sprite::StarshipType, resources::{faction::PlayerFaction, spawn_menu_selection::SpawnMenuSelection}, systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 
 pub fn spawn_menu(
@@ -16,57 +14,14 @@ pub fn spawn_menu(
         SpawnSelection::None => {}
         SpawnSelection::Other => {}
         SpawnSelection::MultipleSelections => {}
-        SpawnSelection::StarshipConstructionYard => {
-            if let Ok(ctx) = contexts.ctx_mut() {
-                egui::Window::new("Spawn Menu").show(ctx, |ui| {
-                    ui.label("Starship Construction Yard");
-
-                    let items = [
-                        ("Fighter", StarshipType::Fighter),
-                        ("Torpedo Ship", StarshipType::TorpedoShip),
-                        ("Bomber", StarshipType::Bomber),
-                        ("Frigate", StarshipType::Frigate),
-                        ("Battle Cruiser", StarshipType::BattleCruiser),
-                        ("Dreadnought", StarshipType::Dreadnought),
-                    ];
-
-                    for (label, icon) in items {
-                        if ui.add(egui::Button::new(label)).clicked() {
-                            let selection = icon;
-                            spawn_menu_selection.starship_selection =
-                                selection.icon_convert_from(player_faction.player_faction);
-                        }
-                    }
-                });
-            } else {
-                eprintln!("Starship failed to render");
-            }
-        }
-        SpawnSelection::SupportShip => {
-            if let Ok(ctx) = contexts.ctx_mut() {
-                egui::Window::new("Support Ship").show(ctx, |ui| {
-                    // TODO AH Add images for the buttons and size to TILE_SIZE * 2.0
-                    if ui
-                        .add(egui::Button::new("Starship Construction Yard"))
-                        .clicked()
-                    {
-                        let selection = SpaceFacilityType::StarshipConstructionYard;
-                        spawn_menu_selection.space_facility_selection =
-                            selection.icon_convert_from(player_faction.player_faction);
-                    }
-                });
-            } else {
-                eprintln!("Starship failed to render");
-            }
-        }
         SpawnSelection::Starbase => {
             if let Ok(ctx) = contexts.ctx_mut() {
                 egui::Window::new("Spawn Menu").show(ctx, |ui| {
                     ui.label("Starbase");
 
                     let items = [
-                        ("Support Ship", StarshipType::SupportShip),
-                        ("Scout", StarshipType::Scout),
+                        ("Support Ship", StarshipType::BattleCruiser),
+                        ("Scout", StarshipType::Battleship),
                     ];
 
                     for (label, icon) in items {

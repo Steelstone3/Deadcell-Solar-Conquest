@@ -7,8 +7,7 @@ use crate::systems::{
     camera::spawn_camera::spawn_camera,
     spawning::{
         spawn_resource_planets::spawn_resource_planets, spawn_space::spawn_space,
-        spawn_space_facilities::spawn_space_facilities, spawn_stars::spawn_stars,
-        spawn_starter_starship::spawn_starter_starship,
+        spawn_stars::spawn_stars, spawn_starter_starbase::spawn_starter_starbase,
     },
 };
 
@@ -19,11 +18,7 @@ impl Plugin for ServerStartPlugin {
         app.add_systems(Startup, spawn_space);
         app.add_systems(Startup, spawn_camera);
         app.add_systems(Startup, spawn_stars);
-        app.add_systems(Startup, spawn_space_facilities.after(spawn_stars));
+        app.add_systems(Startup, spawn_starter_starbase.after(spawn_stars));
         app.add_systems(Startup, spawn_resource_planets.after(spawn_stars));
-        app.add_systems(
-            Startup,
-            spawn_starter_starship.after(spawn_space_facilities),
-        );
     }
 }

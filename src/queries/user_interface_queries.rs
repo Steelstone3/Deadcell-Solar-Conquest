@@ -1,5 +1,5 @@
 use crate::components::{
-    faction::{space_facility::SpaceFacility, starship::Starship},
+    faction::{starbase::Starbase, starship::Starship},
     user_interface::selection::{Selectable, SelectedSprite},
 };
 use bevy::{
@@ -24,6 +24,6 @@ pub struct SelectionQuery {
 
 #[derive(QueryData)]
 pub struct TypeCheckQuery {
-    pub space_facility: Option<&'static SpaceFacility>,
+    pub starbase: Option<&'static Starbase>,
     pub starship: Option<&'static Starship>,
 }

@@ -10,7 +10,7 @@ use bincode::{config, serde::encode_to_vec};
 
 use crate::components::{
     faction::{
-        space_facility::{SerializableSpaceFacility, SpaceFacility},
+        starbase::{SerializableSpaceFacility, Starbase},
         starship::{SerializableStarship, Starship},
     },
     map::{
@@ -65,7 +65,7 @@ impl GameSyncChannels {
         client_id: &u64,
         space_tile_query: &Query<(&Space, &Transform, Entity)>,
         starships_query: &Query<(&Starship, &Transform, &ServerObject)>,
-        space_facility_query: &Query<(&SpaceFacility, &Transform, Entity)>,
+        space_facility_query: &Query<(&Starbase, &Transform, Entity)>,
         planet_query: &Query<(&Planet, &Transform, Entity)>,
         star_query: &Query<(&Star, &Transform, Entity)>,
     ) {
