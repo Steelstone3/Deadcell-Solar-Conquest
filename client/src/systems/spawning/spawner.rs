@@ -13,7 +13,13 @@ use crate::{
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 use bevy::{
-    ecs::{message::{MessageReader, MessageWriter}, system::Commands}, log::tracing, prelude::Res, transform::components::Transform,
+    ecs::{
+        message::{MessageReader, MessageWriter},
+        system::Commands,
+    },
+    log::tracing,
+    prelude::Res,
+    transform::components::Transform,
 };
 
 pub fn spawner(
@@ -80,9 +86,9 @@ fn spawn_starship(
             ))
             .id();
 
-        commands
-            .entity(entity)
-            .insert(ServerObject { id: entity.index_u32() });
+        commands.entity(entity).insert(ServerObject {
+            id: entity.index_u32(),
+        });
 
         spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: starship.starship_sprite.to_string(),

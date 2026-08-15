@@ -7,7 +7,9 @@ use crate::{
     queries::space_queries::StarQuery,
 };
 use bevy::{
-    ecs::{ message::MessageWriter, system::Commands}, math::Quat, prelude::Query,
+    ecs::{message::MessageWriter, system::Commands},
+    math::Quat,
+    prelude::Query,
 };
 use rand::{Rng, random};
 use std::cmp;

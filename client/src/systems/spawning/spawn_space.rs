@@ -1,5 +1,10 @@
 use bevy::{
-    ecs::{message::MessageWriter, system::{Commands, Res}}, math::Vec3, transform::components::Transform,
+    ecs::{
+        message::MessageWriter,
+        system::{Commands, Res},
+    },
+    math::Vec3,
+    transform::components::Transform,
 };
 use rand::random;
 

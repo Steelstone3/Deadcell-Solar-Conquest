@@ -76,6 +76,6 @@ fn client_server_setup(app: &mut App) {
         ));
         // let (client, client_transport) = Client::new_renet_client();
         // app.insert_resource(client)
-            // .insert_resource(client_transport);
+        // .insert_resource(client_transport);
     }
 }

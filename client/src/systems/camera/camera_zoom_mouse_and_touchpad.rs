@@ -3,9 +3,12 @@ use crate::{
     resources::camera_settings::CameraSettings,
 };
 use bevy::{
-    camera::Projection, ecs::{
-        message::MessageReader, system::{Query, ResMut},
-    }, input::{ButtonInput, keyboard::KeyCode, mouse::MouseWheel},
+    camera::Projection,
+    ecs::{
+        message::MessageReader,
+        system::{Query, ResMut},
+    },
+    input::{ButtonInput, keyboard::KeyCode, mouse::MouseWheel},
 };
 use float_lerp::lerp;
 

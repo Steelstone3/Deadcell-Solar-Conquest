@@ -1,8 +1,6 @@
 use bevy::app::{Plugin, Startup};
 
-use crate::systems::{
-    camera::spawn_camera::spawn_camera,
-};
+use crate::systems::camera::spawn_camera::spawn_camera;
 
 pub struct ClientStartPlugin;
 

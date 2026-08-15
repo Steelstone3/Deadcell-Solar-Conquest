@@ -11,7 +11,10 @@ use crate::{
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 use bevy::{
-    ecs::message::{MessageReader, MessageWriter}, log::info, math::Vec3Swizzles, prelude::{Commands, In, Query, ResMut},
+    ecs::message::{MessageReader, MessageWriter},
+    log::info,
+    math::Vec3Swizzles,
+    prelude::{Commands, In, Query, ResMut},
 };
 
 pub fn select_sprite(

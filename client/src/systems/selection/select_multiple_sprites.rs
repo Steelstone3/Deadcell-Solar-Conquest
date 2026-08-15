@@ -1,5 +1,7 @@
 use bevy::{
-    ecs::message::{MessageReader, MessageWriter}, math::{Rect, Vec2}, prelude::{Commands, Query, ResMut},
+    ecs::message::{MessageReader, MessageWriter},
+    math::{Rect, Vec2},
+    prelude::{Commands, Query, ResMut},
 };
 
 use crate::{
