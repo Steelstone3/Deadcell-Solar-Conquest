@@ -10,8 +10,8 @@ pub struct PlayerFaction {
 #[derive(Default, PartialEq, Clone, Copy, Serialize, Deserialize)]
 pub enum Faction {
     GranokImperialEmpire,
-    StarGuardAlliance,
     #[default]
+    StarGuardAlliance,
     UniversalMechanicalContigent,
     VoidwalkerCollective,
     None

@@ -10,7 +10,6 @@ use crate::{
     assets::images::starship_sprite::{StarbaseSprite, StarbaseType, StarshipType},
     components::{
         faction::{starbase::Starbase, starship::StarshipSpeed},
-        map::star,
         user_interface::{controllable::Movement, selection::Selectable},
     },
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
