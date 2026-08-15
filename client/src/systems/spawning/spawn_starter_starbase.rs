@@ -1,5 +1,5 @@
 use bevy::{
-    ecs::{event::EventWriter, system::Commands},
+    ecs::{message::MessageWriter, system::Commands},
     math::Quat,
     prelude::{Query, Res},
     transform::components::Transform,
@@ -20,7 +20,7 @@ use crate::{
 pub fn spawn_starter_starbase(
     mut commands: Commands,
     star_queries: Query<StarQuery>,
-    mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
+    mut spawn_sprite_event: MessageWriter<SpawnSpriteEvent>,
     player_faction: Res<PlayerFaction>,
 ) {
     for star_query in star_queries.iter() {

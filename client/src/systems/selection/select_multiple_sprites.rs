@@ -1,6 +1,5 @@
 use bevy::{
-    math::{Rect, Vec2},
-    prelude::{Commands, EventReader, EventWriter, Query, ResMut},
+    ecs::message::{MessageReader, MessageWriter}, math::{Rect, Vec2}, prelude::{Commands, Query, ResMut},
 };
 
 use crate::{
@@ -17,12 +16,12 @@ use crate::{
 // TODO finish this off
 pub fn select_multiple_sprites(
     mut commands: Commands,
-    mut selection_area_reader: EventReader<SelectionAreaEvent>,
+    mut selection_area_reader: MessageReader<SelectionAreaEvent>,
     selection_queries: Query<SelectionQuery>,
     selectable_queries: Query<SelectableQuery>,
     type_check_query: Query<TypeCheckQuery>,
     mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
-    mut spawn_sprite_writer: EventWriter<SpawnSpriteEvent>,
+    mut spawn_sprite_writer: MessageWriter<SpawnSpriteEvent>,
 ) {
     let Some(selection_area) = selection_area_reader.read().last() else {
         return;
@@ -62,10 +61,12 @@ pub fn select_multiple_sprites(
                 // create a selection indicator entity
                 let selection = SelectedSprite::default();
                 let selection_entity = commands
-                    .spawn(selection)
-                    .insert(Tracking {
-                        entity_to_follow: selectable.entity,
-                    })
+                    .spawn((
+                        selection,
+                        Tracking {
+                            entity_to_follow: selectable.entity,
+                        },
+                    ))
                     .id();
 
                 let Some(size) = selectable.sprite.custom_size else {

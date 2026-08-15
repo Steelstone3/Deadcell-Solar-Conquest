@@ -11,15 +11,13 @@ use crate::{
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 use bevy::{
-    log::info,
-    math::Vec3Swizzles,
-    prelude::{Commands, EventReader, EventWriter, In, Query, ResMut},
+    ecs::message::{MessageReader, MessageWriter}, log::info, math::Vec3Swizzles, prelude::{Commands, In, Query, ResMut},
 };
 
 pub fn select_sprite(
-    mut select_event_reader: EventReader<MouseLeftClickEvent>,
+    mut select_event_reader: MessageReader<MouseLeftClickEvent>,
     selectable_queries: Query<SelectableQuery>,
-    mut spawn_sprite_writer: EventWriter<SpawnSpriteEvent>,
+    mut spawn_sprite_writer: MessageWriter<SpawnSpriteEvent>,
     mut commands: Commands,
     selection_queries: Query<SelectionQuery>,
 ) -> Result<ClosestSelection, ()> {
@@ -53,7 +51,7 @@ pub fn select_sprite(
             && cursor_position.y >= y_min
             && cursor_position.y <= y_max
         {
-            //we only want to select whatevers closest to the cursor not everything undeneath
+            //we only want to select whatever is closest to the cursor not everything underneath
             let distance = selectable
                 .transform
                 .translation

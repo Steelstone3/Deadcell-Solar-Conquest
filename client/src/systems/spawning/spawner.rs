@@ -13,17 +13,14 @@ use crate::{
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 use bevy::{
-    ecs::{event::EventWriter, system::Commands},
-    log::tracing,
-    prelude::{EventReader, Res},
-    transform::components::Transform,
+    ecs::{message::{MessageReader, MessageWriter}, system::Commands}, log::tracing, prelude::Res, transform::components::Transform,
 };
 
 pub fn spawner(
     mut commands: Commands,
     spawn_menu_selection: Res<SpawnMenuSelection>,
-    mut right_mouse_events: EventReader<MouseRightClickEvent>,
-    mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
+    mut right_mouse_events: MessageReader<MouseRightClickEvent>,
+    mut spawn_sprite_event: MessageWriter<SpawnSpriteEvent>,
     player_faction: Res<PlayerFaction>,
 ) {
     right_mouse_events.read().for_each(|event| {
@@ -53,7 +50,7 @@ pub fn spawner(
 fn spawn_starship(
     transform: &mut Transform,
     selected_item: &Res<'_, SpawnMenuSelection>,
-    spawn_sprite_event: &mut EventWriter<'_, SpawnSpriteEvent>,
+    spawn_sprite_event: &mut MessageWriter<'_, SpawnSpriteEvent>,
     player_faction: &Res<PlayerFaction>,
     commands: &mut Commands<'_, '_>,
 ) {
@@ -72,18 +69,20 @@ fn spawn_starship(
         transform.translation.z = starship.size_component.z_index;
 
         let entity = commands
-            .spawn(starship)
-            .insert(Selectable)
-            .insert(Movement {
-                target_location: transform.translation,
-                maximum_speed: ship_speed.speed,
-                current_speed: 0.0,
-            })
+            .spawn((
+                starship,
+                Selectable,
+                Movement {
+                    target_location: transform.translation,
+                    maximum_speed: ship_speed.speed,
+                    current_speed: 0.0,
+                },
+            ))
             .id();
 
         commands
             .entity(entity)
-            .insert(ServerObject { id: entity.index() });
+            .insert(ServerObject { id: entity.index_u32() });
 
         spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: starship.starship_sprite.to_string(),

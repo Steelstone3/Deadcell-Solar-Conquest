@@ -5,11 +5,11 @@ use crate::{
 use bevy::{
     asset::{AssetServer, Assets},
     ecs::{
-        message::MessageReader,
+        event::EventReader,
         system::{Commands, Res, ResMut},
     },
     image::{TextureAtlas, TextureAtlasLayout},
-    math::{IVec2, UVec2},
+    math::UVec2,
     sprite::Sprite,
 };
 
@@ -17,7 +17,7 @@ pub fn spawn_animated_sprite(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut texture_atlas_layouts: ResMut<Assets<TextureAtlasLayout>>,
-    mut spawn_animated_sprite_events: MessageReader<SpawnAnimatedSpriteEvent>,
+    mut spawn_animated_sprite_events: EventReader<SpawnAnimatedSpriteEvent>,
 ) {
     for spawn_animated_sprite_event in spawn_animated_sprite_events.read() {
         if let Ok(mut entity) = commands.get_entity(spawn_animated_sprite_event.spawn_sprite.entity)
@@ -49,9 +49,9 @@ pub fn spawn_animated_sprite(
             );
 
             let mut sprite = Sprite::from_atlas_image(
-                texture.clone(),
+                texture,
                 TextureAtlas {
-                    layout: texture_atlas_layout.clone(),
+                    layout: texture_atlas_layout,
                     index: 0,
                 },
             );

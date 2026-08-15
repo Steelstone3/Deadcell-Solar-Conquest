@@ -1,8 +1,8 @@
 use bevy::{
+    ecs::message::MessageReader,
     math::Vec3,
-    prelude::{EventReader, Query, Res, Transform},
+    prelude::{Query, Res, Transform},
 };
-
 use crate::{
     components::user_interface::controllable::Movement, events::input_events::MouseRightClickEvent,
     resources::spawn_menu_selection::SpawnMenuSelection,
@@ -11,7 +11,7 @@ use crate::{
 
 //sets the selected controllable target location to where the player right clicked
 pub fn set_single_destination(
-    mut right_mouse_event_reader: EventReader<MouseRightClickEvent>,
+    mut right_mouse_event_reader: MessageReader<MouseRightClickEvent>,
     selection_resource: Res<SpawnMenuSelection>,
     // TODO make a query
     mut selected_moveable_queries: Query<(&mut Movement, &Transform)>,
@@ -35,7 +35,7 @@ pub fn set_single_destination(
 
 //sets the selected controllable target location to where the player right clicked
 pub fn set_multiple_destination(
-    mut right_mouse_event_reader: EventReader<MouseRightClickEvent>,
+    mut right_mouse_event_reader: MessageReader<MouseRightClickEvent>,
     selection_resource: Res<SpawnMenuSelection>,
     // TODO make a query
     mut selected_moveable_queries: Query<(&mut Movement, &Transform)>,

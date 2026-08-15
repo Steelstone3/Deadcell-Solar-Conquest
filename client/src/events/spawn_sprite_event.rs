@@ -1,10 +1,10 @@
 use bevy::{
-    ecs::{entity::Entity, event::Event},
+    ecs::{entity::Entity, message::Message},
     math::Vec2,
     transform::components::Transform,
 };
 
-#[derive(Event)]
+#[derive(Message)]
 pub struct SpawnSpriteEvent {
     pub spawn_sprite: SpawnSprite,
 }

@@ -2,7 +2,7 @@ use crate::events::spawn_sprite_event::SpawnSpriteEvent;
 use bevy::{
     asset::AssetServer,
     ecs::{
-        event::EventReader,
+        message::MessageReader,
         system::{Commands, Res},
     },
     sprite::Sprite,
@@ -11,7 +11,7 @@ use bevy::{
 pub fn spawn_sprite(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
-    mut spawn_sprite_events: EventReader<SpawnSpriteEvent>,
+    mut spawn_sprite_events: MessageReader<SpawnSpriteEvent>,
 ) {
     for spawn_sprite_event in spawn_sprite_events.read() {
         if let Ok(mut entity) = commands.get_entity(spawn_sprite_event.spawn_sprite.entity) {

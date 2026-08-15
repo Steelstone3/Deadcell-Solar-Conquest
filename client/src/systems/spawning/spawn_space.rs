@@ -1,10 +1,5 @@
 use bevy::{
-    ecs::{
-        event::EventWriter,
-        system::{Commands, Res},
-    },
-    math::Vec3,
-    transform::components::Transform,
+    ecs::{message::MessageWriter, system::{Commands, Res}}, math::Vec3, transform::components::Transform,
 };
 use rand::random;
 
@@ -16,7 +11,7 @@ use crate::{
 
 pub fn spawn_space(
     mut commands: Commands,
-    mut spawn_sprite_event: EventWriter<SpawnSpriteEvent>,
+    mut spawn_sprite_event: MessageWriter<SpawnSpriteEvent>,
     game_settings: Res<GameSettings>,
 ) {
     let space = Space::new(random());

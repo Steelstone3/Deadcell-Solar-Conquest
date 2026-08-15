@@ -3,17 +3,14 @@ use crate::{
     resources::camera_settings::CameraSettings,
 };
 use bevy::{
-    ecs::{
-        event::EventReader,
-        system::{Query, ResMut},
-    },
-    input::{ButtonInput, keyboard::KeyCode, mouse::MouseWheel},
-    render::camera::Projection,
+    camera::Projection, ecs::{
+        message::MessageReader, system::{Query, ResMut},
+    }, input::{ButtonInput, keyboard::KeyCode, mouse::MouseWheel},
 };
 use float_lerp::lerp;
 
 pub fn camera_zoom_mouse_and_touchpad(
-    mut mouse_wheel_events: EventReader<MouseWheel>,
+    mut mouse_wheel_events: MessageReader<MouseWheel>,
     mut input: ResMut<ButtonInput<KeyCode>>,
     mut cameras: Query<MutableCameraOrthographicProjectionQuery>,
     mut camera_settings: ResMut<CameraSettings>,

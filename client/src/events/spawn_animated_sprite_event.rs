@@ -1,8 +1,8 @@
-use bevy::ecs::event::Event;
+use bevy::ecs::message::Message;
 
 use crate::events::spawn_sprite_event::SpawnSprite;
 
-#[derive(Event)]
+#[derive(Message)]
 pub struct SpawnAnimatedSpriteEvent {
     pub spawn_sprite: SpawnSprite,
     pub spawn_animated_sprite: SpawnAnimatedSprite,

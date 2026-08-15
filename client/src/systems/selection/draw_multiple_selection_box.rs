@@ -8,17 +8,18 @@ use crate::{
     queries::selection_queries::SelectionBoxQuery,
 };
 use bevy::{
+    ecs::message::{MessageReader, MessageWriter},
     math::{Vec2, Vec3},
-    prelude::{Commands, EventReader, EventWriter, Query, Transform},
+    prelude::{Commands, Query, Transform},
 };
 
 // TODO create queries
 pub fn draw_multiple_selection_box(
     mut commands: Commands,
-    mut select_event_reader: EventReader<MouseLeftClickModifierEvent>,
+    mut select_event_reader: MessageReader<MouseLeftClickModifierEvent>,
     mut selection_query: Query<SelectionBoxQuery>,
-    mut spawn_sprite_writer: EventWriter<SpawnSpriteEvent>,
-    mut selection_area_writer: EventWriter<SelectionAreaEvent>,
+    mut spawn_sprite_writer: MessageWriter<SpawnSpriteEvent>,
+    mut selection_area_writer: MessageWriter<SelectionAreaEvent>,
 ) {
     let Some(select) = select_event_reader.read().last() else {
         return;

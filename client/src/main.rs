@@ -1,17 +1,13 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, window::WindowResolution};
 use bevy_egui::EguiPlugin;
 use bevy_renet::{
     RenetClientPlugin, RenetServerPlugin,
     netcode::{NetcodeClientPlugin, NetcodeServerPlugin},
 };
-use client::Client;
 use plugins::{
-    client_start::ClientStartPlugin, client_update::ClientUpdatePlugin,
     event_handlers::EventHandlersPlugin, events::EventsPlugin, resources::ResourcesPlugin,
-    running::RunningPlugin, server_start::ServerStartPlugin, server_update::ServerUpdatePlugin,
-    user_interface::UserInterfacePlugin,
+    running::RunningPlugin, server_start::ServerStartPlugin, user_interface::UserInterfacePlugin,
 };
-use server::game_server::Server;
 
 mod assets;
 mod client;
@@ -35,7 +31,7 @@ fn main() {
             .set(WindowPlugin {
                 primary_window: Some(Window {
                     title: "Superior Space Domination".to_string(),
-                    resolution: (640.0_f32, 480.0_f32).into(),
+                    resolution: WindowResolution::new(640, 480),
                     resize_constraints: WindowResizeConstraints {
                         min_width: 640.0,
                         min_height: 480.0,
@@ -52,32 +48,32 @@ fn main() {
         UserInterfacePlugin,
         RunningPlugin,
     ));
-    client_server_setup(&mut app);
+    // client_server_setup(&mut app);
     app.run();
 }
 
-fn client_server_setup(app: &mut App) {
-    let args: Vec<String> = std::env::args().collect();
-    let is_host = args.contains(&"server".to_string());
+// fn client_server_setup(app: &mut App) {
+//     let args: Vec<String> = std::env::args().collect();
+//     let is_host = args.contains(&"server".to_string());
 
-    if is_host {
-        app.add_plugins((
-            ServerStartPlugin,
-            ServerUpdatePlugin,
-            RenetServerPlugin,
-            NetcodeServerPlugin,
-        ));
-        let (server, transport) = Server::new_renet_server();
-        app.insert_resource(server).insert_resource(transport);
-    } else {
-        app.add_plugins((
-            ClientStartPlugin,
-            ClientUpdatePlugin,
-            RenetClientPlugin,
-            NetcodeClientPlugin,
-        ));
-        let (client, client_transport) = Client::new_renet_client();
-        app.insert_resource(client)
-            .insert_resource(client_transport);
-    }
-}
+//     if is_host {
+//         app.add_plugins((
+//             ServerStartPlugin,
+//             ServerUpdatePlugin,
+//             RenetServerPlugin,
+//             NetcodeServerPlugin,
+//         ));
+//         let (server, transport) = Server::new_renet_server();
+//         app.insert_resource(server).insert_resource(transport);
+//     } else {
+//         app.add_plugins((
+//             ClientStartPlugin,
+//             ClientUpdatePlugin,
+//             RenetClientPlugin,
+//             NetcodeClientPlugin,
+//         ));
+//         let (client, client_transport) = Client::new_renet_client();
+//         app.insert_resource(client)
+//             .insert_resource(client_transport);
+//     }
+// }

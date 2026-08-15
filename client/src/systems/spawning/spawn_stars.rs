@@ -1,5 +1,5 @@
 use bevy::{
-    ecs::{event::EventWriter, system::Commands},
+    ecs::{message::MessageWriter, system::Commands},
     math::Vec3,
     prelude::Res,
     transform::components::Transform,
@@ -19,7 +19,7 @@ use crate::{
 // TODO better distribution across the map (maybe spawn zones)
 pub fn spawn_stars(
     mut commands: Commands,
-    mut spawn_sprite_event: EventWriter<SpawnAnimatedSpriteEvent>,
+    mut spawn_sprite_event: MessageWriter<SpawnAnimatedSpriteEvent>,
     game_settings: Res<GameSettings>,
 ) {
     let mut rng = rand::thread_rng();

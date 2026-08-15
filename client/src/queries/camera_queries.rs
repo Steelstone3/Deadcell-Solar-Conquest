@@ -1,6 +1,6 @@
 use bevy::{
+    camera::{Camera, Projection},
     ecs::query::QueryData,
-    render::camera::{Camera, Projection},
     transform::components::Transform,
 };
 

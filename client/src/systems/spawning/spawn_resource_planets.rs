@@ -7,16 +7,14 @@ use crate::{
     queries::space_queries::StarQuery,
 };
 use bevy::{
-    ecs::{event::EventWriter, system::Commands},
-    math::Quat,
-    prelude::Query,
+    ecs::{ message::MessageWriter, system::Commands}, math::Quat, prelude::Query,
 };
 use rand::{Rng, random};
 use std::cmp;
 
 pub fn spawn_resource_planets(
     mut commands: Commands,
-    mut spawn_animated_sprite_event: EventWriter<SpawnAnimatedSpriteEvent>,
+    mut spawn_animated_sprite_event: MessageWriter<SpawnAnimatedSpriteEvent>,
     star_queries: Query<StarQuery>,
 ) {
     for star_query in star_queries.iter() {
