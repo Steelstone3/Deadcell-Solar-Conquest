@@ -1,7 +1,7 @@
 use bevy::{
     ecs::{message::MessageWriter, system::Commands},
     math::Quat,
-    prelude::{Query, Res},
+    prelude::Res,
     transform::components::Transform,
 };
 use rand::Rng;
@@ -13,30 +13,24 @@ use crate::{
         user_interface::{controllable::Movement, selection::Selectable},
     },
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-    queries::space_queries::StarQuery,
     resources::faction::PlayerFaction,
 };
 
 pub fn spawn_starter_starbase(
     mut commands: Commands,
-    star_queries: Query<StarQuery>,
     mut spawn_sprite_event: MessageWriter<SpawnSpriteEvent>,
     player_faction: Res<PlayerFaction>,
+    settings: Res<crate::resources::game_settings::GameSettings>,
 ) {
-    for star_query in star_queries.iter() {
         let mut rng = rand::thread_rng();
         let angle = 360.0 / rng.gen_range(1.0..4.0) as f32;
 
         let starbase_sprite = StarbaseSprite::sprite_convert_from(player_faction.player_faction);
 
         let starbase = Starbase::new(starbase_sprite);
-
-        let x = star_query.transform.translation.x
-            + star_query.star.size_component.size.x
-            + starbase.size_component.size.x * 1.5;
-        let y = star_query.transform.translation.y
-            + star_query.star.size_component.size.x
-            + starbase.size_component.size.y * 1.5;
+        
+        let x: f32 = rand::thread_rng().gen_range(0.0..settings.map_size as f32) + starbase.size_component.size.x * 1.5;
+        let y: f32 = rand::thread_rng().gen_range(0.0..settings.map_size as f32) + starbase.size_component.size.x * 1.5;
 
         let transform = Transform::from_xyz(x, y, starbase.size_component.z_index)
             .with_rotation(Quat::from_rotation_z(angle.to_radians()));
@@ -64,5 +58,4 @@ pub fn spawn_starter_starbase(
                 })
                 .id(),
         }));
-    }
 }
