@@ -1,8 +1,3 @@
-use crate::{
-    components::{
-        server::server_object::ServerObject,
-    },
-};
 use bevy::{
     ecs::{
         message::{MessageReader, MessageWriter},
@@ -77,10 +72,6 @@ fn spawn_starship(
                 },
             ))
             .id();
-
-        commands.entity(entity).insert(ServerObject {
-            id: entity.index_u32(),
-        });
 
         spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: starship.starship_sprite.to_string(),

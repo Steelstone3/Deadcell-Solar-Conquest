@@ -1,4 +1,3 @@
-use crate::resources::lobby::Lobby;
 use bevy::app::Plugin;
 use deadcell_solar_conquest_shared::resources::{
     camera_settings::CameraSettings, faction::PlayerFaction, game_settings::GameSettings,
@@ -13,7 +12,6 @@ impl Plugin for ResourcesPlugin {
             .insert_resource(GameSettings::default())
             .insert_resource(SpawnMenuSelection::default())
             .insert_resource(PlayerFaction::default())
-            .insert_resource(KeyBindings::default())
-            .init_resource::<Lobby>();
+            .insert_resource(KeyBindings::default());
     }
 }

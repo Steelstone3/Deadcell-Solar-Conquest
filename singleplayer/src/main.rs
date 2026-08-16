@@ -1,16 +1,15 @@
 use bevy::{prelude::*, window::WindowResolution};
 use bevy_egui::EguiPlugin;
-use bevy_renet::{RenetServerPlugin, netcode::NetcodeServerPlugin};
 use plugins::{
     event_handlers::EventHandlersPlugin, events::EventsPlugin, resources::ResourcesPlugin,
-    running::RunningPlugin, server_start::ServerStartPlugin, user_interface::UserInterfacePlugin,
+    running::RunningPlugin, user_interface::UserInterfacePlugin,
 };
 
-mod components;
+use crate::plugins::game_start::GameStartPlugin;
+
 mod events;
 mod plugins;
 mod queries;
-mod resources;
 mod systems;
 
 #[deny(clippy::unwrap_used)]
@@ -40,35 +39,9 @@ fn main() {
         EventHandlersPlugin,
         ResourcesPlugin,
         UserInterfacePlugin,
+        GameStartPlugin,
         RunningPlugin,
     ));
-    client_server_setup(&mut app);
+
     app.run();
-}
-
-fn client_server_setup(app: &mut App) {
-    // let args: Vec<String> = std::env::args().collect();
-    // let is_host = args.contains(&"server".to_string());
-
-    // if is_host {
-    app.add_plugins((
-        ServerStartPlugin,
-        // ServerUpdatePlugin,
-        RenetServerPlugin,
-        NetcodeServerPlugin,
-    ));
-    // let (server, transport) = Server::new_renet_server();
-    // app.insert_resource(server).insert_resource(transport);
-
-    // } else {
-    // app.add_plugins((
-    // ClientStartPlugin,
-    // ClientUpdatePlugin,
-    // RenetClientPlugin,
-    // NetcodeClientPlugin,
-    // ));
-    // let (client, client_transport) = Client::new_renet_client();
-    // app.insert_resource(client)
-    // .insert_resource(client_transport);
-    // }
 }
