@@ -6,13 +6,11 @@ use plugins::{
     running::RunningPlugin, server_start::ServerStartPlugin, user_interface::UserInterfacePlugin,
 };
 
-mod client;
 mod components;
 mod events;
 mod plugins;
 mod queries;
 mod resources;
-mod server;
 mod systems;
 
 #[deny(clippy::unwrap_used)]
