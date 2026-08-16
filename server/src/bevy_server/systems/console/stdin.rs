@@ -10,7 +10,10 @@ pub fn process_stdin_commands(
     // Drain all available lines without holding the lock while processing
     let mut lines = Vec::new();
     {
-        let guard = receiver.0.lock().unwrap();
+        let guard = match receiver.0.lock() {
+            Ok(guard) => guard,
+            Err(_) => return, // If we can't lock, just skip processing this frame
+        };
         loop {
             match guard.try_recv() {
                 Ok(line) => lines.push(line),

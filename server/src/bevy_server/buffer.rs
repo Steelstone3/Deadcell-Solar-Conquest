@@ -1,5 +1,6 @@
 use chrono::Local as ChronoLocal;
 use once_cell::sync::Lazy;
+use std::io::{Error, ErrorKind};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 
@@ -29,7 +30,10 @@ impl std::io::Write for BufferWriter {
             let _ = err.write_all(formatted.as_bytes());
             let _ = err.flush();
 
-            let mut lock = self.buf.lock().unwrap();
+            let mut lock = match self.buf.lock() {
+                Ok(lock) => lock,
+                Err(_) => return Err(Error::new(ErrorKind::Other, "Failed to lock buffer")),
+            };
             lock.push(formatted.trim_end().to_string());
         }
         Ok(data.len())
