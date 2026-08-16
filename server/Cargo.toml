@@ -39,9 +39,6 @@ rayon = "1"
 renet_visualizer = "3"
 rstest = "0"
 
-[workspace]
-resolver = "2"
-
 # No optimisation for better debugging. Set to 1 for some optimisation
 [profile.dev]
 opt-level = 0

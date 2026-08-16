@@ -20,9 +20,6 @@ rand = "0.8"
 # Latest and greatest dependencies
 rand_derive2 = "0"
 
-[workspace]
-resolver = "2"
-
 # No optimisation for better debugging. Set to 1 for some optimisation
 [profile.dev]
 opt-level = 0
