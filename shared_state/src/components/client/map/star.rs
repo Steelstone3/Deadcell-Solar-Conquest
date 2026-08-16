@@ -1,7 +1,10 @@
 use bevy::{ecs::component::Component, math::Vec2, transform::components::Transform};
 use serde::{Deserialize, Serialize};
 
-use crate::{assets::images::star_sprite::StarSprite, components::client::size_component::SizeComponent, resources::constants::SPACE_TILE_SIZE};
+use crate::{
+    assets::images::star_sprite::StarSprite, components::client::size_component::SizeComponent,
+    resources::constants::SPACE_TILE_SIZE,
+};
 
 const SIZE: f32 = SPACE_TILE_SIZE * 4.0; // minimum size
 const STAR_SIZE: Vec2 = Vec2::new(SIZE, SIZE);

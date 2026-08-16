@@ -1,7 +1,8 @@
 use bevy::{ecs::resource::Resource, prelude::Entity};
 
 use crate::{
-    assets::images::starship_sprite::StarshipType, components::client::user_interface::spawn_selection::SpawnSelection,
+    assets::images::starship_sprite::StarshipType,
+    components::client::user_interface::spawn_selection::SpawnSelection,
 };
 
 #[derive(Resource)]

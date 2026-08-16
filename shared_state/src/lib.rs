@@ -1,4 +1,4 @@
-pub mod components;
 pub mod assets;
-pub mod resources;
+pub mod components;
 pub mod events;
+pub mod resources;
