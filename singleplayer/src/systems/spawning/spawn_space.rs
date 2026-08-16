@@ -7,7 +7,9 @@ use bevy::{
     transform::components::Transform,
 };
 use deadcell_solar_conquest_shared::{
-    components::client::map::space::Space, events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}, resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
+    components::client::map::space::Space,
+    events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+    resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
 };
 use rand::random;
 

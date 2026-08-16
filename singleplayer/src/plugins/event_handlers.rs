@@ -3,7 +3,9 @@ use bevy::{
     prelude::{App, Plugin},
 };
 
-use crate::events::event_handlers::{spawn_animated_sprite::spawn_animated_sprite, spawn_sprite::spawn_sprite};
+use crate::events::event_handlers::{
+    spawn_animated_sprite::spawn_animated_sprite, spawn_sprite::spawn_sprite,
+};
 
 pub struct EventHandlersPlugin;
 

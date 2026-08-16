@@ -1,6 +1,4 @@
-use crate::{
-    queries::user_interface_queries::SelectionQuery,
-};
+use crate::queries::user_interface_queries::SelectionQuery;
 use bevy::{
     ecs::system::ResMut,
     input::{ButtonInput, keyboard::KeyCode},

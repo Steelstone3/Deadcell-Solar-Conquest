@@ -5,7 +5,13 @@ use bevy::{
     transform::components::Transform,
 };
 use deadcell_solar_conquest_shared::{
-    assets::images::starship_sprite::{StarbaseSprite, StarbaseType, StarshipType}, components::client::{faction::{starbase::Starbase, starship::StarshipSpeed}, user_interface::{controllable::Movement, selection::Selectable}}, events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}, resources::{faction::PlayerFaction, game_settings::GameSettings},
+    assets::images::starship_sprite::{StarbaseSprite, StarbaseType, StarshipType},
+    components::client::{
+        faction::{starbase::Starbase, starship::StarshipSpeed},
+        user_interface::{controllable::Movement, selection::Selectable},
+    },
+    events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+    resources::{faction::PlayerFaction, game_settings::GameSettings},
 };
 use rand::Rng;
 
