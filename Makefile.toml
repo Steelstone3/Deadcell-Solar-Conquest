@@ -1,0 +1,54 @@
+[tasks.build]
+workspace = false
+command = "cargo"
+args = ["build"]
+
+[tasks.format]
+workspace = false
+command = "cargo"
+args = ["fmt"]
+
+[tasks.check_client]
+workspace = false
+command = "cargo"
+args = ["check", "-p", "deadcell-solar-conquest-client"]
+
+[tasks.run_client]
+workspace = false
+command = "cargo"
+args = ["run", "-p", "deadcell-solar-conquest-client"]
+
+[tasks.test_client]
+workspace = false
+command = "cargo"
+args = ["test", "-p", "deadcell-solar-conquest-client"]
+
+[tasks.check_server]
+workspace = false
+command = "cargo"
+args = ["check", "-p", "deadcell-solar-conquest-server"]
+
+[tasks.run_server]
+workspace = false
+command = "cargo"
+args = ["run", "-p", "deadcell-solar-conquest-server"]
+
+[tasks.test_server]
+workspace = false
+command = "cargo"
+args = ["test", "-p", "deadcell-solar-conquest-server"]
+
+[tasks.check_shared]
+workspace = false
+command = "cargo"
+args = ["check", "-p", "deadcell-solar-conquest-shared"]
+
+[tasks.run_shared]
+workspace = false
+command = "cargo"
+args = ["run", "-p", "deadcell-solar-conquest-shared"]
+
+[tasks.test_shared]
+workspace = false
+command = "cargo"
+args = ["test", "-p", "deadcell-solar-conquest-shared"]
