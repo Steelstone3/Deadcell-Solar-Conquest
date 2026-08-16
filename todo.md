@@ -27,6 +27,7 @@
   - Armour/ Hull system
     - Visual indicator?
   - Deleted from play when depleted to 0 on both takes damage when shield is down
+  - Formations so multi-selected ships don't converge on a point
 - 4 Economy
   - Very basic energy credit economy
   - 10 per second up to a maximum of 10,000 or something
