@@ -1,8 +1,4 @@
-use crate::{
-    components::{
-        server::server_object::ServerObject,
-    },
-};
+use crate::components::server::server_object::ServerObject;
 use bevy::{
     ecs::{
         message::{MessageReader, MessageWriter},
@@ -12,7 +8,20 @@ use bevy::{
     prelude::Res,
     transform::components::Transform,
 };
-use deadcell_solar_conquest_shared::{assets::images::starship_sprite::{StarshipSprite, StarshipType}, components::client::{faction::starship::{Starship, StarshipSpeed}, user_interface::{controllable::Movement, selection::Selectable, spawn_selection::SpawnSelection}}, events::{input_events::MouseRightClickEvent, spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}}, resources::{faction::PlayerFaction, spawn_menu_selection::SpawnMenuSelection}};
+use deadcell_solar_conquest_shared::{
+    assets::images::starship_sprite::{StarshipSprite, StarshipType},
+    components::client::{
+        faction::starship::{Starship, StarshipSpeed},
+        user_interface::{
+            controllable::Movement, selection::Selectable, spawn_selection::SpawnSelection,
+        },
+    },
+    events::{
+        input_events::MouseRightClickEvent,
+        spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+    },
+    resources::{faction::PlayerFaction, spawn_menu_selection::SpawnMenuSelection},
+};
 
 pub fn spawner(
     mut commands: Commands,

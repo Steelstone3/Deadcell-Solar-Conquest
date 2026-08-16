@@ -3,7 +3,10 @@ use bevy::{
     prelude::{Entity, Transform},
     sprite::Sprite,
 };
-use deadcell_solar_conquest_shared::components::client::{faction::{starbase::Starbase, starship::Starship}, user_interface::selection::{Selectable, SelectedSprite}};
+use deadcell_solar_conquest_shared::components::client::{
+    faction::{starbase::Starbase, starship::Starship},
+    user_interface::selection::{Selectable, SelectedSprite},
+};
 
 #[derive(QueryData)]
 pub struct SelectableQuery {

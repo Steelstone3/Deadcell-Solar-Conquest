@@ -1,5 +1,7 @@
 use bevy::prelude::{Query, Transform, With, Without};
-use deadcell_solar_conquest_shared::components::client::user_interface::{selection::SelectedSprite, tracking::Tracking};
+use deadcell_solar_conquest_shared::components::client::user_interface::{
+    selection::SelectedSprite, tracking::Tracking,
+};
 
 pub fn update_selected_sprite_destination(
     mut selected_sprite_queries: Query<(&Tracking, &mut Transform), With<SelectedSprite>>,
