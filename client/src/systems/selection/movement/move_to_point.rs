@@ -5,8 +5,7 @@ use bevy::{
     prelude::{Query, Res, Transform},
     time::Time,
 };
-
-use crate::components::user_interface::controllable::Movement;
+use deadcell_solar_conquest_shared::components::client::user_interface::controllable::Movement;
 
 // TODO add to queries
 pub fn move_to_point(

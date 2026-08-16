@@ -1,18 +1,18 @@
+use crate::queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery};
 use bevy::{
     ecs::message::{MessageReader, MessageWriter},
     math::{Rect, Vec2},
     prelude::{Commands, Query, ResMut},
 };
-
-use crate::{
-    components::user_interface::{selection::SelectedSprite, tracking::Tracking},
+use deadcell_solar_conquest_shared::{
+    components::client::user_interface::{
+        selection::SelectedSprite, spawn_selection::SpawnSelection, tracking::Tracking,
+    },
     events::{
         selection_events::SelectionAreaEvent,
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     },
-    queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery},
     resources::spawn_menu_selection::SpawnMenuSelection,
-    systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 
 // TODO finish this off

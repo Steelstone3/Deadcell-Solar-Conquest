@@ -7,10 +7,7 @@ use bevy::{
     transform::components::GlobalTransform,
     window::Window,
 };
-
-use crate::events::input_events::{
-    MouseLeftClickEvent, MouseLeftClickModifierEvent, MouseRightClickEvent,
-};
+use deadcell_solar_conquest_shared::events::input_events::{MouseLeftClickEvent, MouseLeftClickModifierEvent, MouseRightClickEvent};
 
 pub fn handle_left_click(
     mouse_button: Res<ButtonInput<MouseButton>>,

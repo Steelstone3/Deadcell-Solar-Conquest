@@ -1,20 +1,20 @@
-use crate::{
-    components::user_interface::{
-        closest_selection::ClosestSelection, selection::SelectedSprite, tracking::Tracking,
-    },
-    events::{
-        input_events::MouseLeftClickEvent,
-        spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-    },
-    queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery},
-    resources::spawn_menu_selection::SpawnMenuSelection,
-    systems::user_interface::interactions::spawn_selection::SpawnSelection,
-};
+use crate::queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery};
 use bevy::{
     ecs::message::{MessageReader, MessageWriter},
     log::info,
     math::Vec3Swizzles,
     prelude::{Commands, In, Query, ResMut},
+};
+use deadcell_solar_conquest_shared::{
+    components::client::user_interface::{
+        closest_selection::ClosestSelection, selection::SelectedSprite,
+        spawn_selection::SpawnSelection, tracking::Tracking,
+    },
+    events::{
+        input_events::MouseLeftClickEvent,
+        spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+    },
+    resources::spawn_menu_selection::SpawnMenuSelection,
 };
 
 pub fn select_sprite(

@@ -4,23 +4,16 @@ use bevy::{
     prelude::Res,
     transform::components::Transform,
 };
-use rand::Rng;
-
-use crate::{
-    assets::images::starship_sprite::{StarbaseSprite, StarbaseType, StarshipType},
-    components::{
-        faction::{starbase::Starbase, starship::StarshipSpeed},
-        user_interface::{controllable::Movement, selection::Selectable},
-    },
-    events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-    resources::faction::PlayerFaction,
+use deadcell_solar_conquest_shared::{
+    assets::images::starship_sprite::{StarbaseSprite, StarbaseType, StarshipType}, components::client::{faction::{starbase::Starbase, starship::StarshipSpeed}, user_interface::{controllable::Movement, selection::Selectable}}, events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}, resources::{faction::PlayerFaction, game_settings::GameSettings},
 };
+use rand::Rng;
 
 pub fn spawn_starter_starbase(
     mut commands: Commands,
     mut spawn_sprite_event: MessageWriter<SpawnSpriteEvent>,
     player_faction: Res<PlayerFaction>,
-    settings: Res<crate::resources::game_settings::GameSettings>,
+    settings: Res<GameSettings>,
 ) {
     let mut rng = rand::thread_rng();
     let angle = 360.0 / rng.gen_range(1.0..4.0) as f32;

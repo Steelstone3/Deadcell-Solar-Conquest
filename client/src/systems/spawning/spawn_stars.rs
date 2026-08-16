@@ -4,16 +4,15 @@ use bevy::{
     prelude::Res,
     transform::components::Transform,
 };
-use rand::{Rng, random};
-
-use crate::{
-    components::map::star::Star,
+use deadcell_solar_conquest_shared::{
+    components::client::map::star::Star,
     events::{
         spawn_animated_sprite_event::{SpawnAnimatedSprite, SpawnAnimatedSpriteEvent},
         spawn_sprite_event::SpawnSprite,
     },
     resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
 };
+use rand::{Rng, random};
 
 // TODO better spacing
 // TODO better distribution across the map (maybe spawn zones)

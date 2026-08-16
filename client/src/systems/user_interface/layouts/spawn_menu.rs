@@ -1,10 +1,18 @@
 use bevy::prelude::{Res, ResMut};
 use bevy_egui::{EguiContexts, egui};
-
-use crate::{
+use deadcell_solar_conquest_shared::{
     assets::images::starship_sprite::StarshipType,
-    resources::{faction::PlayerFaction, spawn_menu_selection::SpawnMenuSelection},
-    systems::user_interface::interactions::spawn_selection::SpawnSelection,
+    components::client::user_interface::spawn_selection::SpawnSelection,
+    resources::{
+        faction::{
+            Faction::{
+                self, GranokImperialEmpire, StarGuardAlliance, UniversalMechanicalContigent,
+                VoidwalkerCollective,
+            },
+            PlayerFaction,
+        },
+        spawn_menu_selection::SpawnMenuSelection,
+    },
 };
 
 pub fn spawn_menu(
@@ -39,30 +47,30 @@ pub fn spawn_menu(
 
 fn items_from_faction(player_faction: &PlayerFaction) -> Vec<(&str, StarshipType)> {
     match player_faction.player_faction {
-        crate::resources::faction::Faction::GranokImperialEmpire => vec![
+        GranokImperialEmpire => vec![
             ("Corvette", StarshipType::Corvette),
             ("Destroyer", StarshipType::Destroyer),
             ("Fighter", StarshipType::Fighter),
         ],
-        crate::resources::faction::Faction::StarGuardAlliance => vec![
+        StarGuardAlliance => vec![
             ("Battle Cruiser", StarshipType::BattleCruiser),
             ("Battleship", StarshipType::Battleship),
             ("Corvette", StarshipType::Corvette),
             ("Destroyer", StarshipType::Destroyer),
             ("Torpedo Ship", StarshipType::TorpedoShip),
         ],
-        crate::resources::faction::Faction::UniversalMechanicalContigent => {
+        UniversalMechanicalContigent => {
             vec![
                 ("Destroyer", StarshipType::Destroyer),
                 ("Intel Ship", StarshipType::IntelShip),
             ]
         }
-        crate::resources::faction::Faction::VoidwalkerCollective => {
+        VoidwalkerCollective => {
             vec![
                 ("Dreadnought", StarshipType::Dreadnought),
                 ("Fighter", StarshipType::Fighter),
             ]
         }
-        crate::resources::faction::Faction::None => vec![],
+        Faction::None => vec![],
     }
 }

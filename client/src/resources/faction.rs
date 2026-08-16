@@ -1,5 +1,5 @@
-use crate::assets::images::starship_sprite::StarshipSprite;
 use bevy::prelude::Resource;
+use deadcell_solar_conquest_shared::assets::images::starship_sprite::StarshipSprite;
 use serde::{Deserialize, Serialize};
 
 #[derive(Resource, Default, Clone, Copy)]

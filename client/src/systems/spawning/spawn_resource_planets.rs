@@ -1,15 +1,15 @@
-use crate::{
-    components::map::planet::{PLANET_CLOSEST_DISTANCE_TO_STAR, Planet},
-    events::{
-        spawn_animated_sprite_event::{SpawnAnimatedSprite, SpawnAnimatedSpriteEvent},
-        spawn_sprite_event::SpawnSprite,
-    },
-    queries::space_queries::StarQuery,
-};
+use crate::queries::space_queries::StarQuery;
 use bevy::{
     ecs::{message::MessageWriter, system::Commands},
     math::Quat,
     prelude::Query,
+};
+use deadcell_solar_conquest_shared::{
+    components::client::map::planet::{PLANET_CLOSEST_DISTANCE_TO_STAR, Planet},
+    events::{
+        spawn_animated_sprite_event::{SpawnAnimatedSprite, SpawnAnimatedSpriteEvent},
+        spawn_sprite_event::SpawnSprite,
+    },
 };
 use rand::{Rng, random};
 use std::cmp;

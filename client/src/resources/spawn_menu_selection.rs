@@ -1,7 +1,6 @@
 use bevy::{ecs::resource::Resource, prelude::Entity};
-
+use deadcell_solar_conquest_shared::assets::images::starship_sprite::StarshipType;
 use crate::{
-    assets::images::starship_sprite::StarshipType,
     systems::user_interface::interactions::spawn_selection::SpawnSelection,
 };
 

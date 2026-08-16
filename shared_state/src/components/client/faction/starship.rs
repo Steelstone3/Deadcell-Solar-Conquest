@@ -1,7 +1,7 @@
 use crate::{
     assets::images::starship_sprite::{StarshipSprite, StarshipType}, components::client::size_component::SizeComponent, resources::{constants::TILE_SIZE, faction::Faction},
 };
-use bevy::{ecs::component::Component, math::Vec2, prelude::Transform};
+use bevy::{ecs::component::Component, math::Vec2};
 use serde::{Deserialize, Serialize};
 
 const SIZE: f32 = TILE_SIZE * 16.0;

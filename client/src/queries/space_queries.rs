@@ -1,6 +1,5 @@
 use bevy::{ecs::query::QueryData, transform::components::Transform};
-
-use crate::components::map::star::Star;
+use deadcell_solar_conquest_shared::components::client::map::star::Star;
 
 #[derive(QueryData)]
 pub struct StarQuery {

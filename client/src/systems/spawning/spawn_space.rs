@@ -6,13 +6,10 @@ use bevy::{
     math::Vec3,
     transform::components::Transform,
 };
-use rand::random;
-
-use crate::{
-    components::map::space::Space,
-    events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-    resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
+use deadcell_solar_conquest_shared::{
+    components::client::map::space::Space, events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}, resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
 };
+use rand::random;
 
 pub fn spawn_space(
     mut commands: Commands,
