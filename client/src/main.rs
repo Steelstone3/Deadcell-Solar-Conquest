@@ -1,17 +1,11 @@
 use bevy::{prelude::*, window::WindowResolution};
 use bevy_egui::EguiPlugin;
-use bevy_renet::{
-    RenetClientPlugin, RenetServerPlugin,
-    netcode::{NetcodeClientPlugin, NetcodeServerPlugin},
-};
+use bevy_renet::{RenetServerPlugin, netcode::NetcodeServerPlugin};
 use plugins::{
     event_handlers::EventHandlersPlugin, events::EventsPlugin, resources::ResourcesPlugin,
     running::RunningPlugin, server_start::ServerStartPlugin, user_interface::UserInterfacePlugin,
 };
 
-use crate::plugins::client_start::ClientStartPlugin;
-
-mod assets;
 mod client;
 mod components;
 mod events;
