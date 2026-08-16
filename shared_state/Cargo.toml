@@ -13,13 +13,12 @@ include = []
 
 [dependencies]
 # Fixed version dependencies
-bevy_renet = { version = "5" }
+bevy = { version = "0.19", features = ["serialize"] }
 serde = { version = "1", features = ["derive"] }
-tokio = { version = "1", features = ["full"] }
-bincode-next = { version = "3", features = ["serde"] }
+rand = "0.8"
 
-[dev-dependencies]
-renet_visualizer = "3"
+# Latest and greatest dependencies
+rand_derive2 = "0"
 
 [workspace]
 resolver = "2"
