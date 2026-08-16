@@ -17,7 +17,7 @@ bevy_renet = { version = "5" }
 bevy_replicon = "0.42"
 bincode-next = { version = "3", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }
-rand = "0.10.2"
+rand = "0.8"
 reedline = "0.50.0"
 
 # Ctrl-C handler for graceful shutdown
