@@ -1,6 +1,12 @@
 use crate::{
-    assets::images::starship_sprite::StarshipType, components::user_interface::spawn_selection::SpawnSelection, resources::{
-        faction::{Faction::{self}, PlayerFaction}, spawn_menu_selection::SpawnMenuSelection,
+    assets::images::starship_sprite::StarshipType,
+    components::user_interface::spawn_selection::SpawnSelection,
+    resources::{
+        faction::{
+            Faction::{self},
+            PlayerFaction,
+        },
+        spawn_menu_selection::SpawnMenuSelection,
     },
 };
 use bevy::prelude::{Res, ResMut};

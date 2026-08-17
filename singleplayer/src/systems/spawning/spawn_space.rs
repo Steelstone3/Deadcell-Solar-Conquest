@@ -8,7 +8,11 @@ use bevy::{
 };
 use rand::random;
 
-use crate::{components::map::space::Space, events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}, resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings}};
+use crate::{
+    components::map::space::Space,
+    events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+    resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
+};
 
 pub fn spawn_space(
     mut commands: Commands,

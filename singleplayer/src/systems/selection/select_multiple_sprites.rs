@@ -1,4 +1,14 @@
-use crate::{components::user_interface::{selection::SelectedSprite, spawn_selection::SpawnSelection, tracking::Tracking}, events::{selection_events::SelectionAreaEvent, spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}}, queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery}, resources::spawn_menu_selection::SpawnMenuSelection};
+use crate::{
+    components::user_interface::{
+        selection::SelectedSprite, spawn_selection::SpawnSelection, tracking::Tracking,
+    },
+    events::{
+        selection_events::SelectionAreaEvent,
+        spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+    },
+    queries::user_interface_queries::{SelectableQuery, SelectionQuery, TypeCheckQuery},
+    resources::spawn_menu_selection::SpawnMenuSelection,
+};
 use bevy::{
     ecs::message::{MessageReader, MessageWriter},
     math::{Rect, Vec2},

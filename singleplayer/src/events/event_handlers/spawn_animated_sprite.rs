@@ -9,7 +9,10 @@ use bevy::{
     sprite::Sprite,
 };
 
-use crate::{components::user_interface::animation_timer::AnimationTimer, events::spawn_animated_sprite_event::SpawnAnimatedSpriteEvent};
+use crate::{
+    components::user_interface::animation_timer::AnimationTimer,
+    events::spawn_animated_sprite_event::SpawnAnimatedSpriteEvent,
+};
 
 pub fn spawn_animated_sprite(
     mut commands: Commands,

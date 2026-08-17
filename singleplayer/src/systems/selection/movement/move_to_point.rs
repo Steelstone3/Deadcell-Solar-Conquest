@@ -1,10 +1,10 @@
-use std::ops::Add;
+use crate::components::user_interface::controllable::Movement;
 use bevy::{
     math::{Quat, Vec3, Vec3Swizzles},
     prelude::{Query, Res, Transform},
     time::Time,
 };
-use crate::components::user_interface::controllable::Movement;
+use std::ops::Add;
 
 // TODO add to queries
 pub fn move_to_point(

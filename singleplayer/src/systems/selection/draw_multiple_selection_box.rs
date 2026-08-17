@@ -1,4 +1,12 @@
-use crate::{components::user_interface::multiple_selection_box::MultipleSelectionBox, events::{input_events::MouseLeftClickModifierEvent, selection_events::SelectionAreaEvent, spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}}, queries::selection_queries::SelectionBoxQuery};
+use crate::{
+    components::user_interface::multiple_selection_box::MultipleSelectionBox,
+    events::{
+        input_events::MouseLeftClickModifierEvent,
+        selection_events::SelectionAreaEvent,
+        spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
+    },
+    queries::selection_queries::SelectionBoxQuery,
+};
 use bevy::{
     ecs::message::{MessageReader, MessageWriter},
     math::{Vec2, Vec3},

@@ -9,10 +9,10 @@ use crate::plugins::game_start::GameStartPlugin;
 
 mod assets;
 mod components;
-mod resources;
 mod events;
 mod plugins;
 mod queries;
+mod resources;
 mod systems;
 
 #[deny(clippy::unwrap_used)]
