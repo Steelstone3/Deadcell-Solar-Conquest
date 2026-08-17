@@ -2,7 +2,7 @@
 
 ## Steps
 
-- Refactor single player to be independent
+- [x] Refactor single player to be independent
 - Move sprite enums into client
 - Move types into shared
 - Move client components into client
