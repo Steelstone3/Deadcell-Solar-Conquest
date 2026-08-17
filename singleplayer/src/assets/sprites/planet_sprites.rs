@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
 #[derive(RandGen, Copy, Clone, Debug, PartialEq, Reflect, Deserialize, Serialize)]
-pub enum PlanetSprite {
+pub enum PlanetSprites {
     AridWorld1,
     AridWorld2,
     AridWorld3,
@@ -77,82 +77,82 @@ pub enum PlanetSprite {
     // Galaxy5,
 }
 
-impl Display for PlanetSprite {
+impl Display for PlanetSprites {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            PlanetSprite::AridWorld1 => {
+            PlanetSprites::AridWorld1 => {
                 write!(formatter, "images/planets/arid_world_1.png")
             }
-            PlanetSprite::AridWorld2 => {
+            PlanetSprites::AridWorld2 => {
                 write!(formatter, "images/planets/arid_world_2.png")
             }
-            PlanetSprite::AridWorld3 => {
+            PlanetSprites::AridWorld3 => {
                 write!(formatter, "images/planets/arid_world_3.png")
             }
-            PlanetSprite::AridWorld4 => {
+            PlanetSprites::AridWorld4 => {
                 write!(formatter, "images/planets/arid_world_4.png")
             }
-            PlanetSprite::AridWorld5 => {
+            PlanetSprites::AridWorld5 => {
                 write!(formatter, "images/planets/arid_world_5.png")
             }
-            PlanetSprite::AridWorld6 => {
+            PlanetSprites::AridWorld6 => {
                 write!(formatter, "images/planets/arid_world_6.png")
             }
-            PlanetSprite::AridWorld7 => {
+            PlanetSprites::AridWorld7 => {
                 write!(formatter, "images/planets/arid_world_7.png")
             }
-            PlanetSprite::AridWorld8 => {
+            PlanetSprites::AridWorld8 => {
                 write!(formatter, "images/planets/arid_world_8.png")
             }
-            PlanetSprite::AridWorld9 => {
+            PlanetSprites::AridWorld9 => {
                 write!(formatter, "images/planets/arid_world_9.png")
             }
-            PlanetSprite::AridWorld10 => {
+            PlanetSprites::AridWorld10 => {
                 write!(formatter, "images/planets/arid_world_10.png")
             }
-            PlanetSprite::BarrenWorld1 => {
+            PlanetSprites::BarrenWorld1 => {
                 write!(formatter, "images/planets/barren_world_1.png")
             }
-            PlanetSprite::BarrenWorld2 => {
+            PlanetSprites::BarrenWorld2 => {
                 write!(formatter, "images/planets/barren_world_2.png")
             }
-            PlanetSprite::BarrenWorld3 => {
+            PlanetSprites::BarrenWorld3 => {
                 write!(formatter, "images/planets/barren_world_3.png")
             }
-            PlanetSprite::BarrenWorld4 => {
+            PlanetSprites::BarrenWorld4 => {
                 write!(formatter, "images/planets/barren_world_4.png")
             }
-            PlanetSprite::BarrenWorld5 => {
+            PlanetSprites::BarrenWorld5 => {
                 write!(formatter, "images/planets/barren_world_5.png")
             }
-            PlanetSprite::BarrenWorld6 => {
+            PlanetSprites::BarrenWorld6 => {
                 write!(formatter, "images/planets/barren_world_6.png")
             }
-            PlanetSprite::BarrenWorld7 => {
+            PlanetSprites::BarrenWorld7 => {
                 write!(formatter, "images/planets/barren_world_7.png")
             }
-            PlanetSprite::BarrenWorld8 => {
+            PlanetSprites::BarrenWorld8 => {
                 write!(formatter, "images/planets/barren_world_8.png")
             }
-            PlanetSprite::BarrenWorld9 => {
+            PlanetSprites::BarrenWorld9 => {
                 write!(formatter, "images/planets/barren_world_9.png")
             }
-            PlanetSprite::BarrenWorld10 => {
+            PlanetSprites::BarrenWorld10 => {
                 write!(formatter, "images/planets/barren_world_10.png")
             }
-            PlanetSprite::GasGiantWorld1 => {
+            PlanetSprites::GasGiantWorld1 => {
                 write!(formatter, "images/planets/gas_giant_world_1.png")
             }
-            PlanetSprite::GasGiantWorld2 => {
+            PlanetSprites::GasGiantWorld2 => {
                 write!(formatter, "images/planets/gas_giant_world_2.png")
             }
-            PlanetSprite::GasGiantWorld3 => {
+            PlanetSprites::GasGiantWorld3 => {
                 write!(formatter, "images/planets/gas_giant_world_3.png")
             }
-            PlanetSprite::GasGiantWorld4 => {
+            PlanetSprites::GasGiantWorld4 => {
                 write!(formatter, "images/planets/gas_giant_world_4.png")
             }
-            PlanetSprite::GasGiantWorld5 => {
+            PlanetSprites::GasGiantWorld5 => {
                 write!(formatter, "images/planets/gas_giant_world_5.png")
             }
             // PlanetSprite::GasGiantWorld6 => {
@@ -170,94 +170,94 @@ impl Display for PlanetSprite {
             // PlanetSprite::GasGiantWorld10 => {
             //     write!(formatter, "images/planets/gas_giant_world_10.png")
             // }
-            PlanetSprite::IceWorld1 => {
+            PlanetSprites::IceWorld1 => {
                 write!(formatter, "images/planets/ice_world_1.png")
             }
-            PlanetSprite::IceWorld2 => {
+            PlanetSprites::IceWorld2 => {
                 write!(formatter, "images/planets/ice_world_2.png")
             }
-            PlanetSprite::IceWorld3 => {
+            PlanetSprites::IceWorld3 => {
                 write!(formatter, "images/planets/ice_world_3.png")
             }
-            PlanetSprite::IceWorld4 => {
+            PlanetSprites::IceWorld4 => {
                 write!(formatter, "images/planets/ice_world_4.png")
             }
-            PlanetSprite::IceWorld5 => {
+            PlanetSprites::IceWorld5 => {
                 write!(formatter, "images/planets/ice_world_5.png")
             }
-            PlanetSprite::IceWorld6 => {
+            PlanetSprites::IceWorld6 => {
                 write!(formatter, "images/planets/ice_world_6.png")
             }
-            PlanetSprite::IceWorld7 => {
+            PlanetSprites::IceWorld7 => {
                 write!(formatter, "images/planets/ice_world_7.png")
             }
-            PlanetSprite::IceWorld8 => {
+            PlanetSprites::IceWorld8 => {
                 write!(formatter, "images/planets/ice_world_8.png")
             }
-            PlanetSprite::IceWorld9 => {
+            PlanetSprites::IceWorld9 => {
                 write!(formatter, "images/planets/ice_world_9.png")
             }
-            PlanetSprite::IceWorld10 => {
+            PlanetSprites::IceWorld10 => {
                 write!(formatter, "images/planets/ice_world_10.png")
             }
-            PlanetSprite::ParadiseWorld1 => {
+            PlanetSprites::ParadiseWorld1 => {
                 write!(formatter, "images/planets/paradise_world_1.png")
             }
-            PlanetSprite::ParadiseWorld2 => {
+            PlanetSprites::ParadiseWorld2 => {
                 write!(formatter, "images/planets/paradise_world_2.png")
             }
-            PlanetSprite::ParadiseWorld3 => {
+            PlanetSprites::ParadiseWorld3 => {
                 write!(formatter, "images/planets/paradise_world_3.png")
             }
-            PlanetSprite::ParadiseWorld4 => {
+            PlanetSprites::ParadiseWorld4 => {
                 write!(formatter, "images/planets/paradise_world_4.png")
             }
-            PlanetSprite::ParadiseWorld5 => {
+            PlanetSprites::ParadiseWorld5 => {
                 write!(formatter, "images/planets/paradise_world_5.png")
             }
-            PlanetSprite::ParadiseWorld6 => {
+            PlanetSprites::ParadiseWorld6 => {
                 write!(formatter, "images/planets/paradise_world_6.png")
             }
-            PlanetSprite::ParadiseWorld7 => {
+            PlanetSprites::ParadiseWorld7 => {
                 write!(formatter, "images/planets/paradise_world_7.png")
             }
-            PlanetSprite::ParadiseWorld8 => {
+            PlanetSprites::ParadiseWorld8 => {
                 write!(formatter, "images/planets/paradise_world_8.png")
             }
-            PlanetSprite::ParadiseWorld9 => {
+            PlanetSprites::ParadiseWorld9 => {
                 write!(formatter, "images/planets/paradise_world_9.png")
             }
-            PlanetSprite::ParadiseWorld10 => {
+            PlanetSprites::ParadiseWorld10 => {
                 write!(formatter, "images/planets/paradise_world_10.png")
             }
-            PlanetSprite::WetWorld1 => {
+            PlanetSprites::WetWorld1 => {
                 write!(formatter, "images/planets/wet_world_1.png")
             }
-            PlanetSprite::WetWorld2 => {
+            PlanetSprites::WetWorld2 => {
                 write!(formatter, "images/planets/wet_world_2.png")
             }
-            PlanetSprite::WetWorld3 => {
+            PlanetSprites::WetWorld3 => {
                 write!(formatter, "images/planets/wet_world_3.png")
             }
-            PlanetSprite::WetWorld4 => {
+            PlanetSprites::WetWorld4 => {
                 write!(formatter, "images/planets/wet_world_4.png")
             }
-            PlanetSprite::WetWorld5 => {
+            PlanetSprites::WetWorld5 => {
                 write!(formatter, "images/planets/wet_world_5.png")
             }
-            PlanetSprite::WetWorld6 => {
+            PlanetSprites::WetWorld6 => {
                 write!(formatter, "images/planets/wet_world_6.png")
             }
-            PlanetSprite::WetWorld7 => {
+            PlanetSprites::WetWorld7 => {
                 write!(formatter, "images/planets/wet_world_7.png")
             }
-            PlanetSprite::WetWorld8 => {
+            PlanetSprites::WetWorld8 => {
                 write!(formatter, "images/planets/wet_world_8.png")
             }
-            PlanetSprite::WetWorld9 => {
+            PlanetSprites::WetWorld9 => {
                 write!(formatter, "images/planets/wet_world_9.png")
             }
-            PlanetSprite::WetWorld10 => {
+            PlanetSprites::WetWorld10 => {
                 write!(formatter, "images/planets/wet_world_10.png")
             } // PlanetSprite::BlackHole1 => {
               //     write!(formatter, "images/planets/black_hole_1.png")

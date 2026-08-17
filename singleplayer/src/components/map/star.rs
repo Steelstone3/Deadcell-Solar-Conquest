@@ -1,5 +1,5 @@
 use crate::{
-    assets::images::star_sprite::StarSprite, components::size_component::SizeComponent,
+    assets::sprites::star_sprites::StarSprites, components::size_component::SizeComponent,
     resources::constants::SPACE_TILE_SIZE,
 };
 use bevy::{ecs::component::Component, math::Vec2};
@@ -10,12 +10,12 @@ const STAR_SIZE: Vec2 = Vec2::new(SIZE, SIZE);
 
 #[derive(Component, Clone, Copy, Deserialize, Serialize)]
 pub struct Star {
-    pub sprite_path: StarSprite,
+    pub sprite_path: StarSprites,
     pub size_component: SizeComponent,
 }
 
 impl Star {
-    pub fn new(sprite_path: StarSprite) -> Self {
+    pub fn new(sprite_path: StarSprites) -> Self {
         Self {
             sprite_path,
             size_component: SizeComponent {

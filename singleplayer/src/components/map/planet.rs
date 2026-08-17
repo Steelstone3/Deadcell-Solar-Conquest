@@ -1,5 +1,5 @@
 use crate::{
-    assets::images::planet_sprite::PlanetSprite, components::size_component::SizeComponent,
+    assets::sprites::planet_sprites::PlanetSprites, components::size_component::SizeComponent,
     resources::constants::SPACE_TILE_SIZE,
 };
 use bevy::{ecs::component::Component, math::Vec2};
@@ -11,12 +11,12 @@ const SIZE: f32 = SPACE_TILE_SIZE * 2.0; // maximum size
 
 #[derive(Component, Clone, Copy, Deserialize, Serialize)]
 pub struct Planet {
-    pub sprite_path: PlanetSprite,
+    pub sprite_path: PlanetSprites,
     pub size_component: SizeComponent,
 }
 
 impl Planet {
-    pub fn new(sprite_path: PlanetSprite) -> Self {
+    pub fn new(sprite_path: PlanetSprites) -> Self {
         let mut rng = rand::thread_rng();
         let planet_sprite_size: f32 = rng.gen_range(SIZE * 0.25..SIZE);
 

@@ -1,4 +1,4 @@
-use crate::assets::images::starship_sprite::StarshipSprite;
+use crate::assets::sprites::starship_sprites::StarshipSprites;
 use bevy::prelude::Resource;
 use serde::{Deserialize, Serialize};
 
@@ -18,25 +18,25 @@ pub enum Faction {
 }
 
 impl Faction {
-    pub fn determine_faction(starship_sprite: StarshipSprite) -> Faction {
+    pub fn determine_faction(starship_sprite: StarshipSprites) -> Faction {
         match starship_sprite {
-            StarshipSprite::GranokImperialEmpireCorvette => Faction::GranokImperialEmpire,
-            StarshipSprite::GranokImperialEmpireDestroyer => Faction::GranokImperialEmpire,
-            StarshipSprite::GranokImperialEmpireFighter => Faction::GranokImperialEmpire,
-            StarshipSprite::StarGuardAllianceBattleCruiser => Faction::StarGuardAlliance,
-            StarshipSprite::StarGuardAllianceBattleship => Faction::StarGuardAlliance,
-            StarshipSprite::StarGuardAllianceCorvette => Faction::StarGuardAlliance,
-            StarshipSprite::StarGuardAllianceDestroyer => Faction::StarGuardAlliance,
-            StarshipSprite::StarGuardAllianceTorpedoShip => Faction::StarGuardAlliance,
-            StarshipSprite::UniversalMechanicalContingentDestroyer => {
+            StarshipSprites::GranokImperialEmpireCorvette => Faction::GranokImperialEmpire,
+            StarshipSprites::GranokImperialEmpireDestroyer => Faction::GranokImperialEmpire,
+            StarshipSprites::GranokImperialEmpireFighter => Faction::GranokImperialEmpire,
+            StarshipSprites::StarGuardAllianceBattleCruiser => Faction::StarGuardAlliance,
+            StarshipSprites::StarGuardAllianceBattleship => Faction::StarGuardAlliance,
+            StarshipSprites::StarGuardAllianceCorvette => Faction::StarGuardAlliance,
+            StarshipSprites::StarGuardAllianceDestroyer => Faction::StarGuardAlliance,
+            StarshipSprites::StarGuardAllianceTorpedoShip => Faction::StarGuardAlliance,
+            StarshipSprites::UniversalMechanicalContingentDestroyer => {
                 Faction::UniversalMechanicalContigent
             }
-            StarshipSprite::UniversalMechanicalContingentIntelShip => {
+            StarshipSprites::UniversalMechanicalContingentIntelShip => {
                 Faction::UniversalMechanicalContigent
             }
-            StarshipSprite::VoidwalkerCollectiveDreadnought => Faction::VoidwalkerCollective,
-            StarshipSprite::VoidwalkerCollectiveFighter => Faction::VoidwalkerCollective,
-            StarshipSprite::None => Faction::None,
+            StarshipSprites::VoidwalkerCollectiveDreadnought => Faction::VoidwalkerCollective,
+            StarshipSprites::VoidwalkerCollectiveFighter => Faction::VoidwalkerCollective,
+            StarshipSprites::None => Faction::None,
         }
     }
 }

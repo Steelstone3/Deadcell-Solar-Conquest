@@ -1,6 +1,7 @@
 use crate::{
-    assets::images::starship_sprite::StarshipType,
-    components::user_interface::spawn_selection::SpawnSelection,
+    components::{
+        types::starship_types::StarshipTypes, user_interface::spawn_selection::SpawnSelection,
+    },
     resources::{
         faction::{
             Faction::{self},
@@ -42,30 +43,30 @@ pub fn spawn_menu(
     }
 }
 
-fn items_from_faction(player_faction: &PlayerFaction) -> Vec<(&str, StarshipType)> {
+fn items_from_faction(player_faction: &PlayerFaction) -> Vec<(&str, StarshipTypes)> {
     match player_faction.player_faction {
         Faction::GranokImperialEmpire => vec![
-            ("Corvette", StarshipType::Corvette),
-            ("Destroyer", StarshipType::Destroyer),
-            ("Fighter", StarshipType::Fighter),
+            ("Corvette", StarshipTypes::Corvette),
+            ("Destroyer", StarshipTypes::Destroyer),
+            ("Fighter", StarshipTypes::Fighter),
         ],
         Faction::StarGuardAlliance => vec![
-            ("Battle Cruiser", StarshipType::BattleCruiser),
-            ("Battleship", StarshipType::Battleship),
-            ("Corvette", StarshipType::Corvette),
-            ("Destroyer", StarshipType::Destroyer),
-            ("Torpedo Ship", StarshipType::TorpedoShip),
+            ("Battle Cruiser", StarshipTypes::BattleCruiser),
+            ("Battleship", StarshipTypes::Battleship),
+            ("Corvette", StarshipTypes::Corvette),
+            ("Destroyer", StarshipTypes::Destroyer),
+            ("Torpedo Ship", StarshipTypes::TorpedoShip),
         ],
         Faction::UniversalMechanicalContigent => {
             vec![
-                ("Destroyer", StarshipType::Destroyer),
-                ("Intel Ship", StarshipType::IntelShip),
+                ("Destroyer", StarshipTypes::Destroyer),
+                ("Intel Ship", StarshipTypes::IntelShip),
             ]
         }
         Faction::VoidwalkerCollective => {
             vec![
-                ("Dreadnought", StarshipType::Dreadnought),
-                ("Fighter", StarshipType::Fighter),
+                ("Dreadnought", StarshipTypes::Dreadnought),
+                ("Fighter", StarshipTypes::Fighter),
             ]
         }
         Faction::None => vec![],

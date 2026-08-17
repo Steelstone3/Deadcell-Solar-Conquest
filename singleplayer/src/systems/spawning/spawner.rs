@@ -1,7 +1,8 @@
 use crate::{
-    assets::images::starship_sprite::{StarshipSprite, StarshipType},
+    assets::sprites::starship_sprites::StarshipSprites,
     components::{
         faction::starship::{Starship, StarshipSpeed},
+        types::starship_types::StarshipTypes,
         user_interface::{
             controllable::Movement, selection::Selectable, spawn_selection::SpawnSelection,
         },
@@ -62,14 +63,14 @@ fn spawn_starship(
 ) {
     tracing::info!("starship at {:?}", transform.translation);
 
-    if selected_item.starship_selection != StarshipType::None {
+    if selected_item.starship_selection != StarshipTypes::None {
         let starship = Starship::new_from_type(
             selected_item.starship_selection,
             player_faction.player_faction,
         );
 
         let ship_speed = StarshipSpeed::new_from_starship_type(
-            StarshipSprite::starship_type_convert_from(starship.starship_sprite),
+            StarshipSprites::starship_type_convert_from(starship.starship_sprite),
         );
 
         transform.translation.z = starship.size_component.z_index;

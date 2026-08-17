@@ -1,5 +1,5 @@
 use crate::{
-    assets::images::starship_sprite::StarbaseSprite, components::size_component::SizeComponent,
+    assets::sprites::starbase_sprites::StarbaseSprites, components::size_component::SizeComponent,
     resources::constants::SPACE_TILE_SIZE,
 };
 use bevy::{ecs::component::Component, math::Vec2};
@@ -10,12 +10,12 @@ const SPACE_FACILITY_SIZE: Vec2 = Vec2::new(SIZE, SIZE);
 
 #[derive(Component, Clone, Copy, Serialize, Deserialize)]
 pub struct Starbase {
-    pub sprite_path: StarbaseSprite,
+    pub sprite_path: StarbaseSprites,
     pub size_component: SizeComponent,
 }
 
 impl Starbase {
-    pub fn new(space_facility_sprite: StarbaseSprite) -> Starbase {
+    pub fn new(space_facility_sprite: StarbaseSprites) -> Starbase {
         Self {
             sprite_path: space_facility_sprite,
             size_component: SizeComponent {

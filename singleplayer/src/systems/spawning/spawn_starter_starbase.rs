@@ -1,7 +1,8 @@
 use crate::{
-    assets::images::starship_sprite::{StarbaseSprite, StarbaseType, StarshipType},
+    assets::sprites::starbase_sprites::StarbaseSprites,
     components::{
         faction::{starbase::Starbase, starship::StarshipSpeed},
+        types::{starbase_types::StarbaseTypes, starship_types::StarshipTypes},
         user_interface::{controllable::Movement, selection::Selectable},
     },
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
@@ -24,7 +25,7 @@ pub fn spawn_starter_starbase(
     let mut rng = rand::thread_rng();
     let angle = 360.0 / rng.gen_range(1.0..4.0) as f32;
 
-    let starbase_sprite = StarbaseSprite::sprite_convert_from(player_faction.player_faction);
+    let starbase_sprite = StarbaseSprites::sprite_convert_from(player_faction.player_faction);
 
     let starbase = Starbase::new(starbase_sprite);
 
@@ -36,9 +37,9 @@ pub fn spawn_starter_starbase(
     let transform = Transform::from_xyz(x, y, starbase.size_component.z_index)
         .with_rotation(Quat::from_rotation_z(angle.to_radians()));
 
-    let starbase_type = StarbaseType::starbase_type_convert_from(starbase_sprite);
+    let starbase_type = StarbaseTypes::starbase_type_convert_from(starbase_sprite);
 
-    if starbase_type == StarbaseType::Mothership {
+    if starbase_type == StarbaseTypes::Mothership {
         spawn_sprite_event.write(SpawnSpriteEvent::spawn_sprite(SpawnSprite {
             sprite_path: starbase.sprite_path.to_string(),
             size: starbase.size_component.size,
@@ -49,7 +50,7 @@ pub fn spawn_starter_starbase(
                 .insert(transform)
                 .insert(Movement {
                     target_location: transform.translation,
-                    maximum_speed: StarshipSpeed::new_from_starship_type(StarshipType::Mothership)
+                    maximum_speed: StarshipSpeed::new_from_starship_type(StarshipTypes::Mothership)
                         .speed,
                     current_speed: 0.0,
                 })

@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
 #[derive(RandGen, Copy, Clone, Debug, PartialEq, Reflect, Deserialize, Serialize)]
-pub enum StarSprite {
+pub enum StarSprites {
     Star1,
     Star2,
     Star3,
@@ -17,37 +17,37 @@ pub enum StarSprite {
     Star10,
 }
 
-impl Display for StarSprite {
+impl Display for StarSprites {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            StarSprite::Star1 => {
+            StarSprites::Star1 => {
                 write!(formatter, "images/stars/star_1.png")
             }
-            StarSprite::Star2 => {
+            StarSprites::Star2 => {
                 write!(formatter, "images/stars/star_2.png")
             }
-            StarSprite::Star3 => {
+            StarSprites::Star3 => {
                 write!(formatter, "images/stars/star_3.png")
             }
-            StarSprite::Star4 => {
+            StarSprites::Star4 => {
                 write!(formatter, "images/stars/star_4.png")
             }
-            StarSprite::Star5 => {
+            StarSprites::Star5 => {
                 write!(formatter, "images/stars/star_5.png")
             }
-            StarSprite::Star6 => {
+            StarSprites::Star6 => {
                 write!(formatter, "images/stars/star_6.png")
             }
-            StarSprite::Star7 => {
+            StarSprites::Star7 => {
                 write!(formatter, "images/stars/star_7.png")
             }
-            StarSprite::Star8 => {
+            StarSprites::Star8 => {
                 write!(formatter, "images/stars/star_8.png")
             }
-            StarSprite::Star9 => {
+            StarSprites::Star9 => {
                 write!(formatter, "images/stars/star_9.png")
             }
-            StarSprite::Star10 => {
+            StarSprites::Star10 => {
                 write!(formatter, "images/stars/star_10.png")
             }
         }

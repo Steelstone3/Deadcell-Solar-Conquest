@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
 #[derive(RandGen, Copy, Clone, Debug, PartialEq, Reflect, Serialize, Deserialize)]
-pub enum SpaceSprite {
+pub enum SpaceSprites {
     Space1,
     Space2,
     Space3,
@@ -27,67 +27,67 @@ pub enum SpaceSprite {
     Space20,
 }
 
-impl Display for SpaceSprite {
+impl Display for SpaceSprites {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            SpaceSprite::Space1 => {
+            SpaceSprites::Space1 => {
                 write!(formatter, "images/space/space_1.png")
             }
-            SpaceSprite::Space2 => {
+            SpaceSprites::Space2 => {
                 write!(formatter, "images/space/space_2.png")
             }
-            SpaceSprite::Space3 => {
+            SpaceSprites::Space3 => {
                 write!(formatter, "images/space/space_3.png")
             }
-            SpaceSprite::Space4 => {
+            SpaceSprites::Space4 => {
                 write!(formatter, "images/space/space_4.png")
             }
-            SpaceSprite::Space5 => {
+            SpaceSprites::Space5 => {
                 write!(formatter, "images/space/space_5.png")
             }
-            SpaceSprite::Space6 => {
+            SpaceSprites::Space6 => {
                 write!(formatter, "images/space/space_6.png")
             }
-            SpaceSprite::Space7 => {
+            SpaceSprites::Space7 => {
                 write!(formatter, "images/space/space_7.png")
             }
-            SpaceSprite::Space8 => {
+            SpaceSprites::Space8 => {
                 write!(formatter, "images/space/space_8.png")
             }
-            SpaceSprite::Space9 => {
+            SpaceSprites::Space9 => {
                 write!(formatter, "images/space/space_9.png")
             }
-            SpaceSprite::Space10 => {
+            SpaceSprites::Space10 => {
                 write!(formatter, "images/space/space_10.png")
             }
-            SpaceSprite::Space11 => {
+            SpaceSprites::Space11 => {
                 write!(formatter, "images/space/space_11.png")
             }
-            SpaceSprite::Space12 => {
+            SpaceSprites::Space12 => {
                 write!(formatter, "images/space/space_12.png")
             }
-            SpaceSprite::Space13 => {
+            SpaceSprites::Space13 => {
                 write!(formatter, "images/space/space_13.png")
             }
-            SpaceSprite::Space14 => {
+            SpaceSprites::Space14 => {
                 write!(formatter, "images/space/space_14.png")
             }
-            SpaceSprite::Space15 => {
+            SpaceSprites::Space15 => {
                 write!(formatter, "images/space/space_15.png")
             }
-            SpaceSprite::Space16 => {
+            SpaceSprites::Space16 => {
                 write!(formatter, "images/space/space_16.png")
             }
-            SpaceSprite::Space17 => {
+            SpaceSprites::Space17 => {
                 write!(formatter, "images/space/space_17.png")
             }
-            SpaceSprite::Space18 => {
+            SpaceSprites::Space18 => {
                 write!(formatter, "images/space/space_18.png")
             }
-            SpaceSprite::Space19 => {
+            SpaceSprites::Space19 => {
                 write!(formatter, "images/space/space_19.png")
             }
-            SpaceSprite::Space20 => {
+            SpaceSprites::Space20 => {
                 write!(formatter, "images/space/space_20.png")
             }
         }

@@ -1,6 +1,6 @@
 use crate::{
-    assets::images::starship_sprite::{StarshipSprite, StarshipType},
-    components::size_component::SizeComponent,
+    assets::sprites::starship_sprites::StarshipSprites,
+    components::{size_component::SizeComponent, types::starship_types::StarshipTypes},
     resources::{constants::TILE_SIZE, faction::Faction},
 };
 use bevy::{ecs::component::Component, math::Vec2};
@@ -10,14 +10,14 @@ const SIZE: f32 = TILE_SIZE * 16.0;
 
 #[derive(Component, Serialize, Deserialize, Clone, Copy)]
 pub struct Starship {
-    pub starship_sprite: StarshipSprite,
+    pub starship_sprite: StarshipSprites,
     pub faction: Faction,
     pub size_component: SizeComponent,
 }
 
 impl Starship {
-    pub fn new_from_type(starship_selection: StarshipType, faction: Faction) -> Starship {
-        let starship_sprite = StarshipSprite::sprite_convert_from(starship_selection, faction);
+    pub fn new_from_type(starship_selection: StarshipTypes, faction: Faction) -> Starship {
+        let starship_sprite = StarshipSprites::sprite_convert_from(starship_selection, faction);
         let starship_size = StarshipSize::new_from_starship_type(starship_selection);
 
         Self {
@@ -36,7 +36,7 @@ pub struct StarshipSpeed {
 }
 
 impl StarshipSpeed {
-    pub fn new_from_starship_type(starship_type: StarshipType) -> StarshipSpeed {
+    pub fn new_from_starship_type(starship_type: StarshipTypes) -> StarshipSpeed {
         let extremely_fast_speed: f32 = 1000.0;
         let very_fast_speed: f32 = 750.0;
         let fast_speed: f32 = 500.0;
@@ -47,16 +47,16 @@ impl StarshipSpeed {
 
         Self {
             speed: match starship_type {
-                StarshipType::Fighter => extremely_fast_speed,
-                StarshipType::TorpedoShip => very_fast_speed,
-                StarshipType::BattleCruiser => slow_speed,
-                StarshipType::Dreadnought => very_slow_speed,
-                StarshipType::Corvette => fast_speed,
-                StarshipType::Destroyer => medium_speed,
-                StarshipType::Battleship => slow_speed,
-                StarshipType::IntelShip => very_fast_speed,
-                StarshipType::Mothership => extremely_slow,
-                StarshipType::None => 0.0,
+                StarshipTypes::Fighter => extremely_fast_speed,
+                StarshipTypes::TorpedoShip => very_fast_speed,
+                StarshipTypes::BattleCruiser => slow_speed,
+                StarshipTypes::Dreadnought => very_slow_speed,
+                StarshipTypes::Corvette => fast_speed,
+                StarshipTypes::Destroyer => medium_speed,
+                StarshipTypes::Battleship => slow_speed,
+                StarshipTypes::IntelShip => very_fast_speed,
+                StarshipTypes::Mothership => extremely_slow,
+                StarshipTypes::None => 0.0,
             },
         }
     }
@@ -67,7 +67,7 @@ pub struct StarshipSize {
 }
 
 impl StarshipSize {
-    pub fn new_from_starship_type(starship_type: StarshipType) -> StarshipSize {
+    pub fn new_from_starship_type(starship_type: StarshipTypes) -> StarshipSize {
         let very_small: f32 = 0.4;
         let small: f32 = 0.5;
         let medium: f32 = 1.0;
@@ -77,34 +77,17 @@ impl StarshipSize {
 
         Self {
             scale: match starship_type {
-                StarshipType::Fighter => very_small,
-                StarshipType::TorpedoShip => small,
-                StarshipType::BattleCruiser => large,
-                StarshipType::Dreadnought => large,
-                StarshipType::Corvette => small,
-                StarshipType::Destroyer => medium,
-                StarshipType::Battleship => very_large,
-                StarshipType::IntelShip => very_small,
-                StarshipType::Mothership => extremely_large,
-                StarshipType::None => 0.0,
+                StarshipTypes::Fighter => very_small,
+                StarshipTypes::TorpedoShip => small,
+                StarshipTypes::BattleCruiser => large,
+                StarshipTypes::Dreadnought => large,
+                StarshipTypes::Corvette => small,
+                StarshipTypes::Destroyer => medium,
+                StarshipTypes::Battleship => very_large,
+                StarshipTypes::IntelShip => very_small,
+                StarshipTypes::Mothership => extremely_large,
+                StarshipTypes::None => 0.0,
             },
         }
     }
 }
-
-// #[derive(Serialize, Deserialize)]
-// pub struct SerializableStarship {
-//     pub starship: Starship,
-//     pub transform: Transform,
-//     pub server_object: ServerObject,
-// }
-
-// impl SerializableStarship {
-//     pub fn new(starship: Starship, transform: Transform, server_object: ServerObject) -> Self {
-//         Self {
-//             starship,
-//             transform,
-//             server_object,
-//         }
-//     }
-// }
