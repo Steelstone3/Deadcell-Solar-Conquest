@@ -1,11 +1,11 @@
-use crate::queries::camera_queries::MutableCameraTransformQuery;
+use crate::{
+    queries::camera_queries::MutableCameraTransformQuery,
+    resources::{camera_settings::CameraSettings, keybindings::KeyBindings},
+};
 use bevy::{
     ecs::system::{Query, Res, ResMut},
     input::{ButtonInput, keyboard::KeyCode},
     time::Time,
-};
-use deadcell_solar_conquest_shared::resources::{
-    camera_settings::CameraSettings, keybindings::KeyBindings,
 };
 
 pub fn camera_movement(

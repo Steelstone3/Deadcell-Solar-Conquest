@@ -33,6 +33,7 @@ once_cell = "1.20"
 chrono = "0.4"
 crossbeam = "0.8"
 tracing = "0.1"
+deadcell-solar-conquest-shared = { path = "../shared" }
 
 [dev-dependencies]
 renet_visualizer = "3"

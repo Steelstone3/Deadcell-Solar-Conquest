@@ -1,5 +1,15 @@
 # Todo
 
+## Steps
+
+- Refactor single player to be independent
+- Move sprite enums into client
+- Move types into shared
+- Move client components into client
+- Keep server components in shared?
+
+## Goals
+
 - 1 Client/ Server
   - Dedicated headless state server
   - Client that connect to server
@@ -16,7 +26,7 @@
     - Entity deleted after a certain time has passed
     - Some sort of range calculation
   - 3 Attack patterns
-    - Artilery
+    - Artillery
     - Strafe
     - Swarm
     - Moves into range before attacking

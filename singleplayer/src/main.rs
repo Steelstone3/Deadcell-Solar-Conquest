@@ -7,6 +7,9 @@ use plugins::{
 
 use crate::plugins::game_start::GameStartPlugin;
 
+mod assets;
+mod components;
+mod resources;
 mod events;
 mod plugins;
 mod queries;

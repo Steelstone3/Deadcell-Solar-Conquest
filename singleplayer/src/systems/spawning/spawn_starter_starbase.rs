@@ -1,17 +1,17 @@
-use bevy::{
-    ecs::{message::MessageWriter, system::Commands},
-    math::Quat,
-    prelude::Res,
-    transform::components::Transform,
-};
-use deadcell_solar_conquest_shared::{
+use crate::{
     assets::images::starship_sprite::{StarbaseSprite, StarbaseType, StarshipType},
-    components::client::{
+    components::{
         faction::{starbase::Starbase, starship::StarshipSpeed},
         user_interface::{controllable::Movement, selection::Selectable},
     },
     events::spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     resources::{faction::PlayerFaction, game_settings::GameSettings},
+};
+use bevy::{
+    ecs::{message::MessageWriter, system::Commands},
+    math::Quat,
+    prelude::Res,
+    transform::components::Transform,
 };
 use rand::Rng;
 

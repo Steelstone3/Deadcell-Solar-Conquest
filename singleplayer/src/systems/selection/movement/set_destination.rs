@@ -1,12 +1,12 @@
+use crate::{
+    components::user_interface::{controllable::Movement, spawn_selection::SpawnSelection},
+    events::input_events::MouseRightClickEvent,
+    resources::spawn_menu_selection::SpawnMenuSelection,
+};
 use bevy::{
     ecs::message::MessageReader,
     math::Vec3,
     prelude::{Query, Res, Transform},
-};
-use deadcell_solar_conquest_shared::{
-    components::client::user_interface::{controllable::Movement, spawn_selection::SpawnSelection},
-    events::input_events::MouseRightClickEvent,
-    resources::spawn_menu_selection::SpawnMenuSelection,
 };
 
 //sets the selected controllable target location to where the player right clicked

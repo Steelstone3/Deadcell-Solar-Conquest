@@ -1,11 +1,13 @@
-use crate::queries::user_interface_queries::SelectionQuery;
+use crate::{
+    queries::user_interface_queries::SelectionQuery,
+    resources::spawn_menu_selection::SpawnMenuSelection,
+};
 use bevy::{
     ecs::system::ResMut,
     input::{ButtonInput, keyboard::KeyCode},
     log::tracing,
     prelude::{Commands, Query},
 };
-use deadcell_solar_conquest_shared::resources::spawn_menu_selection::SpawnMenuSelection;
 
 pub fn clear_all_selected(
     mut input: ResMut<ButtonInput<KeyCode>>,

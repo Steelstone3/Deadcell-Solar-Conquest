@@ -1,16 +1,8 @@
-use crate::queries::selection_queries::SelectionBoxQuery;
+use crate::{components::user_interface::multiple_selection_box::MultipleSelectionBox, events::{input_events::MouseLeftClickModifierEvent, selection_events::SelectionAreaEvent, spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent}}, queries::selection_queries::SelectionBoxQuery};
 use bevy::{
     ecs::message::{MessageReader, MessageWriter},
     math::{Vec2, Vec3},
     prelude::{Commands, Query, Transform},
-};
-use deadcell_solar_conquest_shared::{
-    components::client::user_interface::multiple_selection_box::MultipleSelectionBox,
-    events::{
-        input_events::MouseLeftClickModifierEvent,
-        selection_events::SelectionAreaEvent,
-        spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
-    },
 };
 
 // TODO create queries

@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        dir: [./client, ./server, ./shared_state]
+        dir: [./client, ./server, ./shared, ./singleplayer]
     defaults:
       run:
         working-directory: ${{ matrix.dir }}
@@ -50,7 +50,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        dir: [./client, ./server, ./shared_state]
+        dir: [./client, ./server, ./shared, ./singleplayer]
     defaults:
       run:
         working-directory: ${{ matrix.dir }}
@@ -84,7 +84,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        dir: [./client, ./server, ./shared_state]
+        dir: [./client, ./server, ./shared, ./singleplayer]
     defaults:
       run:
         working-directory: ${{ matrix.dir }}

@@ -1,3 +1,4 @@
+use crate::events::spawn_sprite_event::SpawnSpriteEvent;
 use bevy::{
     asset::AssetServer,
     ecs::{
@@ -6,7 +7,6 @@ use bevy::{
     },
     sprite::Sprite,
 };
-use deadcell_solar_conquest_shared::events::spawn_sprite_event::SpawnSpriteEvent;
 
 pub fn spawn_sprite(
     mut commands: Commands,

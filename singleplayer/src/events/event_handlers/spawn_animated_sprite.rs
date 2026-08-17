@@ -8,10 +8,8 @@ use bevy::{
     math::UVec2,
     sprite::Sprite,
 };
-use deadcell_solar_conquest_shared::{
-    components::client::user_interface::animation_timer::AnimationTimer,
-    events::spawn_animated_sprite_event::SpawnAnimatedSpriteEvent,
-};
+
+use crate::{components::user_interface::animation_timer::AnimationTimer, events::spawn_animated_sprite_event::SpawnAnimatedSpriteEvent};
 
 pub fn spawn_animated_sprite(
     mut commands: Commands,

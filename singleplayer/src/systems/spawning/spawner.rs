@@ -1,15 +1,6 @@
-use bevy::{
-    ecs::{
-        message::{MessageReader, MessageWriter},
-        system::Commands,
-    },
-    log::tracing,
-    prelude::Res,
-    transform::components::Transform,
-};
-use deadcell_solar_conquest_shared::{
+use crate::{
     assets::images::starship_sprite::{StarshipSprite, StarshipType},
-    components::client::{
+    components::{
         faction::starship::{Starship, StarshipSpeed},
         user_interface::{
             controllable::Movement, selection::Selectable, spawn_selection::SpawnSelection,
@@ -20,6 +11,15 @@ use deadcell_solar_conquest_shared::{
         spawn_sprite_event::{SpawnSprite, SpawnSpriteEvent},
     },
     resources::{faction::PlayerFaction, spawn_menu_selection::SpawnMenuSelection},
+};
+use bevy::{
+    ecs::{
+        message::{MessageReader, MessageWriter},
+        system::Commands,
+    },
+    log::tracing,
+    prelude::Res,
+    transform::components::Transform,
 };
 
 pub fn spawner(

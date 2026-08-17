@@ -1,10 +1,12 @@
-use crate::queries::camera_queries::MutableCameraOrthographicProjectionQuery;
+use crate::{
+    queries::camera_queries::MutableCameraOrthographicProjectionQuery,
+    resources::camera_settings::CameraSettings,
+};
 use bevy::{
     camera::Projection,
     ecs::system::{Query, ResMut},
     input::{ButtonInput, keyboard::KeyCode},
 };
-use deadcell_solar_conquest_shared::resources::camera_settings::CameraSettings;
 use float_lerp::lerp;
 
 pub fn camera_zoom_keyboard(

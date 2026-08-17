@@ -1,11 +1,11 @@
-use crate::events::player_connected::PlayerConnectedEvent;
-use bevy::prelude::{App, Plugin};
-use deadcell_solar_conquest_shared::events::{
+use crate::events::{
     input_events::{MouseLeftClickEvent, MouseLeftClickModifierEvent, MouseRightClickEvent},
+    player_connected::PlayerConnectedEvent,
     selection_events::SelectionAreaEvent,
     spawn_animated_sprite_event::SpawnAnimatedSpriteEvent,
     spawn_sprite_event::SpawnSpriteEvent,
 };
+use bevy::prelude::{App, Plugin};
 
 pub struct EventsPlugin;
 

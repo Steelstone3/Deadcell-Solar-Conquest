@@ -1,16 +1,16 @@
-use bevy::{
-    ecs::{message::MessageWriter, system::Commands},
-    math::Vec3,
-    prelude::Res,
-    transform::components::Transform,
-};
-use deadcell_solar_conquest_shared::{
-    components::client::map::star::Star,
+use crate::{
+    components::map::star::Star,
     events::{
         spawn_animated_sprite_event::{SpawnAnimatedSprite, SpawnAnimatedSpriteEvent},
         spawn_sprite_event::SpawnSprite,
     },
     resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
+};
+use bevy::{
+    ecs::{message::MessageWriter, system::Commands},
+    math::Vec3,
+    prelude::Res,
+    transform::components::Transform,
 };
 use rand::{Rng, random};
 

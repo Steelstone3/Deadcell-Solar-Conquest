@@ -1,5 +1,5 @@
+use crate::components::faction::starbase::Starbase;
 use bevy::{ecs::query::QueryData, transform::components::Transform};
-use deadcell_solar_conquest_shared::components::client::faction::starbase::Starbase;
 
 #[derive(QueryData)]
 pub struct SpaceStationQuery {

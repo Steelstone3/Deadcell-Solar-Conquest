@@ -1,5 +1,5 @@
+use crate::components::user_interface::animation_timer::AnimationTimer;
 use bevy::{ecs::query::QueryData, sprite::Sprite};
-use deadcell_solar_conquest_shared::components::client::user_interface::animation_timer::AnimationTimer;
 
 #[derive(QueryData)]
 #[query_data(mutable)]

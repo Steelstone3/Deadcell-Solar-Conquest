@@ -1,8 +1,8 @@
-use bevy::app::Plugin;
-use deadcell_solar_conquest_shared::resources::{
+use crate::resources::{
     camera_settings::CameraSettings, faction::PlayerFaction, game_settings::GameSettings,
     keybindings::KeyBindings, spawn_menu_selection::SpawnMenuSelection,
 };
+use bevy::app::Plugin;
 
 pub struct ResourcesPlugin;
 

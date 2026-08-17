@@ -1,11 +1,10 @@
 use std::ops::Add;
-
 use bevy::{
     math::{Quat, Vec3, Vec3Swizzles},
     prelude::{Query, Res, Transform},
     time::Time,
 };
-use deadcell_solar_conquest_shared::components::client::user_interface::controllable::Movement;
+use crate::components::user_interface::controllable::Movement;
 
 // TODO add to queries
 pub fn move_to_point(

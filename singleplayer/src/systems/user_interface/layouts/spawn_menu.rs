@@ -1,19 +1,10 @@
-use bevy::prelude::{Res, ResMut};
-use bevy_egui::{EguiContexts, egui};
-use deadcell_solar_conquest_shared::{
-    assets::images::starship_sprite::StarshipType,
-    components::client::user_interface::spawn_selection::SpawnSelection,
-    resources::{
-        faction::{
-            Faction::{
-                self, GranokImperialEmpire, StarGuardAlliance, UniversalMechanicalContigent,
-                VoidwalkerCollective,
-            },
-            PlayerFaction,
-        },
-        spawn_menu_selection::SpawnMenuSelection,
+use crate::{
+    assets::images::starship_sprite::StarshipType, components::user_interface::spawn_selection::SpawnSelection, resources::{
+        faction::{Faction::{self}, PlayerFaction}, spawn_menu_selection::SpawnMenuSelection,
     },
 };
+use bevy::prelude::{Res, ResMut};
+use bevy_egui::{EguiContexts, egui};
 
 pub fn spawn_menu(
     mut contexts: EguiContexts,
@@ -47,25 +38,25 @@ pub fn spawn_menu(
 
 fn items_from_faction(player_faction: &PlayerFaction) -> Vec<(&str, StarshipType)> {
     match player_faction.player_faction {
-        GranokImperialEmpire => vec![
+        Faction::GranokImperialEmpire => vec![
             ("Corvette", StarshipType::Corvette),
             ("Destroyer", StarshipType::Destroyer),
             ("Fighter", StarshipType::Fighter),
         ],
-        StarGuardAlliance => vec![
+        Faction::StarGuardAlliance => vec![
             ("Battle Cruiser", StarshipType::BattleCruiser),
             ("Battleship", StarshipType::Battleship),
             ("Corvette", StarshipType::Corvette),
             ("Destroyer", StarshipType::Destroyer),
             ("Torpedo Ship", StarshipType::TorpedoShip),
         ],
-        UniversalMechanicalContigent => {
+        Faction::UniversalMechanicalContigent => {
             vec![
                 ("Destroyer", StarshipType::Destroyer),
                 ("Intel Ship", StarshipType::IntelShip),
             ]
         }
-        VoidwalkerCollective => {
+        Faction::VoidwalkerCollective => {
             vec![
                 ("Dreadnought", StarshipType::Dreadnought),
                 ("Fighter", StarshipType::Fighter),

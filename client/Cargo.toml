@@ -28,7 +28,7 @@ rand = "0.8"
 rand_derive2 = "0"
 float-lerp = "0"
 rayon = "1"
-deadcell-solar-conquest-shared = { path = "../shared_state" }
+deadcell-solar-conquest-shared = { path = "../shared" }
 
 [dev-dependencies]
 renet_visualizer = "3"
