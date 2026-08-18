@@ -8,7 +8,6 @@ use bevy::{prelude::*, window::WindowResolution};
 use bevy_egui::EguiPlugin;
 use bevy_renet::{RenetClientPlugin, netcode::NetcodeClientPlugin};
 
-mod bevy_client;
 mod components;
 mod events;
 mod plugins;

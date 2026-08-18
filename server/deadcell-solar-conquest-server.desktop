@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Deadcell Solar Conquest Server
-Comment=Run the dedicated server
-Exec=/run/media/system/SSD3/RustStuff/Deadcell-Solar-Conquest/server/run-server.sh
-Path=/run/media/system/SSD3/RustStuff/Deadcell-Solar-Conquest/server
-Terminal=false
-Categories=Game;Utility;
-StartupNotify=true
