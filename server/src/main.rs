@@ -31,5 +31,6 @@ fn create_server_configuration() -> NetcodeServerTransport {
         public_addresses: vec![server_addr],
         authentication: ServerAuthentication::Unsecure,
     };
+
     NetcodeServerTransport::new(server_config, socket).unwrap()
 }
