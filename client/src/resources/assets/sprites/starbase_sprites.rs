@@ -1,4 +1,6 @@
-use crate::{components::types::starbase_types::StarbaseTypes, resources::faction::Faction};
+use deadcell_solar_conquest_shared::resources::{
+    factions::Factions, starbase_types::StarbaseTypes,
+};
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
@@ -12,30 +14,28 @@ pub enum StarbaseSprites {
 }
 
 impl StarbaseSprites {
-    pub fn sprite_convert_from(player_faction: Faction) -> StarbaseSprites {
+    pub fn sprite_convert_from(player_faction: Factions) -> StarbaseSprites {
         match player_faction {
-            Faction::GranokImperialEmpire => StarbaseSprites::GranokImperialEmpireStarbase,
-            Faction::StarGuardAlliance => StarbaseSprites::StarGuardAllianceStarbase,
-            Faction::UniversalMechanicalContigent => {
+            Factions::GranokImperialEmpire => StarbaseSprites::GranokImperialEmpireStarbase,
+            Factions::StarGuardAlliance => StarbaseSprites::StarGuardAllianceStarbase,
+            Factions::UniversalMechanicalContigent => {
                 StarbaseSprites::UniversalMechanicalContigentDreadnoughtMothership
             }
-            Faction::VoidwalkerCollective => StarbaseSprites::VoidwalkerCollectiveMothership,
-            Faction::None => StarbaseSprites::None,
+            Factions::VoidwalkerCollective => StarbaseSprites::VoidwalkerCollectiveMothership,
+            Factions::None => StarbaseSprites::None,
         }
     }
 }
 
-impl StarbaseTypes {
-    pub fn starbase_type_convert_from(starbase_sprite: StarbaseSprites) -> StarbaseTypes {
-        match starbase_sprite {
-            StarbaseSprites::GranokImperialEmpireStarbase => StarbaseTypes::Starbase,
-            StarbaseSprites::StarGuardAllianceStarbase => StarbaseTypes::Starbase,
-            StarbaseSprites::UniversalMechanicalContigentDreadnoughtMothership => {
-                StarbaseTypes::Mothership
-            }
-            StarbaseSprites::VoidwalkerCollectiveMothership => StarbaseTypes::Mothership,
-            StarbaseSprites::None => StarbaseTypes::None,
+pub fn starbase_type_convert_from(starbase_sprite: StarbaseSprites) -> StarbaseTypes {
+    match starbase_sprite {
+        StarbaseSprites::GranokImperialEmpireStarbase => StarbaseTypes::Starbase,
+        StarbaseSprites::StarGuardAllianceStarbase => StarbaseTypes::Starbase,
+        StarbaseSprites::UniversalMechanicalContigentDreadnoughtMothership => {
+            StarbaseTypes::Mothership
         }
+        StarbaseSprites::VoidwalkerCollectiveMothership => StarbaseTypes::Mothership,
+        StarbaseSprites::None => StarbaseTypes::None,
     }
 }
 
