@@ -37,7 +37,7 @@ fn main() {
                 }),
                 ..Default::default()
             }),
-        EguiPlugin::default(),
+        // EguiPlugin::default(),
         RenetClientPlugin,
         NetcodeClientPlugin,
         ClientStartPlugin,
