@@ -2,11 +2,7 @@
 
 ## Steps
 
-- [x] Refactor single player to be independent
-- Move sprite enums into client
-- Move types into shared
-- Move client components into client
-- Keep server components in shared?
+- [ ] Get space spawning on server and replicated on client
 
 ## Goals
 
