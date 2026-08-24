@@ -1,5 +1,6 @@
 use crate::plugins::{
-    events_plugin::EventsPlugin, game_configuration_plugin::GameConfigurationPlugin, server_start_plugin::ServerStartPlugin, spawn_game_universe_plugin::SpawnGameUniversePlugin,
+    game_configuration_plugin::GameConfigurationPlugin, server_start_plugin::ServerStartPlugin,
+    spawn_game_universe_plugin::SpawnGameUniversePlugin,
 };
 use bevy::{
     MinimalPlugins,
@@ -9,6 +10,7 @@ use bevy::{
 use bevy_renet::{
     RenetServer, RenetServerPlugin, netcode::NetcodeServerPlugin, renet::DefaultChannel,
 };
+use deadcell_solar_conquest_shared::plugins::glue_plugin::GluePlugin;
 
 mod plugins;
 mod resources;
@@ -20,13 +22,15 @@ mod systems;
 #[deny(unused_must_use)]
 fn main() {
     let mut app = App::new();
-    app.add_plugins(MinimalPlugins);
-    app.add_plugins(RenetServerPlugin);
-    app.add_plugins(NetcodeServerPlugin);
-    app.add_plugins(ServerStartPlugin);
-    app.add_plugins(EventsPlugin);
-    app.add_plugins(SpawnGameUniversePlugin);
-    app.add_plugins(GameConfigurationPlugin);
+    app.add_plugins((
+        MinimalPlugins,
+        RenetServerPlugin,
+        NetcodeServerPlugin,
+        GluePlugin,
+        ServerStartPlugin,
+        SpawnGameUniversePlugin,
+        GameConfigurationPlugin,
+    ));
 
     app.add_systems(Update, send_server_message_system);
     app.add_systems(Update, recieve_server_message_system);

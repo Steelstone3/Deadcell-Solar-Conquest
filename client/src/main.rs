@@ -1,16 +1,15 @@
 use crate::plugins::{
-    client_start_plugin::ClientStartPlugin, client_update_plugin::ClientUpdatePlugin,
-    event_handlers_plugin::EventHandlersPlugin, events_plugin::EventsPlugin,
-    resources_plugin::ResourcesPlugin, running_plugin::RunningPlugin,
+    client_start_plugin::ClientStartPlugin, resources_plugin::ResourcesPlugin,
+    running_plugin::RunningPlugin, startup_plugin::StartupPlugin,
     user_interface_plugin::UserInterfacePlugin,
 };
 use bevy::{prelude::*, window::WindowResolution};
 use bevy_renet::{
     RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
 };
+use deadcell_solar_conquest_shared::plugins::glue_plugin::GluePlugin;
 
 mod components;
-mod events;
 mod plugins;
 mod queries;
 mod resources;
@@ -41,12 +40,11 @@ fn main() {
         // EguiPlugin::default(),
         RenetClientPlugin,
         NetcodeClientPlugin,
+        GluePlugin,
         ClientStartPlugin,
-        ClientUpdatePlugin,
-        EventsPlugin,
-        EventHandlersPlugin,
         ResourcesPlugin,
         UserInterfacePlugin,
+        StartupPlugin,
         RunningPlugin,
     ));
 
