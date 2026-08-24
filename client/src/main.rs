@@ -9,7 +9,7 @@ use bevy_renet::{
     RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
 };
 use deadcell_solar_conquest_shared::resources::server_configuration_factories::{
-    create_client_configuration, create_transport_configuration,
+    create_client_configuration, create_client_transport_configuration,
 };
 
 mod components;
@@ -53,7 +53,7 @@ fn main() {
         RunningPlugin,
     ));
 
-    let transport = match create_transport_configuration() {
+    let transport = match create_client_transport_configuration() {
         Ok(transport) => transport,
         Err(_) => return,
     };
@@ -62,15 +62,6 @@ fn main() {
 
     app.insert_resource(client);
     app.insert_resource(transport);
-    // app.insert_resource(CurrentClientId(client_id));
-
-    // If any error is found we just panic
-    // #[allow(clippy::never_loop)]
-    // fn panic_on_error(error: On<NetcodeErrorEvent>) {
-    //     panic!("{}", *error);
-    // }
-
-    // app.add_observer(panic_on_error);
 
     app.add_systems(Startup, debug_connection_status);
     app.add_systems(Update, receive_server_message_system);
@@ -103,4 +94,3 @@ fn debug_connection_status(client: Res<RenetClient>) {
         println!("Disconnected.");
     }
 }
-
