@@ -34,12 +34,14 @@ fn main() {
     app.run();
 }
 
+// TODO move to connection configuration system
 fn send_server_message_system(mut server: ResMut<RenetServer>) {
     server.broadcast_message(DefaultChannel::ReliableOrdered, "server message".as_bytes());
 
     println!("I am a message being sent from the server to the client");
 }
 
+// TODO move to connection configuration system
 fn create_server_configuration() -> RenetServer {
     let server = RenetServer::new(ConnectionConfig {
         client_channels_config: DefaultChannel::config(),
@@ -49,6 +51,7 @@ fn create_server_configuration() -> RenetServer {
     server
 }
 
+// TODO move to connection configuration system
 fn create_server_transport_configuration() -> Result<NetcodeServerTransport, Error> {
     let server_addr = SERVER_ADDRESS.parse().unwrap();
     let socket = UdpSocket::bind(server_addr).unwrap();

@@ -68,29 +68,27 @@ fn main() {
     app.insert_resource(client);
     app.insert_resource(transport);
 
-    app.add_systems(Startup, debug_connection_status);
+    app.add_systems(Startup, client_connection_status);
     app.add_systems(Update, receive_server_message_system);
 
     app.run();
 }
 
+// TODO move to connection configuration system
 fn receive_server_message_system(mut client: ResMut<RenetClient>) {
-    println!("Hi");
-
     if !client.is_connected() {
         return;
     }
 
-    // Read all pending messages on the ReliableOrdered channel
     while let Some(message) = client.receive_message(DefaultChannel::ReliableOrdered) {
-        // Convert the raw bytes back into a string
         if let Ok(text) = String::from_utf8(message.to_vec()) {
             println!("Received message from server: {}", text);
         }
     }
 }
 
-fn debug_connection_status(client: Res<RenetClient>) {
+// TODO move to debug plugin
+fn client_connection_status(client: Res<RenetClient>) {
     if client.is_connecting() {
         println!("Connecting to server...");
     } else if client.is_connected() {
@@ -100,6 +98,7 @@ fn debug_connection_status(client: Res<RenetClient>) {
     }
 }
 
+// TODO move to connection configuration system
 fn create_client_configuration() -> RenetClient {
     RenetClient::new(ConnectionConfig {
         client_channels_config: DefaultChannel::config(),
@@ -108,6 +107,7 @@ fn create_client_configuration() -> RenetClient {
     })
 }
 
+// TODO move to connection configuration system
 fn create_client_transport_configuration() -> Result<NetcodeClientTransport, NetcodeError> {
     let authentication = ClientAuthentication::Unsecure {
         server_addr: SERVER_ADDRESS.parse().unwrap(),
