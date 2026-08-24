@@ -37,8 +37,11 @@ fn main() {
     ));
     app.add_observer(on_client_connected);
 
-    // app.add_systems(Update, send_server_message_system);
-    // app.add_systems(Update, recieve_server_message_system);
+    app.insert_resource(server);
+    app.insert_resource(transport);
+
+    app.add_systems(Update, send_server_message_system);
+    app.add_systems(Update, recieve_server_message_system);
 
     app.run();
 }
@@ -60,7 +63,6 @@ fn send_server_message_system(mut server: ResMut<RenetServer>) {
     println!("I am a message being sent from the server to the client");
 }
 
-// TODO example
 fn recieve_server_message_system(mut server: ResMut<RenetServer>) {
     for client_id in server.clients_id() {
         if let Some(message) = server.receive_message(client_id, DefaultChannel::ReliableOrdered) {
@@ -68,6 +70,28 @@ fn recieve_server_message_system(mut server: ResMut<RenetServer>) {
                 "I am a message being received from the client: {}",
                 String::from_utf8_lossy(&message)
             );
+        }
+    }
+}
+
+// TODO move to connection configuration system
+fn create_server_configuration() -> RenetServer {
+    RenetServer::new(ConnectionConfig {
+        client_channels_config: DefaultChannel::config(),
+        server_channels_config: DefaultChannel::config(),
+        ..Default::default()
+    })
+}
+
+// TODO move to connection configuration system
+fn create_server_transport_configuration() -> Result<NetcodeServerTransport, Error> {
+    let server_address = match SERVER_ADDRESS.parse() {
+        Ok(addr) => addr,
+        Err(_) => {
+            return Err(Error::new(
+                std::io::ErrorKind::InvalidInput,
+                "Invalid server address",
+            ));
         }
     }
 }

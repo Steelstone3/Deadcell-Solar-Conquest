@@ -48,8 +48,18 @@ fn main() {
         RunningPlugin,
     ));
 
-    // app.add_systems(Update, receive_server_message_system);
-    // app.add_systems(Update, send_client_message_system);
+    let transport = match create_client_transport_configuration() {
+        Ok(transport) => transport,
+        Err(_) => return,
+    };
+
+    let client = create_client_configuration();
+
+    app.insert_resource(client);
+    app.insert_resource(transport);
+
+    app.add_systems(Update, receive_server_message_system);
+    app.add_systems(Update, send_client_message_system);
 
     app.run();
 }
@@ -68,7 +78,7 @@ fn receive_server_message_system(mut client: ResMut<RenetClient>) {
     }
 }
 
-// TODO example
+// TODO move to connection configuration system
 fn send_client_message_system(mut client: ResMut<RenetClient>) {
     if !client.is_connected() {
         println!("Client disconnected");
