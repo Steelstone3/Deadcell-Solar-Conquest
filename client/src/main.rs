@@ -7,6 +7,7 @@ use bevy::{prelude::*, window::WindowResolution};
 use bevy_renet::{
     RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
 };
+use bevy_replicon::RepliconPlugins;
 use deadcell_solar_conquest_shared::plugins::glue_plugin::GluePlugin;
 
 mod components;
@@ -40,6 +41,7 @@ fn main() {
         // EguiPlugin::default(),
         RenetClientPlugin,
         NetcodeClientPlugin,
+        RepliconPlugins,
         GluePlugin,
         ClientStartPlugin,
         ResourcesPlugin,

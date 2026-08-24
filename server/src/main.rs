@@ -6,10 +6,12 @@ use bevy::{
     MinimalPlugins,
     app::{App, Update},
     ecs::system::ResMut,
+    state::app::StatesPlugin,
 };
 use bevy_renet::{
     RenetServer, RenetServerPlugin, netcode::NetcodeServerPlugin, renet::DefaultChannel,
 };
+use bevy_replicon::RepliconPlugins;
 use deadcell_solar_conquest_shared::plugins::glue_plugin::GluePlugin;
 
 mod plugins;
@@ -24,8 +26,10 @@ fn main() {
     let mut app = App::new();
     app.add_plugins((
         MinimalPlugins,
+        StatesPlugin,
         RenetServerPlugin,
         NetcodeServerPlugin,
+        RepliconPlugins,
         GluePlugin,
         ServerStartPlugin,
         SpawnGameUniversePlugin,

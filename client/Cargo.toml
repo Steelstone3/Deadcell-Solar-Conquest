@@ -33,16 +33,3 @@ deadcell-solar-conquest-shared = { path = "../shared" }
 [dev-dependencies]
 renet_visualizer = "3"
 rstest = "0"
-
-# No optimisation for better debugging. Set to 1 for some optimisation
-[profile.dev]
-opt-level = 0
-
-# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
-[profile.dev.package."*"]
-opt-level = 3
-
-[profile.release]
-opt-level = 'z'
-lto = true
-codegen-units = 1
