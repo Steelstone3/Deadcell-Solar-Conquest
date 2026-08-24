@@ -46,6 +46,7 @@ fn send_server_message_system(mut server: ResMut<RenetServer>) {
     println!("I am a message being sent from the server to the client");
 }
 
+// TODO move to connection configuration system
 fn recieve_server_message_system(mut server: ResMut<RenetServer>) {
     for client_id in server.clients_id() {
         if let Some(message) = server.receive_message(client_id, DefaultChannel::ReliableOrdered) {
