@@ -5,16 +5,12 @@ use crate::plugins::{
     user_interface_plugin::UserInterfacePlugin,
 };
 use bevy::{prelude::*, window::WindowResolution};
-use std::{net::UdpSocket, time::SystemTime};
-// use bevy_egui::EguiPlugin;
 use bevy_renet::{
-    RenetClient, RenetClientPlugin,
-    netcode::{
-        ClientAuthentication, NetcodeClientPlugin, NetcodeClientTransport, NetcodeErrorEvent,
-    },
-    renet::ConnectionConfig,
+    RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
 };
-use deadcell_solar_conquest_shared::resources::lobby::{ClientChannel, ServerChannel};
+use deadcell_solar_conquest_shared::resources::server_configuration_factories::{
+    create_client_configuration, create_transport_configuration,
+};
 
 mod components;
 mod events;
@@ -47,6 +43,7 @@ fn main() {
             }),
         // EguiPlugin::default(),
         RenetClientPlugin,
+        NetcodeClientPlugin,
         ClientStartPlugin,
         ClientUpdatePlugin,
         EventsPlugin,
@@ -56,32 +53,16 @@ fn main() {
         RunningPlugin,
     ));
 
-    // pub const PROTOCOL_ID: u64 = 7;
-
-    app.add_plugins(NetcodeClientPlugin);
-
-    app.configure_sets(Update, Connected.run_if(bevy_renet::client_connected));
-
-    let client = RenetClient::new(connection_config());
-
-    let server_addr = "127.0.0.1:5000".parse().unwrap();
-    let socket = UdpSocket::bind("127.0.0.1:0").unwrap();
-    let current_time = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap();
-    let client_id = current_time.as_millis() as u64;
-    let authentication = ClientAuthentication::Unsecure {
-        client_id,
-        protocol_id: 7,
-        server_addr,
-        user_data: None,
+    let transport = match create_transport_configuration() {
+        Ok(transport) => transport,
+        Err(_) => return,
     };
 
-    let transport = NetcodeClientTransport::new(current_time, authentication, socket).unwrap();
+    let client = create_client_configuration();
 
     app.insert_resource(client);
     app.insert_resource(transport);
-    app.insert_resource(CurrentClientId(client_id));
+    // app.insert_resource(CurrentClientId(client_id));
 
     // If any error is found we just panic
     // #[allow(clippy::never_loop)]
@@ -91,19 +72,35 @@ fn main() {
 
     // app.add_observer(panic_on_error);
 
+    app.add_systems(Startup, debug_connection_status);
+    app.add_systems(Update, receive_server_message_system);
+
     app.run();
 }
 
-#[derive(SystemSet, Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub struct Connected;
+fn receive_server_message_system(mut client: ResMut<RenetClient>) {
+    println!("Hi");
 
-#[derive(Debug, Resource)]
-struct CurrentClientId(u64);
+    if !client.is_connected() {
+        return;
+    }
 
-pub fn connection_config() -> ConnectionConfig {
-    ConnectionConfig {
-        available_bytes_per_tick: 1024 * 1024,
-        client_channels_config: ClientChannel::channels_config(),
-        server_channels_config: ServerChannel::channels_config(),
+    // Read all pending messages on the ReliableOrdered channel
+    while let Some(message) = client.receive_message(DefaultChannel::ReliableOrdered) {
+        // Convert the raw bytes back into a string
+        if let Ok(text) = String::from_utf8(message.to_vec()) {
+            println!("Received message from server: {}", text);
+        }
     }
 }
+
+fn debug_connection_status(client: Res<RenetClient>) {
+    if client.is_connecting() {
+        println!("Connecting to server...");
+    } else if client.is_connected() {
+        println!("Connected!");
+    } else if client.is_disconnected() {
+        println!("Disconnected.");
+    }
+}
+

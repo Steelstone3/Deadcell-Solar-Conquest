@@ -1,15 +1,21 @@
-use bevy::{MinimalPlugins, app::{App, Update}, ecs::system::ResMut};
-use bevy_renet::{
-    RenetServer, RenetServerPlugin, netcode::{NetcodeServerPlugin, NetcodeServerTransport, ServerAuthentication, ServerConfig}, renet::{ConnectionConfig, DefaultChannel},
+use bevy::{
+    MinimalPlugins,
+    app::{App, Update},
+    ecs::system::ResMut,
 };
-use std::{io::Error, net::UdpSocket, time::SystemTime};
+use bevy_renet::{
+    RenetServer, RenetServerPlugin, netcode::NetcodeServerPlugin, renet::DefaultChannel,
+};
+use deadcell_solar_conquest_shared::resources::server_configuration_factories::{
+    create_server_configuration, create_transport_configuration,
+};
 
 fn main() {
-    let transport = match create_server_configuration() {
+    let transport = match create_transport_configuration() {
         Ok(transport) => transport,
         Err(_) => return,
     };
-    let server = RenetServer::new(ConnectionConfig::default());
+    let server = create_server_configuration();
 
     let mut app = App::new();
     app.add_plugins(MinimalPlugins);
@@ -19,59 +25,41 @@ fn main() {
     // Transport layer setup
     app.add_plugins(NetcodeServerPlugin);
     app.insert_resource(transport);
-    
-    app.add_systems(Update,send_message_system);
-    app.add_systems(Update,receive_message_system);
+
+    app.add_systems(Update, send_server_message_system);
 
     app.run();
 }
 
-fn create_server_configuration() -> Result<NetcodeServerTransport, Error> {
-    let server_address = match "127.0.0.1:5000".parse() {
-        Ok(server_address) => server_address,
-        Err(_) => {
-            return Err(Error::new(
-                std::io::ErrorKind::InvalidInput,
-                "Invalid server address",
-            ));
-        }
-    };
+// fn send_message_system(mut server: ResMut<RenetServer>, time: Res<Time>) {
+//     // 1. Advance the internal renet clock so messages process
+//     server.update(time.delta());
 
-    let socket = UdpSocket::bind(server_address).map_err(|e| {
-        Error::new(
-            std::io::ErrorKind::AddrInUse,
-            format!("Failed to bind socket: {}", e),
-        )
-    })?;
-    let server_config = ServerConfig {
-        current_time: SystemTime::now()
-            .duration_since(SystemTime::UNIX_EPOCH)
-            .unwrap_or_default(),
-        max_clients: 64,
-        protocol_id: 0,
-        public_addresses: vec![server_address],
-        authentication: ServerAuthentication::Unsecure,
-    };
+//     // 2. Convert string payload to bytes (Renet expects Bytes or &[u8])
+//     server.broadcast_message(
+//         DefaultChannel::ReliableOrdered,
+//         "server message".as_bytes()
+//     );
 
-    NetcodeServerTransport::new(server_config, socket)
-        .map_err(|e| Error::other(format!("Failed to create server transport: {}", e)))
-}
+//     println!("I am a message being sent from the server to the client");
+// }
 
-fn send_message_system(mut server: ResMut<RenetServer>) {
-    let channel_id = 0;
-    // Send a text message for all clients
-    // The enum DefaultChannel describe the channels used by the default configuration
-    server.broadcast_message(DefaultChannel::ReliableOrdered, "server message");
+fn send_server_message_system(mut server: ResMut<RenetServer>) {
+    server.broadcast_message(DefaultChannel::ReliableOrdered, "server message".as_bytes());
+
     println!("I am a message being sent from the server to the client");
 }
 
-fn receive_message_system(mut server: ResMut<RenetServer>) {
-    // Receive message from all clients
-    for client_id in server.clients_id() {
-        while let Some(message) = server.receive_message(client_id, DefaultChannel::ReliableOrdered)
-        {
-            println!("hello this is the bytes message being recieved");
-            // Handle received message
-        }
-    }
-}
+// TODO server side
+// fn receive_client_message_system(mut server: ResMut<RenetServer>) {
+//     // Iterate over all connected clients to process their incoming messages
+//     for client_id in server.clients_id() {
+//         while let Some(message) = server.receive_message(client_id, DefaultChannel::ReliableOrdered)
+//         {
+//             match String::from_utf8(message.to_vec()) {
+//                 Ok(text) => println!("Received from client {}: {}", client_id, text),
+//                 Err(e) => eprintln!("Failed to parse message bytes from {}: {}", client_id, e),
+//             }
+//         }
+//     }
+// }

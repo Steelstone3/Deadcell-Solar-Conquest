@@ -21,6 +21,7 @@ pub enum StarshipSprites {
     None,
 }
 
+#[allow(dead_code)]
 pub fn starship_type_convert_from(starship_sprite: StarshipSprites) -> StarshipTypes {
     match starship_sprite {
         StarshipSprites::GranokImperialEmpireCorvette => StarshipTypes::Corvette,
@@ -39,6 +40,7 @@ pub fn starship_type_convert_from(starship_sprite: StarshipSprites) -> StarshipT
     }
 }
 
+#[allow(dead_code)]
 pub fn sprite_convert_from(starship_type: StarshipTypes, faction: Factions) -> StarshipSprites {
     match faction {
         Factions::GranokImperialEmpire => match starship_type {

@@ -4,6 +4,7 @@ use deadcell_solar_conquest_shared::resources::{
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
+#[allow(dead_code)]
 #[derive(PartialEq, Clone, Copy, Debug, Serialize, Deserialize)]
 pub enum StarbaseSprites {
     GranokImperialEmpireStarbase,
@@ -14,6 +15,7 @@ pub enum StarbaseSprites {
 }
 
 impl StarbaseSprites {
+    #[allow(dead_code)]
     pub fn sprite_convert_from(player_faction: Factions) -> StarbaseSprites {
         match player_faction {
             Factions::GranokImperialEmpire => StarbaseSprites::GranokImperialEmpireStarbase,
@@ -27,6 +29,7 @@ impl StarbaseSprites {
     }
 }
 
+#[allow(dead_code)]
 pub fn starbase_type_convert_from(starbase_sprite: StarbaseSprites) -> StarbaseTypes {
     match starbase_sprite {
         StarbaseSprites::GranokImperialEmpireStarbase => StarbaseTypes::Starbase,
