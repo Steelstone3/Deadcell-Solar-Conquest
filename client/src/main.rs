@@ -8,11 +8,6 @@ use bevy::{prelude::*, window::WindowResolution};
 use bevy_renet::{
     RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
 };
-use bevy_renet::{
-    netcode::{ClientAuthentication, NetcodeClientTransport, NetcodeError},
-    renet::ConnectionConfig,
-};
-use std::{net::UdpSocket, time::SystemTime};
 
 mod components;
 mod events;
@@ -20,9 +15,6 @@ mod plugins;
 mod queries;
 mod resources;
 mod systems;
-
-const SERVER_ADDRESS: &str = "127.0.0.1:5000";
-const CLIENT_ADDRESS: &str = "127.0.0.1:0";
 
 #[deny(clippy::unwrap_used)]
 #[deny(clippy::expect_used)]
@@ -58,25 +50,16 @@ fn main() {
         RunningPlugin,
     ));
 
-    let transport = match create_client_transport_configuration() {
-        Ok(transport) => transport,
-        Err(_) => return,
-    };
-
-    let client = create_client_configuration();
-
-    app.insert_resource(client);
-    app.insert_resource(transport);
-
-    app.add_systems(Startup, client_connection_status);
     app.add_systems(Update, receive_server_message_system);
+    app.add_systems(Update, send_client_message_system);
 
     app.run();
 }
 
-// TODO move to connection configuration system
+// TODO example
 fn receive_server_message_system(mut client: ResMut<RenetClient>) {
     if !client.is_connected() {
+        println!("Client disconnected");
         return;
     }
 
@@ -87,42 +70,15 @@ fn receive_server_message_system(mut client: ResMut<RenetClient>) {
     }
 }
 
-// TODO move to debug plugin
-fn client_connection_status(client: Res<RenetClient>) {
-    if client.is_connecting() {
-        println!("Connecting to server...");
-    } else if client.is_connected() {
-        println!("Connected!");
-    } else if client.is_disconnected() {
-        println!("Disconnected.");
+// TODO example
+fn send_client_message_system(mut client: ResMut<RenetClient>) {
+    if !client.is_connected() {
+        println!("Client disconnected");
+        return;
     }
-}
 
-// TODO move to connection configuration system
-fn create_client_configuration() -> RenetClient {
-    RenetClient::new(ConnectionConfig {
-        client_channels_config: DefaultChannel::config(),
-        server_channels_config: DefaultChannel::config(),
-        ..Default::default()
-    })
-}
+    let message = "client message";
+    client.send_message(DefaultChannel::ReliableOrdered, message.as_bytes().to_vec());
 
-// TODO move to connection configuration system
-fn create_client_transport_configuration() -> Result<NetcodeClientTransport, NetcodeError> {
-    let authentication = ClientAuthentication::Unsecure {
-        server_addr: match SERVER_ADDRESS.parse() {
-            Ok(addr) => addr,
-            Err(_) => return Err(NetcodeError::ClientNotConnected),
-        },
-        client_id: 0,
-        user_data: None,
-        protocol_id: 0,
-    };
-    let socket = UdpSocket::bind(CLIENT_ADDRESS)?;
-    let current_time = match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
-        Ok(duration) => duration,
-        Err(_) => std::time::Duration::from_millis(0),
-    };
-
-    NetcodeClientTransport::new(current_time, authentication, socket)
+    println!("I am a message being sent from the client to the server");
 }
