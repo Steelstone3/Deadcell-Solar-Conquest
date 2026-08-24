@@ -15,7 +15,7 @@ include = []
 # Fixed version dependencies
 bevy = { version = "0.19", features = ["serialize"] }
 bevy_replicon = "0.42"
-bevy_renet = "5"
+bevy_replicon_renet = "0.18"
 serde = { version = "1", features = ["derive"] }
 rand = "0.8"
 

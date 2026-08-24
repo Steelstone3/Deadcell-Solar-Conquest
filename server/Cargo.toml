@@ -14,7 +14,7 @@ include = []
 [dependencies]
 # Fixed version dependencies
 bevy = { version = "0.19", features = ["serialize", "debug"] }
-bevy_renet = "5"
+bevy_replicon_renet = "0.18"
 bevy_replicon = "0.42"
 bincode-next = { version = "3", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }

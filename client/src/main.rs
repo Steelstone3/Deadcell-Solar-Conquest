@@ -4,10 +4,8 @@ use crate::plugins::{
     user_interface_plugin::UserInterfacePlugin,
 };
 use bevy::{prelude::*, window::WindowResolution};
-use bevy_renet::{
-    RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
-};
 use bevy_replicon::RepliconPlugins;
+use bevy_replicon_renet::{RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel};
 use deadcell_solar_conquest_shared::plugins::glue_plugin::GluePlugin;
 
 mod components;
@@ -27,7 +25,7 @@ fn main() {
             .set(ImagePlugin::default_nearest())
             .set(WindowPlugin {
                 primary_window: Some(Window {
-                    title: "Superior Space Domination".to_string(),
+                    title: "Deadcell Solar Conquest".to_string(),
                     resolution: WindowResolution::new(640, 480),
                     resize_constraints: WindowResizeConstraints {
                         min_width: 640.0,
@@ -50,8 +48,8 @@ fn main() {
         RunningPlugin,
     ));
 
-    app.add_systems(Update, receive_server_message_system);
-    app.add_systems(Update, send_client_message_system);
+    // app.add_systems(Update, receive_server_message_system);
+    // app.add_systems(Update, send_client_message_system);
 
     app.run();
 }

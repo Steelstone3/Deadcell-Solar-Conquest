@@ -1,5 +1,5 @@
 use bevy::ecs::{entity::Entity, resource::Resource};
-use bevy_renet::renet::ClientId;
+use bevy_replicon_renet::renet::ClientId;
 use std::collections::HashMap;
 
 #[derive(Debug, Default, Resource)]

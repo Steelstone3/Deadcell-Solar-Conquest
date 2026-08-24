@@ -1,12 +1,5 @@
-use bevy_renet::{
-    RenetServer, renet::DefaultChannel,
-};
-use bevy_renet::{
-    netcode::{NetcodeServerTransport, ServerAuthentication, ServerConfig},
-    renet::ConnectionConfig,
-};
+use bevy_replicon_renet::{RenetServer, netcode::{NetcodeServerTransport, ServerAuthentication, ServerConfig}, renet::{ConnectionConfig, DefaultChannel}};
 use std::{io::Error, net::UdpSocket, time::SystemTime};
-
 
 // TODO move to connection configuration system
 pub fn create_server_configuration() -> RenetServer {

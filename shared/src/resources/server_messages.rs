@@ -3,7 +3,7 @@ use bevy::{
     ecs::{component::Component, entity::Entity},
     math::Vec3,
 };
-use bevy_renet::renet::ClientId;
+use bevy_replicon_renet::renet::ClientId;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Component)]

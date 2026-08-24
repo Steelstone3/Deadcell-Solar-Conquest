@@ -1,10 +1,12 @@
-use crate::systems::spawn_universe::spawn_space::spawn_space;
-use bevy::app::{App, Plugin, Startup};
+use crate::systems::spawn_universe::spawn_space::spawn_space_on_client_connected;
+use bevy::
+    app::{App, Plugin}
+;
 
-pub struct SpawnGameUniversePlugin;
+pub struct StartupPlugin;
 
-impl Plugin for SpawnGameUniversePlugin {
+impl Plugin for StartupPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, spawn_space);
+        app.add_observer(spawn_space_on_client_connected);
     }
 }

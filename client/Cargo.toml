@@ -18,7 +18,7 @@ wayland-sys = "0.31"
 # Fixed version dependencies
 bevy = { version = "0.19", features = ["serialize"] }
 bevy_egui = "0.42"
-bevy_renet = { version = "5" }
+bevy_replicon_renet = "0.18"
 bevy_replicon = "0.42"
 bincode-next = { version = "3", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }

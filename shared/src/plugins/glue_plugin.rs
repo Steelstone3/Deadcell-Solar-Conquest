@@ -7,6 +7,7 @@ pub struct GluePlugin;
 
 impl Plugin for GluePlugin {
     fn build(&self, app: &mut App) {
-        app.replicate::<Space>().replicate::<Transform>();
+        app.replicate::<Space>();
+        app.replicate::<Transform>();
     }
 }

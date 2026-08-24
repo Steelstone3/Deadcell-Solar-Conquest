@@ -1,16 +1,22 @@
 use bevy::{
-    ecs::system::{Commands, Res},
-    math::Vec3,
-    transform::components::Transform,
+    ecs::{
+        lifecycle::Add, observer::On, system::{Commands, Res},
+    }, math::Vec3, transform::components::Transform,
 };
-use bevy_replicon::shared::replication::Replicated;
+use bevy_replicon::shared::{backend::connected_client::ConnectedClient, replication::Replicated};
 use deadcell_solar_conquest_shared::{
     components::space::Space,
     resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
 };
 use rand::random;
 
-pub fn spawn_space(mut commands: Commands, game_settings: Res<GameSettings>) {
+pub fn spawn_space_on_client_connected(
+    trigger: On<Add, ConnectedClient>,
+    mut commands: Commands,
+    game_settings: Res<GameSettings>,
+) {
+    println!("Client entity {:?} connected! Generating world...", trigger.entity);
+
     let mut space = Space::new(random());
 
     for x in -game_settings.map_size * game_settings.number_of_players as i32

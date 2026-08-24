@@ -1,17 +1,17 @@
 use crate::plugins::{
     game_configuration_plugin::GameConfigurationPlugin, server_start_plugin::ServerStartPlugin,
-    spawn_game_universe_plugin::SpawnGameUniversePlugin,
+    spawn_game_universe_plugin::StartupPlugin,
 };
 use bevy::{
-    MinimalPlugins,
-    app::{App, Update},
-    ecs::system::ResMut,
-    state::app::StatesPlugin,
+    MinimalPlugins, app::App , ecs::{
+        lifecycle::Add,
+        observer::On,
+        system::{Commands, ResMut},
+    }, state::app::StatesPlugin,
 };
-use bevy_renet::{
-    RenetServer, RenetServerPlugin, netcode::NetcodeServerPlugin, renet::DefaultChannel,
-};
-use bevy_replicon::RepliconPlugins;
+
+use bevy_replicon::{RepliconPlugins, shared::backend::connected_client::ConnectedClient};
+use bevy_replicon_renet::{RenetServer, RenetServerPlugin, netcode::NetcodeServerPlugin, renet::DefaultChannel};
 use deadcell_solar_conquest_shared::plugins::glue_plugin::GluePlugin;
 
 mod plugins;
@@ -32,14 +32,25 @@ fn main() {
         RepliconPlugins,
         GluePlugin,
         ServerStartPlugin,
-        SpawnGameUniversePlugin,
+        StartupPlugin,
         GameConfigurationPlugin,
     ));
+    app.add_observer(on_client_connected);
 
-    app.add_systems(Update, send_server_message_system);
-    app.add_systems(Update, recieve_server_message_system);
+    // app.add_systems(Update, send_server_message_system);
+    // app.add_systems(Update, recieve_server_message_system);
 
     app.run();
+}
+
+fn on_client_connected(
+    trigger: On<Add, ConnectedClient>, // Fired when Replicon registers a connected client entity
+    mut commands: Commands,
+) {
+    let client_entity = trigger.entity;
+    println!("New client connected on entity: {:?}", client_entity);
+
+    // Spawn tiles or player data for this client here
 }
 
 // TODO example

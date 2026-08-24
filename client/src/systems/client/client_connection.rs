@@ -1,9 +1,6 @@
-use bevy_renet::{RenetClient, renet::DefaultChannel};
-use bevy_renet::{
-    netcode::{ClientAuthentication, NetcodeClientTransport, NetcodeError},
-    renet::ConnectionConfig,
-};
 use std::{net::UdpSocket, time::SystemTime};
+
+use bevy_replicon_renet::{RenetClient, netcode::{ClientAuthentication, NetcodeClientTransport, NetcodeError}, renet::{ConnectionConfig, DefaultChannel}};
 
 pub fn create_client_configuration() -> RenetClient {
     RenetClient::new(ConnectionConfig {

@@ -1,3 +1,4 @@
+use crate::systems::camera::spawn_camera::spawn_camera;
 use bevy::prelude::*;
 use bevy::{
     app::Plugin,
@@ -9,13 +10,15 @@ use bevy::{
     },
     sprite::Sprite,
 };
+use bevy_replicon::shared::backend::ClientState;
 use deadcell_solar_conquest_shared::components::space::Space;
 
 pub struct StartupPlugin;
 
 impl Plugin for StartupPlugin {
     fn build(&self, app: &mut bevy::app::App) {
-        app.add_systems(Update, on_space_spawned);
+        app.add_systems(Startup, spawn_camera);
+        app.add_systems(Update, on_space_spawned.run_if(in_state(ClientState::Connected)));
     }
 }
 
@@ -25,23 +28,13 @@ fn on_space_spawned(
     asset_server: Res<AssetServer>,
 ) {
     for (entity, space) in &space_query {
-        if let Ok(mut entity_commands) = commands.get_entity(entity) {
-            entity_commands.insert(Sprite::from_image(
-                asset_server.load(&space.sprite_path.to_string()),
-            ));
-        }
+        println!(
+            "Client received Space entity: {:?} with path: {}",
+            entity, space.sprite_path
+        );
+
+        commands.entity(entity).insert(Sprite::from_image(
+            asset_server.load(space.sprite_path.to_string()),
+        ));
     }
 }
-
-// app.add_observer(on_space_spawned);
-// fn on_space_spawned(
-//     mut commands: Commands,
-//     space_queries: Query<Entity, Added<Space>>,
-//     asset_server: Res<AssetServer>,
-// ) {
-//     for entity in &space_queries {
-//         commands
-//             .entity(entity)
-//             .insert((Sprite::from_image(asset_server.load("space.png")),));
-//     }
-// }
