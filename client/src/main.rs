@@ -8,9 +8,11 @@ use bevy::{prelude::*, window::WindowResolution};
 use bevy_renet::{
     RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
 };
-use deadcell_solar_conquest_shared::resources::server_configuration_factories::{
-    create_client_configuration, create_client_transport_configuration,
+use bevy_renet::{
+    netcode::{ClientAuthentication, NetcodeClientTransport, NetcodeError},
+    renet::ConnectionConfig,
 };
+use std::{net::UdpSocket, time::SystemTime};
 
 mod components;
 mod events;
@@ -18,6 +20,9 @@ mod plugins;
 mod queries;
 mod resources;
 mod systems;
+
+const SERVER_ADDRESS: &str = "127.0.0.1:5000";
+const CLIENT_ADDRESS: &str = "127.0.0.1:0";
 
 #[deny(clippy::unwrap_used)]
 #[deny(clippy::expect_used)]
@@ -93,4 +98,27 @@ fn debug_connection_status(client: Res<RenetClient>) {
     } else if client.is_disconnected() {
         println!("Disconnected.");
     }
+}
+
+fn create_client_configuration() -> RenetClient {
+    RenetClient::new(ConnectionConfig {
+        client_channels_config: DefaultChannel::config(),
+        server_channels_config: DefaultChannel::config(),
+        ..Default::default()
+    })
+}
+
+fn create_client_transport_configuration() -> Result<NetcodeClientTransport, NetcodeError> {
+    let authentication = ClientAuthentication::Unsecure {
+        server_addr: SERVER_ADDRESS.parse().unwrap(),
+        client_id: 0,
+        user_data: None,
+        protocol_id: 0,
+    };
+    let socket = UdpSocket::bind(CLIENT_ADDRESS).unwrap();
+    let current_time = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .unwrap();
+
+    NetcodeClientTransport::new(current_time, authentication, socket)
 }
