@@ -1,4 +1,6 @@
-use crate::plugins::server_start_plugin::ServerStartPlugin;
+use crate::plugins::{
+    events_plugin::EventsPlugin, game_configuration_plugin::GameConfigurationPlugin, server_start_plugin::ServerStartPlugin, spawn_game_universe_plugin::SpawnGameUniversePlugin,
+};
 use bevy::{
     MinimalPlugins,
     app::{App, Update},
@@ -22,6 +24,9 @@ fn main() {
     app.add_plugins(RenetServerPlugin);
     app.add_plugins(NetcodeServerPlugin);
     app.add_plugins(ServerStartPlugin);
+    app.add_plugins(EventsPlugin);
+    app.add_plugins(SpawnGameUniversePlugin);
+    app.add_plugins(GameConfigurationPlugin);
 
     app.add_systems(Update, send_server_message_system);
     app.add_systems(Update, recieve_server_message_system);
