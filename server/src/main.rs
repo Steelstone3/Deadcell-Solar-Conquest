@@ -14,6 +14,10 @@ use std::{io::Error, net::UdpSocket, time::SystemTime};
 
 const SERVER_ADDRESS: &str = "127.0.0.1:5000";
 
+#[deny(clippy::unwrap_used)]
+#[deny(clippy::expect_used)]
+#[deny(clippy::panic)]
+#[deny(unused_must_use)]
 fn main() {
     let transport = match create_server_transport_configuration() {
         Ok(transport) => transport,
@@ -43,25 +47,38 @@ fn send_server_message_system(mut server: ResMut<RenetServer>) {
 
 // TODO move to connection configuration system
 fn create_server_configuration() -> RenetServer {
-    let server = RenetServer::new(ConnectionConfig {
+    RenetServer::new(ConnectionConfig {
         client_channels_config: DefaultChannel::config(),
         server_channels_config: DefaultChannel::config(),
         ..Default::default()
-    });
-    server
+    })
 }
 
 // TODO move to connection configuration system
 fn create_server_transport_configuration() -> Result<NetcodeServerTransport, Error> {
-    let server_addr = SERVER_ADDRESS.parse().unwrap();
-    let socket = UdpSocket::bind(server_addr).unwrap();
+    let server_address = match SERVER_ADDRESS.parse() {
+        Ok(addr) => addr,
+        Err(_) => {
+            return Err(Error::new(
+                std::io::ErrorKind::InvalidInput,
+                "Invalid server address",
+            ));
+        }
+    };
+    let socket = UdpSocket::bind(server_address).map_err(|e| {
+        Error::new(
+            std::io::ErrorKind::AddrInUse,
+            format!("Failed to bind server socket: {}", e),
+        )
+    })?;
     let server_config = ServerConfig {
-        current_time: SystemTime::now()
-            .duration_since(SystemTime::UNIX_EPOCH)
-            .unwrap(),
+        current_time: match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
+            Ok(duration) => duration,
+            Err(_) => std::time::Duration::from_millis(0),
+        },
         max_clients: 64,
         protocol_id: 0,
-        public_addresses: vec![server_addr],
+        public_addresses: vec![server_address],
         authentication: ServerAuthentication::Unsecure,
     };
 

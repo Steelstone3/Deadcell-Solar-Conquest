@@ -110,15 +110,19 @@ fn create_client_configuration() -> RenetClient {
 // TODO move to connection configuration system
 fn create_client_transport_configuration() -> Result<NetcodeClientTransport, NetcodeError> {
     let authentication = ClientAuthentication::Unsecure {
-        server_addr: SERVER_ADDRESS.parse().unwrap(),
+        server_addr: match SERVER_ADDRESS.parse() {
+            Ok(addr) => addr,
+            Err(_) => return Err(NetcodeError::ClientNotConnected),
+        },
         client_id: 0,
         user_data: None,
         protocol_id: 0,
     };
-    let socket = UdpSocket::bind(CLIENT_ADDRESS).unwrap();
-    let current_time = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap();
+    let socket = UdpSocket::bind(CLIENT_ADDRESS)?;
+    let current_time = match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
+        Ok(duration) => duration,
+        Err(_) => std::time::Duration::from_millis(0),
+    };
 
     NetcodeClientTransport::new(current_time, authentication, socket)
 }

@@ -17,9 +17,9 @@ pub fn camera_position_reset(
         input.clear_just_pressed(KeyCode::Home) || input.clear_just_pressed(KeyCode::KeyC);
 
     if is_reset_camera_position_pressed {
-        let mut transform = camera.transform;
-        transform.translation = Vec3::new(0.0, 0.0, transform.translation.z);
+        let mut translation = camera.transform.translation;
+        translation = Vec3::new(0.0, 0.0, translation.z);
 
-        camera.transform = transform;
+        camera.transform.translation = translation;
     }
 }
