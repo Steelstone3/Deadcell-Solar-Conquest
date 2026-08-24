@@ -34,6 +34,7 @@ fn main() {
     app.insert_resource(transport);
 
     app.add_systems(Update, send_server_message_system);
+    app.add_systems(Update, recieve_server_message_system);
 
     app.run();
 }
@@ -43,6 +44,17 @@ fn send_server_message_system(mut server: ResMut<RenetServer>) {
     server.broadcast_message(DefaultChannel::ReliableOrdered, "server message".as_bytes());
 
     println!("I am a message being sent from the server to the client");
+}
+
+fn recieve_server_message_system(mut server: ResMut<RenetServer>) {
+    for client_id in server.clients_id() {
+        if let Some(message) = server.receive_message(client_id, DefaultChannel::ReliableOrdered) {
+            println!(
+                "I am a message being received from the client: {}",
+                String::from_utf8_lossy(&message)
+            );
+        }
+    }
 }
 
 // TODO move to connection configuration system

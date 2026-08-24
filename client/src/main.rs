@@ -68,8 +68,8 @@ fn main() {
     app.insert_resource(client);
     app.insert_resource(transport);
 
-    app.add_systems(Startup, client_connection_status);
     app.add_systems(Update, receive_server_message_system);
+    app.add_systems(Update, send_client_message_system);
 
     app.run();
 }
@@ -77,6 +77,7 @@ fn main() {
 // TODO move to connection configuration system
 fn receive_server_message_system(mut client: ResMut<RenetClient>) {
     if !client.is_connected() {
+        println!("Client disconnected");
         return;
     }
 
@@ -87,15 +88,17 @@ fn receive_server_message_system(mut client: ResMut<RenetClient>) {
     }
 }
 
-// TODO move to debug plugin
-fn client_connection_status(client: Res<RenetClient>) {
-    if client.is_connecting() {
-        println!("Connecting to server...");
-    } else if client.is_connected() {
-        println!("Connected!");
-    } else if client.is_disconnected() {
-        println!("Disconnected.");
+// TODO move to connection configuration system
+fn send_client_message_system(mut client: ResMut<RenetClient>) {
+    if !client.is_connected() {
+        println!("Client disconnected");
+        return;
     }
+
+    let message = "client message";
+    client.send_message(DefaultChannel::ReliableOrdered, message.as_bytes().to_vec());
+
+    println!("I am a message being sent from the client to the server");
 }
 
 // TODO move to connection configuration system
