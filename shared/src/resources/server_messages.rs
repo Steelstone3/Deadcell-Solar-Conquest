@@ -14,6 +14,7 @@ pub enum ServerMessages {
     SpawnStar { entity: Entity, translation: Vec3 },
     SpawnPlanet { entity: Entity, translation: Vec3 },
     SpawnStarship { entity: Entity, translation: Vec3 },
+    MoveStarship { entity: Entity, translation: Vec3 },
     DespawnStarship { entity: Entity },
     SpawnProjectile { entity: Entity, translation: Vec3 },
     DespawnProjectile { entity: Entity },
