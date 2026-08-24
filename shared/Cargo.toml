@@ -13,23 +13,13 @@ include = []
 
 [dependencies]
 # Fixed version dependencies
-bevy = { version = "0.19", features = ["serialize"] }
-bevy_renet = "5"
+bevy = { version = "0.20", features = ["serialize"] }
+# https://github.com/simgine/bevy_replicon_renet
+bevy_replicon_renet = "0.21"
+bevy_replicon = "0.45"
+
 serde = { version = "1", features = ["derive"] }
 rand = "0.8"
 
 # Latest and greatest dependencies
 rand_derive2 = "0"
-
-# No optimisation for better debugging. Set to 1 for some optimisation
-[profile.dev]
-opt-level = 0
-
-# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
-[profile.dev.package."*"]
-opt-level = 3
-
-[profile.release]
-opt-level = 'z'
-lto = true
-codegen-units = 1

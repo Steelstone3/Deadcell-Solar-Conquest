@@ -3,7 +3,7 @@
 ## Steps
 
 - [x] Server to client communication
-- [ ] Client to server communication
+- [x] Client to server communication
 - [ ] Specific event passing
 - [ ] Get space spawning on server and replicated on client
 

@@ -1,6 +1,5 @@
 use crate::events::{
     input_events::{MouseLeftClickEvent, MouseLeftClickModifierEvent, MouseRightClickEvent},
-    player_connected::PlayerConnectedEvent,
     selection_events::SelectionAreaEvent,
     spawn_animated_sprite_event::SpawnAnimatedSpriteEvent,
     spawn_sprite_event::SpawnSpriteEvent,
@@ -17,6 +16,5 @@ impl Plugin for EventsPlugin {
         app.add_message::<MouseLeftClickModifierEvent>();
         app.add_message::<MouseRightClickEvent>();
         app.add_message::<SelectionAreaEvent>();
-        app.add_message::<PlayerConnectedEvent>();
     }
 }
