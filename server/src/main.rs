@@ -34,7 +34,7 @@ fn main() {
     app.insert_resource(transport);
 
     app.add_systems(Update, send_server_message_system);
-    app.add_systems(Update, recieve_server_message_system);
+    app.add_systems(Update, recieve_client_message_system);
 
     app.run();
 }
@@ -47,7 +47,7 @@ fn send_server_message_system(mut server: ResMut<RenetServer>) {
 }
 
 // TODO move to connection configuration system
-fn recieve_server_message_system(mut server: ResMut<RenetServer>) {
+fn recieve_client_message_system(mut server: ResMut<RenetServer>) {
     for client_id in server.clients_id() {
         if let Some(message) = server.receive_message(client_id, DefaultChannel::ReliableOrdered) {
             println!(
