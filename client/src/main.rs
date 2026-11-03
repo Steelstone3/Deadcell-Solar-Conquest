@@ -1,18 +1,13 @@
-use crate::{
-    plugins::{
-        client_start_plugin::ClientStartPlugin, resources_plugin::ResourcesPlugin,
-        running_plugin::RunningPlugin, startup_plugin::StartupPlugin,
-        user_interface_plugin::UserInterfacePlugin,
-    },
-    systems::client::client_connection::{
-        create_client_configuration, create_client_transport_configuration,
-    },
+use crate::plugins::{
+    client_start_plugin::ClientStartPlugin, resources_plugin::ResourcesPlugin,
+    running_plugin::RunningPlugin, startup_plugin::StartupPlugin,
+    user_interface_plugin::UserInterfacePlugin,
 };
 use bevy::{prelude::*, window::WindowResolution};
+use bevy_replicon::RepliconPlugins;
 use bevy_replicon_renet::{
     RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
 };
-use bevy_replicon::RepliconPlugins;
 use deadcell_solar_conquest_shared::plugins::glue_plugin::GluePlugin;
 
 mod components;
@@ -54,16 +49,6 @@ fn main() {
         StartupPlugin,
         RunningPlugin,
     ));
-
-    let transport = match create_client_transport_configuration() {
-        Ok(transport) => transport,
-        Err(_) => return,
-    };
-
-    let client = create_client_configuration();
-
-    app.insert_resource(client);
-    app.insert_resource(transport);
 
     app.add_systems(Update, receive_server_message_system);
     app.add_systems(Update, send_client_message_system);
