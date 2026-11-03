@@ -1,7 +1,11 @@
 use bevy::{
     ecs::{
-        lifecycle::Add, observer::On, system::{Commands, Res},
-    }, math::Vec3, transform::components::Transform,
+        lifecycle::Add,
+        observer::On,
+        system::{Commands, Res},
+    },
+    math::Vec3,
+    transform::components::Transform,
 };
 use bevy_replicon::shared::{backend::connected_client::ConnectedClient, replication::Replicated};
 use deadcell_solar_conquest_shared::{
@@ -15,7 +19,10 @@ pub fn spawn_space_on_client_connected(
     mut commands: Commands,
     game_settings: Res<GameSettings>,
 ) {
-    println!("Client entity {:?} connected! Generating world...", trigger.entity);
+    println!(
+        "Client entity {:?} connected! Generating world...",
+        trigger.entity
+    );
 
     let mut space = Space::new(random());
 

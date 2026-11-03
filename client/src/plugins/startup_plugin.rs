@@ -18,7 +18,10 @@ pub struct StartupPlugin;
 impl Plugin for StartupPlugin {
     fn build(&self, app: &mut bevy::app::App) {
         app.add_systems(Startup, spawn_camera);
-        app.add_systems(Update, on_space_spawned.run_if(in_state(ClientState::Connected)));
+        app.add_systems(
+            Update,
+            on_space_spawned.run_if(in_state(ClientState::Connected)),
+        );
     }
 }
 
