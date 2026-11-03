@@ -16,14 +16,38 @@ use deadcell_solar_conquest_shared::resources::{player::Player, starship_types::
 pub fn user_interface_menu(
     mut commands: Commands,
     mut contexts: EguiContexts,
-    // mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
-    mut player: ResMut<Player>,
+    mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
     mut server_address: ResMut<ServerAddress>,
-    mut client: Res<RenetClient>,
+    player: Res<Player>,
+    client: Res<RenetClient>,
 ) {
     match contexts.ctx_mut() {
-        Ok(ctx) => match !client.is_connected() {
-            true => {
+        Ok(ctx) => match client.is_connected() {
+            true => match spawn_menu_selection.selection {
+                SpawnSelection::None => {}
+                SpawnSelection::Other => {}
+                SpawnSelection::MultipleSelections => {}
+                SpawnSelection::Starbase => match contexts.ctx_mut() {
+                    Ok(ctx) => {
+                        egui::Window::new("Spawn Menu").show(ctx, |ui| {
+                            ui.label("Starbase");
+
+                            let items = items_from_faction(&player.faction);
+
+                            for (label, icon) in items {
+                                if ui.add(egui::Button::new(label)).clicked() {
+                                    let selection = icon;
+                                    spawn_menu_selection.starship_selection = selection;
+                                }
+                            }
+                        });
+                    }
+                    Err(_) => {
+                        eprintln!("Starship failed to render");
+                    }
+                },
+            },
+            false => {
                 egui::Window::new("Client Connection Menu").show(ctx, |ui| {
                     ui.label("Server Address");
                     ui.text_edit_singleline(&mut server_address.server_address);
@@ -47,9 +71,6 @@ pub fn user_interface_menu(
                         }
                     }
                 });
-            }
-            false => {
-                eprintln!("Player disconnected")
             }
         },
         Err(_) => eprintln!("Failed to load user interface"),
@@ -80,36 +101,36 @@ pub fn user_interface_menu(
 
 // TODO implent client connection through a "player" resource which will have connection status, id and faction
 
-#[allow(dead_code)]
-pub fn spawn_menu(
-    mut contexts: EguiContexts,
-    mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
-    player_faction: Res<PlayerFaction>,
-) {
-    match spawn_menu_selection.selection {
-        SpawnSelection::None => {}
-        SpawnSelection::Other => {}
-        SpawnSelection::MultipleSelections => {}
-        SpawnSelection::Starbase => {
-            if let Ok(ctx) = contexts.ctx_mut() {
-                egui::Window::new("Spawn Menu").show(ctx, |ui| {
-                    ui.label("Starbase");
+// #[allow(dead_code)]
+// pub fn spawn_menu(
+//     mut contexts: EguiContexts,
+//     mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
+//     player_faction: Res<PlayerFaction>,
+// ) {
+//     match spawn_menu_selection.selection {
+//         SpawnSelection::None => {}
+//         SpawnSelection::Other => {}
+//         SpawnSelection::MultipleSelections => {}
+//         SpawnSelection::Starbase => {
+//             if let Ok(ctx) = contexts.ctx_mut() {
+//                 egui::Window::new("Spawn Menu").show(ctx, |ui| {
+//                     ui.label("Starbase");
 
-                    let items = items_from_faction(&player_faction);
+//                     let items = items_from_faction(&player_faction);
 
-                    for (label, icon) in items {
-                        if ui.add(egui::Button::new(label)).clicked() {
-                            let selection = icon;
-                            spawn_menu_selection.starship_selection = selection;
-                        }
-                    }
-                });
-            } else {
-                eprintln!("Starship failed to render");
-            }
-        }
-    }
-}
+//                     for (label, icon) in items {
+//                         if ui.add(egui::Button::new(label)).clicked() {
+//                             let selection = icon;
+//                             spawn_menu_selection.starship_selection = selection;
+//                         }
+//                     }
+//                 });
+//             } else {
+//                 eprintln!("Starship failed to render");
+//             }
+//         }
+//     }
+// }
 
 fn items_from_faction(player_faction: &PlayerFaction) -> Vec<(&str, StarshipTypes)> {
     match player_faction.faction {

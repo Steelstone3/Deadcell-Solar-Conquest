@@ -9,6 +9,7 @@ impl Plugin for ClientStartPlugin {
     fn build(&self, app: &mut bevy::app::App) {
         app.insert_resource(create_client_configuration());
 
+        // Done from the UI
         // let transport = match create_client_transport_configuration() {
         //     Ok(transport) => transport,
         //     Err(_) => {
