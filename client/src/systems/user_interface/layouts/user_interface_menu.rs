@@ -24,7 +24,25 @@ pub fn user_interface_menu(
     match contexts.ctx_mut() {
         Ok(ctx) => match client.is_connected() {
             true => match spawn_menu_selection.selection {
-                SpawnSelection::None => {}
+                SpawnSelection::None => match contexts.ctx_mut() {
+                    Ok(ctx) => {
+                        egui::Window::new("Spawn Menu").show(ctx, |ui| {
+                            ui.label("Starbase");
+
+                            let items = items_from_faction(&player.faction);
+
+                            for (label, icon) in items {
+                                if ui.add(egui::Button::new(label)).clicked() {
+                                    let selection = icon;
+                                    spawn_menu_selection.starship_selection = selection;
+                                }
+                            }
+                        });
+                    }
+                    Err(_) => {
+                        eprintln!("Starship failed to render");
+                    }
+                },
                 SpawnSelection::Other => {}
                 SpawnSelection::MultipleSelections => {}
                 SpawnSelection::Starbase => match contexts.ctx_mut() {
@@ -74,6 +92,36 @@ pub fn user_interface_menu(
             }
         },
         Err(_) => eprintln!("Failed to load user interface"),
+    }
+}
+
+fn items_from_faction(player_faction: &PlayerFaction) -> Vec<(&str, StarshipTypes)> {
+    match player_faction.faction {
+        Factions::GranokImperialEmpire => vec![
+            ("Corvette", StarshipTypes::Corvette),
+            ("Destroyer", StarshipTypes::Destroyer),
+            ("Fighter", StarshipTypes::Fighter),
+        ],
+        Factions::StarGuardAlliance => vec![
+            ("Battle Cruiser", StarshipTypes::BattleCruiser),
+            ("Battleship", StarshipTypes::Battleship),
+            ("Corvette", StarshipTypes::Corvette),
+            ("Destroyer", StarshipTypes::Destroyer),
+            ("Torpedo Ship", StarshipTypes::TorpedoShip),
+        ],
+        Factions::UniversalMechanicalContingent => {
+            vec![
+                ("Destroyer", StarshipTypes::Destroyer),
+                ("Intel Ship", StarshipTypes::IntelShip),
+            ]
+        }
+        Factions::VoidwalkerCollective => {
+            vec![
+                ("Dreadnought", StarshipTypes::Dreadnought),
+                ("Fighter", StarshipTypes::Fighter),
+            ]
+        }
+        Factions::None => vec![],
     }
 }
 
@@ -131,33 +179,3 @@ pub fn user_interface_menu(
 //         }
 //     }
 // }
-
-fn items_from_faction(player_faction: &PlayerFaction) -> Vec<(&str, StarshipTypes)> {
-    match player_faction.faction {
-        Factions::GranokImperialEmpire => vec![
-            ("Corvette", StarshipTypes::Corvette),
-            ("Destroyer", StarshipTypes::Destroyer),
-            ("Fighter", StarshipTypes::Fighter),
-        ],
-        Factions::StarGuardAlliance => vec![
-            ("Battle Cruiser", StarshipTypes::BattleCruiser),
-            ("Battleship", StarshipTypes::Battleship),
-            ("Corvette", StarshipTypes::Corvette),
-            ("Destroyer", StarshipTypes::Destroyer),
-            ("Torpedo Ship", StarshipTypes::TorpedoShip),
-        ],
-        Factions::UniversalMechanicalContingent => {
-            vec![
-                ("Destroyer", StarshipTypes::Destroyer),
-                ("Intel Ship", StarshipTypes::IntelShip),
-            ]
-        }
-        Factions::VoidwalkerCollective => {
-            vec![
-                ("Dreadnought", StarshipTypes::Dreadnought),
-                ("Fighter", StarshipTypes::Fighter),
-            ]
-        }
-        Factions::None => vec![],
-    }
-}
