@@ -14,7 +14,7 @@ use deadcell_solar_conquest_shared::resources::factions::{Factions, PlayerFactio
 use deadcell_solar_conquest_shared::resources::{player::Player, starship_types::StarshipTypes};
 
 pub fn user_interface_menu(
-    commands: Commands,
+    mut commands: Commands,
     mut contexts: EguiContexts,
     // mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
     mut player: ResMut<Player>,
@@ -32,16 +32,14 @@ pub fn user_interface_menu(
                         let transport = match create_client_transport_configuration(
                             &server_address.server_address,
                         ) {
-                            Ok(transport) => {
-                                // player.is_connected = true;
-                                transport
-                            }
-
+                            Ok(transport) => transport,
                             Err(_) => {
                                 println!("Failed to create client transport configuration");
                                 return;
                             }
                         };
+
+                        commands.insert_resource(transport);
 
                         match client.is_connected() {
                             true => println!("Player connected"),
