@@ -1,4 +1,4 @@
-use crate::resources::factions::Factions;
+use crate::{components::space::Space, resources::factions::Factions};
 use bevy::{
     ecs::{component::Component, entity::Entity},
     math::Vec3,
@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 pub enum ServerMessages {
     CreatePlayer { id: ClientId, faction: Factions },
     RemovePlayer { id: ClientId },
-    SpawnSpace { entity: Entity, translation: Vec3 },
+    SpawnSpace { space: Space },
     SpawnStar { entity: Entity, translation: Vec3 },
     SpawnPlanet { entity: Entity, translation: Vec3 },
     SpawnStarship { entity: Entity, translation: Vec3 },

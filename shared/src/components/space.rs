@@ -5,7 +5,7 @@ use crate::{
 use bevy::{ecs::component::Component, transform::components::Transform};
 use serde::{Deserialize, Serialize};
 
-#[derive(Component, Clone, Copy, Serialize, Deserialize)]
+#[derive(Component, Clone, Copy, Serialize, Deserialize, Debug)]
 pub struct Space {
     pub sprite_path: SpaceSprites,
     pub transform: Transform,
