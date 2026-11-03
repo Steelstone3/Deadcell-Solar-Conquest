@@ -1,15 +1,10 @@
-use crate::{
-    plugins::{
-        game_configuration_plugin::GameConfigurationPlugin, server_start_plugin::ServerStartPlugin,
-        spawn_game_universe_plugin::StartupPlugin,
-    },
-    systems::server::server_connection::{
-        create_server_configuration, create_server_transport_configuration,
-    },
+use crate::plugins::{
+    game_configuration_plugin::GameConfigurationPlugin, server_start_plugin::ServerStartPlugin,
+    spawn_game_universe_plugin::StartupPlugin,
 };
 use bevy::{
     MinimalPlugins,
-    app::{App, Update},
+    app::{App, PluginGroup, ScheduleRunnerPlugin, Update},
     ecs::system::ResMut,
     state::app::StatesPlugin,
 };
@@ -18,6 +13,7 @@ use bevy_replicon_renet::{
     RenetServer, RenetServerPlugin, netcode::NetcodeServerPlugin, renet::DefaultChannel,
 };
 use deadcell_solar_conquest_shared::plugins::glue_plugin::GluePlugin;
+use std::time::Duration;
 
 mod plugins;
 mod resources;
@@ -30,7 +26,9 @@ mod systems;
 fn main() {
     let mut app = App::new();
     app.add_plugins((
-        MinimalPlugins,
+        MinimalPlugins.set(ScheduleRunnerPlugin::run_loop(Duration::from_secs_f64(
+            1.0 / 60.0,
+        ))),
         StatesPlugin,
         RenetServerPlugin,
         NetcodeServerPlugin,
@@ -40,32 +38,12 @@ fn main() {
         StartupPlugin,
         GameConfigurationPlugin,
     ));
-    // app.add_observer(on_client_connected);
-
-    let server = create_server_configuration();
-    let transport = match create_server_transport_configuration() {
-        Ok(transport) => transport,
-        Err(_) => return,
-    };
-
-    app.insert_resource(server);
-    app.insert_resource(transport);
 
     app.add_systems(Update, send_server_message_system);
     app.add_systems(Update, recieve_client_message_system);
 
     app.run();
 }
-
-// fn on_client_connected(
-//     trigger: On<Add>, // Fired when Replicon registers a connected client entity
-//     _commands: Commands,
-// ) {
-//     let client_entity = trigger.entity;
-//     println!("New client connected on entity: {:?}", client_entity);
-
-//     // Spawn tiles or player data for this client here
-// }
 
 // TODO example
 fn send_server_message_system(mut server: ResMut<RenetServer>) {
