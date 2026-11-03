@@ -13,9 +13,11 @@ include = []
 
 [dependencies]
 # Fixed version dependencies
-bevy = { version = "0.19", features = ["serialize"] }
-bevy_replicon = "0.42"
-bevy_replicon_renet = "0.18"
+bevy = { version = "0.20", features = ["serialize"] }
+# https://github.com/simgine/bevy_replicon_renet
+bevy_replicon_renet = "0.21"
+bevy_replicon = "0.45"
+
 serde = { version = "1", features = ["derive"] }
 rand = "0.8"
 
