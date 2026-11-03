@@ -8,6 +8,9 @@ use bevy::ecs::system::{Commands, Res};
 use bevy::prelude::ResMut;
 use bevy_egui::{EguiContexts, egui};
 use bevy_replicon_renet::RenetClient;
+use bevy_replicon_renet::renet::DefaultChannel;
+use bincode_next::encode_to_vec;
+use deadcell_solar_conquest_shared::messages::server_messages::ServerMessages;
 use deadcell_solar_conquest_shared::resources::factions::{Factions, PlayerFaction};
 use deadcell_solar_conquest_shared::resources::{player::Player, starship_types::StarshipTypes};
 
@@ -17,7 +20,7 @@ pub fn user_interface_menu(
     mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
     mut server_address: ResMut<ServerAddress>,
     player: Res<Player>,
-    client: Res<RenetClient>,
+    mut client: ResMut<RenetClient>,
 ) {
     match contexts.ctx_mut() {
         Ok(ctx) => match client.is_connected() {
@@ -64,7 +67,22 @@ pub fn user_interface_menu(
                         commands.insert_resource(transport);
 
                         match client.is_connected() {
-                            true => println!("Player connected"),
+                            true => {
+                                // send player connected message
+                                let message = ServerMessages::SpawnPlayer {
+                                    player: (*player).clone(),
+                                };
+
+                                let payload = bincode_next::serde::encode_to_vec(
+                                    &message,
+                                    bincode_next::config::standard(),
+                                )
+                                .unwrap();
+
+                                client.send_message(DefaultChannel::ReliableOrdered, payload);
+
+                                println!("Player connected")
+                            }
                             false => println!("Player connection failed"),
                         }
                     }

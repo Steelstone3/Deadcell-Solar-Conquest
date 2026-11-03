@@ -1,4 +1,7 @@
-use crate::{components::space::Space, resources::factions::Factions};
+use crate::{
+    components::space::Space,
+    resources::{factions::Factions, player::Player},
+};
 use bevy::{
     ecs::{component::Component, entity::Entity},
     math::Vec3,
@@ -8,7 +11,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Component)]
 pub enum ServerMessages {
-    CreatePlayer { id: ClientId, faction: Factions },
+    SpawnPlayer { player: Player },
     RemovePlayer { id: ClientId },
     SpawnSpace { space: Space },
     SpawnStar { entity: Entity, translation: Vec3 },

@@ -2,7 +2,7 @@ use bevy::ecs::resource::Resource;
 use rand::random;
 use serde::{Deserialize, Serialize};
 
-#[derive(Resource, Debug)]
+#[derive(Debug, Resource, Serialize, Deserialize, Clone)]
 pub struct PlayerFaction {
     pub faction: Factions,
 }
