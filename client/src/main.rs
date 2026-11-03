@@ -66,7 +66,7 @@ fn receive_server_message_system(mut client: ResMut<RenetClient>) {
 
     while let Some(message) = client.receive_message(DefaultChannel::ReliableOrdered) {
         if let Ok(text) = String::from_utf8(message.to_vec()) {
-            println!("Received message from server: {}", text);
+            // println!("Received message from server: {}", text);
         }
     }
 }

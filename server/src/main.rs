@@ -73,7 +73,7 @@ pub fn receive_client_message_system(mut server: ResMut<RenetServer>) {
                 Ok((message, _)) => {
                     match message {
                         ServerMessages::SpawnPlayer { player } => {
-                            info!("Successfully received CreatePlayer for player from client {client_id}");
+                            println!("Successfully received CreatePlayer for player from client {client_id}");
                             // Handle your player creation logic here!
                         }
                         // Handle other enum variants here...
@@ -89,7 +89,7 @@ pub fn receive_client_message_system(mut server: ResMut<RenetServer>) {
                     }
                 }
                 Err(e) => {
-                    error!("Failed to deserialize message from client {client_id}: {e}");
+                    println!("Failed to deserialize message from client {client_id}: {e}");
                 }
             }
         }
