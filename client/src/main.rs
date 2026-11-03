@@ -4,6 +4,7 @@ use crate::plugins::{
     user_interface_plugin::UserInterfacePlugin,
 };
 use bevy::{prelude::*, window::WindowResolution};
+use bevy_egui::EguiPlugin;
 use bevy_replicon::RepliconPlugins;
 use bevy_replicon_renet::{
     RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
@@ -38,7 +39,7 @@ fn main() {
                 }),
                 ..Default::default()
             }),
-        // EguiPlugin::default(),
+        EguiPlugin::default(),
         RenetClientPlugin,
         NetcodeClientPlugin,
         RepliconPlugins,
@@ -59,7 +60,7 @@ fn main() {
 // TODO example
 fn receive_server_message_system(mut client: ResMut<RenetClient>) {
     if !client.is_connected() {
-        println!("Client disconnected");
+        // println!("Client disconnected");
         return;
     }
 
@@ -73,7 +74,7 @@ fn receive_server_message_system(mut client: ResMut<RenetClient>) {
 // TODO move to connection configuration system
 fn send_client_message_system(mut client: ResMut<RenetClient>) {
     if !client.is_connected() {
-        println!("Client disconnected");
+        // println!("Client disconnected");
         return;
     }
 

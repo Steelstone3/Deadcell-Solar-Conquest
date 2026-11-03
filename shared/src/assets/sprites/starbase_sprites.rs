@@ -41,7 +41,7 @@ pub fn sprite_convert_from(player_faction: Factions) -> StarbaseSprites {
     match player_faction {
         Factions::GranokImperialEmpire => StarbaseSprites::GranokImperialEmpireStarbase,
         Factions::StarGuardAlliance => StarbaseSprites::StarGuardAllianceStarbase,
-        Factions::UniversalMechanicalContigent => {
+        Factions::UniversalMechanicalContingent => {
             StarbaseSprites::UniversalMechanicalContigentDreadnoughtMothership
         }
         Factions::VoidwalkerCollective => StarbaseSprites::VoidwalkerCollectiveMothership,

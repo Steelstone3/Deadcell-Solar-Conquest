@@ -1,0 +1,52 @@
+use bevy::{ecs::resource::Resource, prelude::Entity};
+use deadcell_solar_conquest_shared::resources::starship_types::StarshipTypes;
+use crate::components::spawn_selection::SpawnSelection;
+
+#[derive(Resource)]
+pub struct SpawnMenuSelection {
+    pub selection: SpawnSelection,
+    pub selected_entity: Entity,
+    pub selected_entities: Vec<Entity>,
+    pub starship_selection: StarshipTypes,
+}
+
+impl Default for SpawnMenuSelection {
+    fn default() -> Self {
+        Self {
+            selection: SpawnSelection::None,
+            selected_entity: Entity::PLACEHOLDER,
+            selected_entities: vec![],
+            starship_selection: StarshipTypes::None,
+        }
+    }
+}
+
+impl SpawnMenuSelection {
+    pub fn reset_all(&mut self) {
+        self.selection = SpawnSelection::None;
+        self.selected_entity = Entity::PLACEHOLDER;
+        self.selected_entities = vec![];
+        self.starship_selection = StarshipTypes::None;
+    }
+
+    pub fn default_selection(&mut self) {
+        self.selection = SpawnSelection::None;
+        self.starship_selection = StarshipTypes::None;
+    }
+
+    pub fn single_selection(&mut self, entity: Entity) {
+        // reset selected entities
+        self.selected_entities = vec![];
+
+        self.selected_entity = entity;
+    }
+
+    pub fn multi_selection(&mut self, entity: Entity) {
+        // reset selected entity
+        self.selected_entity = Entity::PLACEHOLDER;
+
+        if !self.selected_entities.contains(&entity) {
+            self.selected_entities.push(entity);
+        }
+    }
+}

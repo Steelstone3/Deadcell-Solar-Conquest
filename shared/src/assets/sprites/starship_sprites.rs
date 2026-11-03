@@ -102,7 +102,7 @@ pub fn sprite_convert_from(starship_type: StarshipTypes, faction: Factions) -> S
             StarshipTypes::Dreadnought => StarshipSprites::None,
             StarshipTypes::None => StarshipSprites::None,
         },
-        Factions::UniversalMechanicalContigent => match starship_type {
+        Factions::UniversalMechanicalContingent => match starship_type {
             StarshipTypes::Corvette => StarshipSprites::None,
             StarshipTypes::Destroyer => StarshipSprites::UniversalMechanicalContingentDestroyer,
             StarshipTypes::Fighter => StarshipSprites::None,

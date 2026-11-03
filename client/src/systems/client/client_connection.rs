@@ -14,8 +14,10 @@ pub fn create_client_configuration() -> RenetClient {
     })
 }
 
-pub fn create_client_transport_configuration() -> Result<NetcodeClientTransport, NetcodeError> {
-    let server_address = "127.0.0.1:5000";
+pub fn create_client_transport_configuration(
+    server_address: &str,
+) -> Result<NetcodeClientTransport, NetcodeError> {
+    // let server_address = "127.0.0.1:5000";
     let client_address = "127.0.0.1:0";
     let authentication = ClientAuthentication::Unsecure {
         server_addr: match server_address.parse() {
