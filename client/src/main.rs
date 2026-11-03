@@ -9,7 +9,7 @@ use crate::{
     },
 };
 use bevy::{prelude::*, window::WindowResolution};
-use bevy_renet::{
+use bevy_replicon_renet::{
     RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
 };
 use bevy_replicon::RepliconPlugins;

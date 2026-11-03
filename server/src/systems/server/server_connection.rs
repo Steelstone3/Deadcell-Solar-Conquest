@@ -1,4 +1,4 @@
-use bevy_renet::{
+use bevy_replicon_renet::{
     RenetServer,
     netcode::{NetcodeServerTransport, ServerAuthentication, ServerConfig},
     renet::{ConnectionConfig, DefaultChannel},

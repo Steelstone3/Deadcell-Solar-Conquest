@@ -1,52 +1,52 @@
-use bevy::{
-    ecs::{
-        lifecycle::Add,
-        observer::On,
-        system::{Commands, Res},
-    },
-    math::Vec3,
-    transform::components::Transform,
-};
-use bevy_replicon::shared::{backend::connected_client::ConnectedClient, replication::Replicated};
-use deadcell_solar_conquest_shared::{
-    components::space::Space,
-    resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
-};
-use rand::random;
+// use bevy::{
+//     ecs::{
+//         lifecycle::Add,
+//         observer::On,
+//         system::{Commands, Res},
+//     },
+//     math::Vec3,
+//     transform::components::Transform,
+// };
+// use bevy_replicon::shared::{backend::connected_client::ConnectedClient, replication::Replicated};
+// use deadcell_solar_conquest_shared::{
+//     components::space::Space,
+//     resources::{constants::SPACE_TILE_SIZE, game_settings::GameSettings},
+// };
+// use rand::random;
 
-pub fn spawn_space_on_client_connected(
-    trigger: On<Add, ConnectedClient>,
-    mut commands: Commands,
-    game_settings: Res<GameSettings>,
-) {
-    println!(
-        "Client entity {:?} connected! Generating world...",
-        trigger.entity
-    );
+// pub fn spawn_space_on_client_connected(
+//     trigger: On<Add, ConnectedClient>,
+//     mut commands: Commands,
+//     game_settings: Res<GameSettings>,
+// ) {
+//     println!(
+//         "Client entity {:?} connected! Generating world...",
+//         trigger.entity
+//     );
 
-    let mut space = Space::new(random());
+//     let mut space = Space::new(random());
 
-    for x in -game_settings.map_size * game_settings.number_of_players as i32
-        ..game_settings.map_size * game_settings.number_of_players as i32
-    {
-        for y in -game_settings.map_size * game_settings.number_of_players as i32
-            ..game_settings.map_size * game_settings.number_of_players as i32
-        {
-            let transform = Transform {
-                translation: Vec3::new(
-                    (x as f32 * SPACE_TILE_SIZE) + (SPACE_TILE_SIZE / 2.0),
-                    (y as f32 * SPACE_TILE_SIZE) + (SPACE_TILE_SIZE / 2.0),
-                    space.size_component.z_index,
-                ),
-                ..Default::default()
-            };
+//     for x in -game_settings.map_size * game_settings.number_of_players as i32
+//         ..game_settings.map_size * game_settings.number_of_players as i32
+//     {
+//         for y in -game_settings.map_size * game_settings.number_of_players as i32
+//             ..game_settings.map_size * game_settings.number_of_players as i32
+//         {
+//             let transform = Transform {
+//                 translation: Vec3::new(
+//                     (x as f32 * SPACE_TILE_SIZE) + (SPACE_TILE_SIZE / 2.0),
+//                     (y as f32 * SPACE_TILE_SIZE) + (SPACE_TILE_SIZE / 2.0),
+//                     space.size_component.z_index,
+//                 ),
+//                 ..Default::default()
+//             };
 
-            space.transform = transform;
+//             space.transform = transform;
 
-            commands.spawn((space, space.transform, Replicated));
-        }
-    }
-}
+//             commands.spawn((space, space.transform, Replicated));
+//         }
+//     }
+// }
 
-// TODO Client side
-// Sprite::from_image(asset_server.load(space.sprite_path.to_string())),
+// // TODO Client side
+// // Sprite::from_image(asset_server.load(space.sprite_path.to_string())),

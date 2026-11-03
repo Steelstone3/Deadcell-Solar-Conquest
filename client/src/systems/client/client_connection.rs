@@ -1,6 +1,6 @@
 use std::{net::UdpSocket, time::SystemTime};
 
-use bevy_renet::{
+use bevy_replicon_renet::{
     RenetClient,
     netcode::{ClientAuthentication, NetcodeClientTransport, NetcodeError},
     renet::{ConnectionConfig, DefaultChannel},
