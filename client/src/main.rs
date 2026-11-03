@@ -1,11 +1,11 @@
-use crate::plugins::{
+use crate::{plugins::{
     client_start_plugin::ClientStartPlugin, resources_plugin::ResourcesPlugin,
     running_plugin::RunningPlugin, startup_plugin::StartupPlugin,
     user_interface_plugin::UserInterfacePlugin,
-};
+}, systems::client::client_connection::{create_client_configuration, create_client_transport_configuration}};
 use bevy::{prelude::*, window::WindowResolution};
+use bevy_renet::{RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel};
 use bevy_replicon::RepliconPlugins;
-use bevy_replicon_renet::{RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel};
 use deadcell_solar_conquest_shared::plugins::glue_plugin::GluePlugin;
 
 mod components;
