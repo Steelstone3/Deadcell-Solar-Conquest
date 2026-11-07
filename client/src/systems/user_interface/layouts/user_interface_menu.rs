@@ -27,12 +27,10 @@ pub fn connection_menu(
                     egui::Window::new("Player Spawn").show(ctx, |ui| {
                         if ui.add(egui::Button::new("Spawn")).clicked() {
                             // send player connected message
-                            let message = ServerMessages::SpawnPlayer {
-                                player: (*player).clone(),
-                            };
-
                             let payload = bincode_next::serde::encode_to_vec(
-                                &message,
+                                &ServerMessages::SpawnPlayer {
+                                    player: (*player).clone(),
+                                },
                                 bincode_next::config::standard(),
                             )
                             .unwrap_or_default();

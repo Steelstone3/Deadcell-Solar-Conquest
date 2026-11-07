@@ -3,3 +3,4 @@ pub mod resources_plugin;
 pub mod running_plugin;
 pub mod startup_plugin;
 pub mod user_interface_plugin;
+pub mod events_plugin;

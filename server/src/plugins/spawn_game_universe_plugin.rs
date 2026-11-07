@@ -5,6 +5,6 @@ pub struct StartupPlugin;
 
 impl Plugin for StartupPlugin {
     fn build(&self, _app: &mut App) {
-        // app.add_observer(spawn_space_on_client_connected);
+        
     }
 }

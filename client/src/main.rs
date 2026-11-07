@@ -1,7 +1,7 @@
 use crate::plugins::{
-    client_start_plugin::ClientStartPlugin, resources_plugin::ResourcesPlugin,
-    running_plugin::RunningPlugin, startup_plugin::StartupPlugin,
-    user_interface_plugin::UserInterfacePlugin,
+    client_start_plugin::ClientStartPlugin, events_plugin::EventsPlugin,
+    resources_plugin::ResourcesPlugin, running_plugin::RunningPlugin,
+    startup_plugin::StartupPlugin, user_interface_plugin::UserInterfacePlugin,
 };
 use bevy::{prelude::*, window::WindowResolution};
 use bevy_egui::EguiPlugin;
@@ -9,9 +9,12 @@ use bevy_replicon::RepliconPlugins;
 use bevy_replicon_renet::{
     RenetClient, RenetClientPlugin, netcode::NetcodeClientPlugin, renet::DefaultChannel,
 };
-use deadcell_solar_conquest_shared::plugins::glue_plugin::GluePlugin;
+use deadcell_solar_conquest_shared::{
+    messages::server_messages::ServerMessages, plugins::glue_plugin::GluePlugin,
+};
 
 mod components;
+mod events;
 mod plugins;
 mod queries;
 mod resources;
@@ -45,6 +48,7 @@ fn main() {
         RepliconPlugins,
         GluePlugin,
         ClientStartPlugin,
+        EventsPlugin,
         ResourcesPlugin,
         UserInterfacePlugin,
         StartupPlugin,
@@ -64,8 +68,44 @@ fn receive_server_message_system(mut client: ResMut<RenetClient>) {
         return;
     }
 
-    while let Some(message) = client.receive_message(DefaultChannel::ReliableOrdered) {
-        if let Ok(text) = String::from_utf8(message.to_vec()) {
+    while let Some(message_bytes) = client.receive_message(DefaultChannel::ReliableOrdered) {
+        match bincode_next::serde::decode_from_slice::<ServerMessages, _>(
+            &message_bytes,
+            bincode_next::config::standard(),
+        ) {
+            Ok(message) => match message.0 {
+                ServerMessages::SpawnPlayer { player } => {}
+                ServerMessages::RemovePlayer { id } => {}
+                ServerMessages::SpawnSpace { space } => {
+                    println!("Spawn space message recieved")
+                }
+                ServerMessages::SpawnStar {
+                    entity,
+                    translation,
+                } => {}
+                ServerMessages::SpawnPlanet {
+                    entity,
+                    translation,
+                } => {}
+                ServerMessages::SpawnStarship {
+                    entity,
+                    translation,
+                } => {}
+                ServerMessages::MoveStarship {
+                    entity,
+                    translation,
+                } => {}
+                ServerMessages::DespawnStarship { entity } => {}
+                ServerMessages::SpawnProjectile {
+                    entity,
+                    translation,
+                } => {}
+                ServerMessages::DespawnProjectile { entity } => {}
+            },
+            Err(_) => println!("Failed to deserialize message from server"),
+        }
+
+        if let Ok(text) = String::from_utf8(message_bytes.to_vec()) {
             // println!("Received message from server: {}", text);
         }
     }
