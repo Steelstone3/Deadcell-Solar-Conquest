@@ -77,15 +77,15 @@ pub fn receive_client_message_system(mut server: ResMut<RenetServer>) {
                             // Handle your player creation logic here!
                         }
                         // Handle other enum variants here...
-                        ServerMessages::RemovePlayer { id } => todo!(),
-                        ServerMessages::SpawnSpace { space } => todo!(),
-                        ServerMessages::SpawnStar { entity, translation } => todo!(),
-                        ServerMessages::SpawnPlanet { entity, translation } => todo!(),
-                        ServerMessages::SpawnStarship { entity, translation } => todo!(),
-                        ServerMessages::MoveStarship { entity, translation } => todo!(),
-                        ServerMessages::DespawnStarship { entity } => todo!(),
-                        ServerMessages::SpawnProjectile { entity, translation } => todo!(),
-                        ServerMessages::DespawnProjectile { entity } => todo!(),
+                        ServerMessages::RemovePlayer { id } => {},
+                        ServerMessages::SpawnSpace { space } => {},
+                        ServerMessages::SpawnStar { entity, translation } => {},
+                        ServerMessages::SpawnPlanet { entity, translation } => {},
+                        ServerMessages::SpawnStarship { entity, translation } => {},
+                        ServerMessages::MoveStarship { entity, translation } => {},
+                        ServerMessages::DespawnStarship { entity } => {},
+                        ServerMessages::SpawnProjectile { entity, translation } => {},
+                        ServerMessages::DespawnProjectile { entity } => {},
                     }
                 }
                 Err(e) => {

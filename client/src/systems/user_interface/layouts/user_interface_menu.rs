@@ -9,46 +9,45 @@ use bevy::prelude::ResMut;
 use bevy_egui::{EguiContexts, egui};
 use bevy_replicon_renet::RenetClient;
 use bevy_replicon_renet::renet::DefaultChannel;
-use bincode_next::encode_to_vec;
 use deadcell_solar_conquest_shared::messages::server_messages::ServerMessages;
 use deadcell_solar_conquest_shared::resources::factions::{Factions, PlayerFaction};
 use deadcell_solar_conquest_shared::resources::{player::Player, starship_types::StarshipTypes};
 
-pub fn user_interface_menu(
+pub fn connection_menu(
     mut commands: Commands,
     mut contexts: EguiContexts,
-    mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
     mut server_address: ResMut<ServerAddress>,
     player: Res<Player>,
     mut client: ResMut<RenetClient>,
 ) {
-    match contexts.ctx_mut() {
-        Ok(ctx) => match client.is_connected() {
-            true => match spawn_menu_selection.selection {
-                SpawnSelection::None => {}
-                SpawnSelection::Other => {}
-                SpawnSelection::MultipleSelections => {}
-                SpawnSelection::Starbase => match contexts.ctx_mut() {
-                    Ok(ctx) => {
-                        egui::Window::new("Spawn Menu").show(ctx, |ui| {
-                            ui.label("Starbase");
+    match client.is_connected() {
+        true => {
+            match contexts.ctx_mut() {
+                Ok(ctx) => {
+                    egui::Window::new("Player Spawn").show(ctx, |ui| {
+                        if ui.add(egui::Button::new("Spawn")).clicked() {
+                            // send player connected message
+                            let message = ServerMessages::SpawnPlayer {
+                                player: (*player).clone(),
+                            };
 
-                            let items = items_from_faction(&player.faction);
+                            let payload = bincode_next::serde::encode_to_vec(
+                                &message,
+                                bincode_next::config::standard(),
+                            )
+                            .unwrap_or_default();
 
-                            for (label, icon) in items {
-                                if ui.add(egui::Button::new(label)).clicked() {
-                                    let selection = icon;
-                                    spawn_menu_selection.starship_selection = selection;
-                                }
-                            }
-                        });
-                    }
-                    Err(_) => {
-                        eprintln!("Starship failed to render");
-                    }
-                },
-            },
-            false => {
+                            client.send_message(DefaultChannel::ReliableOrdered, payload);
+
+                            println!("Player connected")
+                        }
+                    });
+                }
+                Err(_) => println!("Spawn Player UI Error"),
+            }
+        }
+        false => match contexts.ctx_mut() {
+            Ok(ctx) => {
                 egui::Window::new("Client Connection Menu").show(ctx, |ui| {
                     ui.label("Server Address");
                     ui.text_edit_singleline(&mut server_address.server_address);
@@ -65,32 +64,43 @@ pub fn user_interface_menu(
                         };
 
                         commands.insert_resource(transport);
+                    }
+                });
+            }
+            Err(_) => println!("Connect To Server UI Error"),
+        },
+    }
+}
 
-                        match client.is_connected() {
-                            true => {
-                                // send player connected message
-                                let message = ServerMessages::SpawnPlayer {
-                                    player: (*player).clone(),
-                                };
+pub fn spawn_menu(
+    mut contexts: EguiContexts,
+    mut spawn_menu_selection: ResMut<SpawnMenuSelection>,
+    player: Res<Player>,
+) {
+    match spawn_menu_selection.selection {
+        SpawnSelection::None => {}
+        SpawnSelection::Other => {}
+        SpawnSelection::MultipleSelections => {}
+        SpawnSelection::Starbase => match contexts.ctx_mut() {
+            Ok(ctx) => {
+                egui::Window::new("Spawn Menu").show(ctx, |ui| {
+                    ui.label("Starbase");
 
-                                let payload = bincode_next::serde::encode_to_vec(
-                                    &message,
-                                    bincode_next::config::standard(),
-                                )
-                                .unwrap();
+                    let items = items_from_faction(&player.faction);
 
-                                client.send_message(DefaultChannel::ReliableOrdered, payload);
-
-                                println!("Player connected")
-                            }
-                            false => println!("Player connection failed"),
+                    for (label, icon) in items {
+                        if ui.add(egui::Button::new(label)).clicked() {
+                            let selection = icon;
+                            spawn_menu_selection.starship_selection = selection;
                         }
                     }
                 });
             }
+            Err(_) => {
+                eprintln!("Starship Menu UI Error");
+            }
         },
-        Err(_) => eprintln!("Failed to load user interface"),
-    }
+    };
 }
 
 fn items_from_faction(player_faction: &PlayerFaction) -> Vec<(&str, StarshipTypes)> {

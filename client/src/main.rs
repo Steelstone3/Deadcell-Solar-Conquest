@@ -78,8 +78,8 @@ fn send_client_message_system(mut client: ResMut<RenetClient>) {
         return;
     }
 
-    let message = "client message";
-    client.send_message(DefaultChannel::ReliableOrdered, message.as_bytes().to_vec());
+    // let message = "client message";
+    // client.send_message(DefaultChannel::ReliableOrdered, message.as_bytes().to_vec());
 
     // println!("I am a message being sent from the client to the server");
 }
