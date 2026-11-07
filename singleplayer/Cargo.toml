@@ -16,8 +16,8 @@ wayland-sys = "0.31"
 
 [dependencies]
 # Fixed version dependencies
-bevy = { version = "0.19", features = ["serialize"] }
-bevy_egui = "0.42"
+bevy = { version = "0.20", features = ["serialize"] }
+bevy_egui = "0.43"
 serde = { version = "1", features = ["derive"] }
 rand = "0.8"
 
@@ -27,5 +27,5 @@ float-lerp = "0"
 rayon = "1"
 
 [dev-dependencies]
-renet_visualizer = "3"
+renet_visualizer = "4"
 rstest = "0"

@@ -18,6 +18,8 @@ unused_must_use = "deny"
 # No optimisation for better debugging. Set to 1 for some optimisation
 [profile.dev]
 opt-level = 0
+lto = false
+debug = "line-tables-only"
 
 # Enable high optimizations for dependencies (incl. Bevy), but not for our code:
 [profile.dev.package."*"]
