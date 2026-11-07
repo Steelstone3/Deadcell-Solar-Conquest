@@ -3,7 +3,7 @@ use crate::plugins::{
     spawn_game_universe_plugin::StartupPlugin,
 };
 use bevy::{
-    MinimalPlugins, app::{App, PluginGroup, ScheduleRunnerPlugin, Update}, ecs::{message::MessageReader, schedule::{IntoScheduleConfigs, common_conditions::resource_exists}, system::ResMut}, log::{error, info}, state::app::StatesPlugin,
+    MinimalPlugins, app::{App, PluginGroup, ScheduleRunnerPlugin, Update}, ecs::{schedule::{IntoScheduleConfigs, common_conditions::resource_exists}, system::ResMut}, state::app::StatesPlugin,
 };
 use bevy_replicon::RepliconPlugins;
 use bevy_replicon_renet::{

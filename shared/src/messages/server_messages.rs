@@ -1,7 +1,4 @@
-use crate::{
-    components::space::Space,
-    resources::{factions::Factions, player::Player},
-};
+use crate::{components::space::Space, resources::player::Player};
 use bevy::{
     ecs::{component::Component, entity::Entity},
     math::Vec3,
